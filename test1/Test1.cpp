@@ -4,88 +4,24 @@
 
 
 using namespace std;
-//#include "Event.h"
+#include "Event.h"
 
 // Quelques conseils avant de commencer...
 // * N'oubliez pas de tracer (cout << ...) tous les constructeurs et le destructeur !!! Ca, c'est pas un conseil,
-//   c'est obligatoire :slight_smile:
+//   c'est obligatoire :-)
+
 // * N'essayez pas de compiler ce programme entierement immediatement. Mettez tout en commentaires
 //   sauf le point (1) et creez votre classe (dans ce fichier pour commencer) afin de compiler et tester 
 //   le point (1). Une fois que cela fonctionne, decommentez le point (2) et modifier votre classe en 
 //   consequence. Vous developpez, compilez et testez donc etape par etape. N'attendez pas d'avoir encode 
 //   300 lignes pour compiler...
+
 // * Une fois que tout le programme compile et fonctionne correctement, creez le .h contenant la declaration
 //   de la classe, le .cpp contenant la definition des methodes, et ensuite le makefile permettant de compiler
 //   le tout grace a la commande make 
 
 
-class Event
-{
-  private:
-    int code;
-    char* title;
 
-  public:        //la classe public a acces à la classe privé mais le main non
-    Event()
-    {
-      title = new char[100];             //nouveau maloc s'appele main maintenant
-      strcpy(title,"cinema");
-      code = 2;
-    }
-
-    
-    void display(){
-      cout << "title = " << title << endl;
-      cout << "code = " << code << endl;
-    }
-
-    void setCode(int c)
-    {
-      if(c < 0)
-        return;
-      code = c;
-    }
-
-    void setTitle(const char* t)          //On met const car l'adresse ne change pas
-    {
-      if(strlen(t) == 0)
-        return;
-      strcpy(title,t);
-    }
-
-    int getCode()
-    {
-      return code;
-    }
-
-    char* getTitle(){
-      return title;
-    }
-
-    Event(int c, const char* t)
-    {
-      title = new char[100];
-      setCode(c);
-      setTitle(t);
-    }
-
-    Event (const Event & eventN )          //On ne change pas notre event de base, de plus on le passe par réference
-    {
-      title = new char[50];
-      strcpy(title,eventN.title);
-      code = eventN.code;
-
-    }
-
-
-    ~Event(){
-      delete(title);                    //nouveau free
-    }
-
-
-
-
-};
 
 int main()
 {
@@ -126,7 +62,7 @@ int main()
     cout << "event1 (APRES) :" << endl;
     event1.display();
   }
-/*
+
   cout << endl << "(5) ***** Test d'allocation dynamique (constructeur par defaut) ****************" << endl;
   {
     Event *p = new Event();
@@ -150,7 +86,7 @@ int main()
     event1.display();
   }
 
-*/
+
 
   return 0; 
 }
