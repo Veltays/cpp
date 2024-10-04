@@ -9,45 +9,45 @@ using namespace std;
 Event::Event()                       // Constructeur d'initilisation
     {
       cout << "Initialisation" << endl;
-      title = new char[100];
-      strcpy(title,"cinema");
-      code = 2;
+      setCode(2);
+      title = nullptr;
+      setTitle("default");
     };
 
 Event::Event(int c, const char* t)   // constructeur par défaut
     {
       cout << "Constructeur par défaut"<< endl;
-      title = new char[100];
       setCode(c);
+      title = nullptr;
       setTitle(t);
     };
 
-Event::~Event(){                //destructeur
-      cout << " DESTRUCTEUR " << endl;
-      delete(title);
-    };
-
-  
-Event::Event (const Event& x)  //constructeur de copie
+Event::Event (const Event& e)  //constructeur de copie
     {
       cout <<"Constructeur de copie" << endl;
-      title = new char[100];
-      strcpy(title,x.title);
-      code = x.code;
-      
+      setCode(e.getCode());
+      title = nullptr;
+      setTitle(e.getTitle());
     };
+Event::~Event(){                //destructeur
+      cout << " DESTRUCTEUR " << endl;
+      delete title;
+    };
+  
 
-char* Event::getTitle(){
+const char* Event::getTitle() const{
       return title;
-    };
-int Event::getCode(){
+    }
+
+int Event::getCode() const {
   return code;
-  };
+  }
 
 void Event::setTitle(const char* t)
     {
-      if(strlen(t) == 0)
-        return;
+      if(title != nullptr)
+        delete title;
+      title = new char [strlen(t) + 1];
       strcpy(title,t);
     }
 
@@ -58,7 +58,7 @@ void Event::setCode(int c)
         return;
       code = c;
     }
-void Event::display(){
+void Event::display() const{
       cout << "title = " << title << endl;
       cout << "code = " << code << endl;
     }
