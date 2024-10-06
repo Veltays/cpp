@@ -1,18 +1,16 @@
 #include <stdlib.h>
 #include <iostream>
-
+using namespace std;
 #include "Time.h"
 #include "Event.h"
-//#include "Timing.h"
+#include "Timing.h"
 
 
 //using namespace planning;
 
-using namespace std;
-
 int  Menu();
 void Essai1();
-//void Essai2();
+void Essai2();
 //void Essai3();
 //void Essai4();
 
@@ -28,7 +26,7 @@ int main(int argc,char* argv[])
     switch(choix)
     {
       case 1 : Essai1(); break;
-      //case 2 : Essai2(); break;
+      case 2 : Essai2(); break;
       //case 3 : Essai3(); break;
       //case 4 : Essai4(); break;
       default : fini = true ; break;
@@ -100,7 +98,7 @@ void Essai1()
     Time h1(10,30);
     h1.display();
     cout << endl << "Copie : " ;
-    Time h2(h1);
+    Time h2(5,25);
     h2.display();
     cout << endl;
   }
@@ -109,7 +107,7 @@ void Essai1()
 /*******************************************************************************************************/
 /*** Tests de la classe Timing (Agregation par valeur avec un objet Time) ******************************/
 /*******************************************************************************************************/
-/*
+
 
 void Essai2()
 {
@@ -167,7 +165,7 @@ void Essai2()
   }
 }
 
-*/
+
 /*******************************************************************************************************/
 /*** Tests de la classe Event (Agregation par reference d'un objet Timing) *****************************/
 /*******************************************************************************************************/
