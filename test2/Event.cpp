@@ -34,7 +34,6 @@ Event::~Event(){                //destructeur
       delete title;
     };
   
-
 const char* Event::getTitle() const{
       return title;
     }
@@ -58,6 +57,20 @@ void Event::setCode(int c)
         return;
       code = c;
     }
+
+void Event::setTiming(Timing*) const
+{
+
+
+
+}
+
+void Event::getTiming() const
+{
+
+
+
+}
 void Event::display() const{
       cout << "title = " << title << endl;
       cout << "code = " << code << endl;
