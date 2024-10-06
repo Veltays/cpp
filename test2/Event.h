@@ -1,5 +1,6 @@
 #ifndef EVENT_H
 #define EVENT_H
+
 class Event
 {
   private:
@@ -24,5 +25,4 @@ class Event
   
     ~Event();         //destructeur
 };
-
-#endifs
+#endif
