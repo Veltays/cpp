@@ -18,8 +18,8 @@ $(OBJCPATH)/Timing.o : $(SRCPATH)/Timing.cpp $(INCLUDEPATH)/Timing.h
 	$(COMPIL) $(SRCPATH)/Timing.cpp -c -o  $(OBJCPATH)/Timing.o
 
 clean:
-	rm -f $(OBJCPATH)
+	rm -f $(OBJCPATH)/*.o
 
-clobber:clean
+clobber: clean
 	rm -f $(BINPATH)/Test2
 
