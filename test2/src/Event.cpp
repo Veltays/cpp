@@ -58,7 +58,7 @@ void Event::setCode(int c)
       code = c;
     }
 
-void Event::setTiming(Timing*) const
+/*void Event::setTiming(Timing*) const
 {
 
 
@@ -70,7 +70,7 @@ void Event::getTiming() const
 
 
 
-}
+}*/
 void Event::display() const{
       cout << "title = " << title << endl;
       cout << "code = " << code << endl;

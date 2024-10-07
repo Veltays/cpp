@@ -6,7 +6,7 @@ class Event
   private:
     int code;
     char* title;
-    Timing* timing;
+    //Timing* timing;
 
   public:
     Event(); // Constructeur d'initilisation
@@ -25,7 +25,7 @@ class Event
 
     void setTitle(const char* t);
     
-    void setTiming(Timing*);
+    //void setTiming(Timing*);
 
 
 
@@ -36,7 +36,7 @@ class Event
 
     const char* getTitle() const;
 
-    void getTiming() const;
+    //void getTiming() const;
 
     void display() const;
   

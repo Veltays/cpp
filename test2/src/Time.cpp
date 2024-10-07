@@ -17,6 +17,7 @@ Time::Time(int h, int m)
     cout << "Constructeur par défaut" << endl;
     setHour(h);
     setMinute(m);
+    setMinute(10);
     
 };
 
