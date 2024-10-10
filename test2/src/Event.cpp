@@ -4,6 +4,8 @@
 using namespace std;
 
 #include "Event.h"
+#include "Timing.h"
+#include "time.h"
 
 
 Event::Event()                       // Constructeur d'initilisation
@@ -12,14 +14,21 @@ Event::Event()                       // Constructeur d'initilisation
       setCode(2);
       title = nullptr;
       setTitle("default");
+      timing->setDay("default");
+      timing->setDuration(Time(0));
+      timing->setStart(Time(0));
     };
 
-Event::Event(int c, const char* t)   // constructeur par défaut
+Event::Event(int c, const char* t,const Timing& temp)   // constructeur par défaut
     {
       cout << "Constructeur par défaut"<< endl;
       setCode(c);
       title = nullptr;
       setTitle(t);
+      timing->setDay(temp.getDay());
+      timing->setDuration(temp.getDuration());
+      timing->setStart(temp.getStart());
+
     };
 
 Event::Event (const Event& e)  //constructeur de copie
@@ -32,6 +41,8 @@ Event::Event (const Event& e)  //constructeur de copie
 Event::~Event(){                //destructeur
       cout << " DESTRUCTEUR " << endl;
       delete title;
+      if(timing != nullptr)
+        delete timing;
     };
   
 const char* Event::getTitle() const{
@@ -41,6 +52,12 @@ const char* Event::getTitle() const{
 int Event::getCode() const {
   return code;
   }
+
+Timing Event::getTiming() const
+{
+  cout << "caca";
+
+}
 
 void Event::setTitle(const char* t)
     {
@@ -58,20 +75,16 @@ void Event::setCode(int c)
       code = c;
     }
 
-/*void Event::setTiming(Timing*) const
+void Event::setTiming(const Timing& temp)
 {
-
-
-
+  timing->setDay(temp.getDay());
+  timing->setStart(temp.getStart());
+  timing->setDuration(temp.getDuration());
 }
 
-void Event::getTiming() const
-{
-
-
-
-}*/
 void Event::display() const{
+      cout << "display---------------------------" << endl;
       cout << "title = " << title << endl;
       cout << "code = " << code << endl;
-    }
+      timing->display();
+  }

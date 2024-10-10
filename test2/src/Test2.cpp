@@ -11,7 +11,7 @@ using namespace std;
 int  Menu();
 void Essai1();
 void Essai2();
-//void Essai3();
+void Essai3();
 //void Essai4();
 
 int main(int argc,char* argv[])
@@ -27,7 +27,7 @@ int main(int argc,char* argv[])
     {
       case 1 : Essai1(); break;
       case 2 : Essai2(); break;
-      //case 3 : Essai3(); break;
+      case 3 : Essai3(); break;
       //case 4 : Essai4(); break;
       default : fini = true ; break;
     }
@@ -169,7 +169,7 @@ void Essai2()
 /*******************************************************************************************************/
 /*** Tests de la classe Event (Agregation par reference d'un objet Timing) *****************************/
 /*******************************************************************************************************/
-/*
+
 void Essai3()
 {
   cout << endl << "(1) ***** Test constructeur par defaut + display *******************************" << endl;
@@ -179,7 +179,7 @@ void Essai3()
     cout << endl;
   } 
 
-  cout << endl << "(2) ***** Test des setters et getters ******************************************" << endl;
+  /*cout << endl << "(2) ***** Test des setters et getters ******************************************" << endl;
   {
     Event event;
     event.setCode(1);
@@ -192,7 +192,7 @@ void Essai3()
     cout << "Timing = ";
     event.getTiming().display();
     cout << endl;
-  }
+  } 
 
   cout << endl << "(3) ***** Test du constructeur d'initialisation ********************************" << endl;
   {
@@ -222,13 +222,18 @@ void Essai3()
     cout << "event1 (APRES) : ";
     event1.display();
     cout << endl << endl;
-  }
+  }*/
 }
 
+
+
+/*
 /*******************************************************************************************************/
 /*** Tests des variables statiques utiles **************************************************************/
 /*******************************************************************************************************/
 /*
+
+
 void Essai4()
 {
   cout << endl << "(1) ***** Tests de base des jours de la semaine ********************************" << endl;
@@ -273,6 +278,4 @@ void Essai4()
   cout << "e1.currentCode = " << e1.currentCode << endl;
   cout << "e2.currentCode = " << e2.currentCode << endl;
   cout << "e3.currentCode = " << e3.currentCode << endl << endl;
-}
-
-*/
+}*/

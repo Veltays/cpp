@@ -69,8 +69,13 @@ void Timing::setDay(string jour)
     {
         day = "Dimanche";
     }
+    else if (jour == "default" || jour == "Default")
+    {
+        day = "default";
+    }
     else
     {
+    
         cout << "Jour non valide." << endl;
     }
 }

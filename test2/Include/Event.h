@@ -6,12 +6,12 @@ class Event
   private:
     int code;
     char* title;
-    //Timing* timing;
+    Timing* timing;
 
   public:
     Event(); // Constructeur d'initilisation
 
-    Event(int c, const char* t);    // constructeur par défaut
+    Event(int c, const char* t, const Timing &a);    // constructeur par défaut
 
     Event (const Event& x);    //constructeur de copie
 
@@ -25,8 +25,7 @@ class Event
 
     void setTitle(const char* t);
     
-    //void setTiming(Timing*);
-
+    void setTiming(const Timing &a);
 
 
     //LES GET
@@ -36,7 +35,8 @@ class Event
 
     const char* getTitle() const;
 
-    //void getTiming() const;
+    Timing getTiming() const;
+
 
     void display() const;
   
