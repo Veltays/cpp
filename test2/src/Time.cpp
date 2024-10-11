@@ -9,14 +9,14 @@ namespace planning
 
     Time::Time()
     {
-        cout << "Initilisation" << endl;
+        
         setHour(0);
         setMinute(0);
     };
 
     Time::Time(int h, int m)
     {
-        cout << "Constructeur par défaut" << endl;
+    
         setHour(h);
         setMinute(m);
         setMinute(10);
@@ -24,21 +24,21 @@ namespace planning
 
     Time::Time(int duree)
     {
-        cout << "Constructeur par défaut" << endl;
+       
         setHour(duree / 60);
         setMinute(duree % 60);
     };
 
     Time::Time(const Time &x)
     {
-        cout << "Constructeur de copie" << endl;
+        
         setHour(x.getHour());
         setMinute(x.getMinute());
     };
 
     Time::~Time()
     {
-        cout << "Destructeur" << endl;
+        //cout << "Destructeur" << endl;
     };
 
     void Time::setHour(int h)

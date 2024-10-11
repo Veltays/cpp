@@ -13,7 +13,7 @@ namespace planning
 
   Event::Event() // Constructeur d'initilisation
   {
-    cout << "Defaut" << endl;
+    
     setCode(1);
     title = nullptr;
     setTitle("default");
@@ -22,29 +22,29 @@ namespace planning
 
   Event::Event(int c, const char *t) // constructeur par défaut
   {
-    cout << "Constructeur initialisation" << endl;
+  
     setCode(c);
     title = nullptr;
     setTitle(t);
     timing = nullptr;
-    currentCode += 1;
   };
 
   Event::Event(const Event &e) //constructeur de copie
 
   {
-    cout << "Constructeur de copie" << endl;
+    
     setCode(e.getCode());
     title = nullptr;
+    setTitle(e.getTitle());
     timing = new Timing(*(e.timing));
   };
   Event::~Event()
   { //destructeur
-    cout << " DESTRUCTEUR " << endl;
+    
     delete title;
     if (timing != nullptr)
       delete timing;
-    currentCode -= 1;
+
   };
 
   const char *Event::getTitle() const
@@ -86,7 +86,7 @@ namespace planning
 
   void Event::display() const
   {
-    cout << "display---------------------------" << endl;
+    
     cout << "title = " << title << endl;
     cout << "code = " << code << endl;
     if (timing != nullptr)

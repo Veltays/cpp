@@ -20,7 +20,7 @@ namespace planning
 
     Timing::Timing()
     {
-        cout << "Initilisation" << endl;
+       
         setDay("default");
         setStart(0);
         setDuration(0);
@@ -28,7 +28,7 @@ namespace planning
 
     Timing::Timing(string d, Time str, Time dur)
     {
-        cout << "Constructeur par défaut" << endl;
+        
         setDay(d);
         setStart(str);
         setDuration(dur);
@@ -36,7 +36,6 @@ namespace planning
 
     Timing::Timing(const Timing &x)
     {
-        cout << "Constructeur de copie" << endl;
         setDay(x.getDay());
         setStart(x.getStart());
         setDuration(x.getDuration());
@@ -44,7 +43,7 @@ namespace planning
 
     Timing::~Timing()
     {
-        cout << "Destructeur" << endl;
+        //cout << "Destructeur" << endl;
     };
 
     void Timing::setDay(string jour)
@@ -52,37 +51,39 @@ namespace planning
         if (jour.empty())
             return;
 
-        if (jour == MONDAY)
+        if (jour == Timing::MONDAY)
         {
             day = "Lundi";
         }
-        else if (jour == TUESDAY)
+        else if (jour == Timing::TUESDAY)
         {
             day = "Mardi";
         }
-        else if (jour == WEDNESDAY)
+        else if (jour == Timing::WEDNESDAY)
         {
             day = "Mercredi";
         }
-        else if (jour == THURSDAY)
+        else if (jour == Timing::THURSDAY)
         {
             day = "Jeudi";
         }
-        else if (jour == FRIDAY)
+        else if (jour == Timing::FRIDAY)
         {
             day = "Vendredi";
         }
-        else if (jour == SATURDAY)
+        else if (jour == Timing::SATURDAY)
         {
             day = "Samedi";
         }
-        else if (jour == SUNDAY)
+        else if (jour == Timing::SUNDAY)
         {
             day = "Dimanche";
         }
         else
+        {
+            day = "Jour non valide.";
             cout << "Jour non valide." << endl;
-        day = "Jour non valide.";
+        }
     }
 
     void Timing::setStart(Time str)
@@ -116,7 +117,7 @@ namespace planning
     {
         cout << "Date :" << day << endl;
         cout << " Le début de l'évenement est à " << start.getHour() << ":" << start.getMinute() << "Heure" << endl;
-        cout << " Le durée de l'évenement est de " << start.getHour() << ":" << start.getMinute() << "Heure" << endl;
+        cout << " Le durée de l'évenement est de " << duration.getHour() << ":" << duration.getMinute() << "Heure" << endl;
     }
 
 }
