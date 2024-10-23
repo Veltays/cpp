@@ -165,7 +165,6 @@ namespace planning
     {
         Time d;
         int minX = (x.hour * 60) + x.minute;
-        int hourAdd;
         cout << "Minute " << minX << endl;
 
         
@@ -176,13 +175,9 @@ namespace planning
            minAdd = minAdd + (24*60);     //ainsi le mod donnera une reponse coherente
         }
 
-    
-        hourAdd = minAdd /60;
-        minAdd = minAdd %60;
 
-
-        d.minute = minAdd;
-        d.hour = hourAdd;
+        d.minute = minAdd %60;
+        d.hour = minAdd /60;
         
         return d;
     }
@@ -191,20 +186,20 @@ namespace planning
     Time operator-(const Time &a, const Time &b)
     {
         Time d;
+        
 
-        int hourAdd = a.hour - b.hour;
-        int minAdd = a.minute - b.minute;
+        int minA = (a.hour * 60) + a.minute;
+        int minB = (b.hour * 60) + b.minute;
 
-        if (minAdd >= 60)
+        int minAdd = minA - minB;
+
+        if (minAdd < 0)
         {
-            hourAdd = hourAdd - (minAdd / 60);
-            minAdd = minAdd % 60;
+            minAdd = minAdd + (24*60);
         }
-        if (hourAdd >= 24) //si l'heure depasse 23h59
-            hourAdd = hourAdd % 24;
-
-        d.minute = minAdd;
-        d.hour = hourAdd;
+        
+        d.minute = minAdd %60;
+        d.hour = minAdd /60;
 
         return d;
     }

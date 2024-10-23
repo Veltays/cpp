@@ -198,7 +198,7 @@ void Essai3()
     duration.display();
 
   }
-  /*
+  
   cout << endl << "********************************************************************" << endl;
   cout <<         "(3) ***** Test de l'operateur (Time - Time) ************************" << endl;
   cout <<         "********************************************************************" << endl;
@@ -210,12 +210,12 @@ void Essai3()
     cout << endl << "end   : ";
     end.display();
     Time duration;
-    cout << endl << ">>>>> duration = end - start;" << endl;
+    cout << endl << ">>>>> duration = end - start;" << endl;   //1h50 
     duration = end - start;
     cout << "duration : ";
     duration.display();
     cout << endl;
-  }*/
+  }
 }
 
 /*******************************************************************************************************/
