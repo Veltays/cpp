@@ -19,7 +19,6 @@ namespace planning
     
         setHour(h);
         setMinute(m);
-        setMinute(10);
     };
 
     Time::Time(int duree)
@@ -74,7 +73,6 @@ namespace planning
     {
         hour = x.hour;
         minute = x.minute;
-        cout << "operator = est effectivement utilisé et non la copie" << endl;
         return (*this);
     }
 
@@ -102,19 +100,56 @@ namespace planning
     Time operator+(int minAdd, const Time& x)
     {
         Time d;
-        int heurAdd = 0;
+        int heurAdd = x.hour ;
+        minAdd = minAdd + x.minute;
 
-        if (minAdd == 0) 
-            return x;
-
-        if (minAdd > 60)
+        if (minAdd == 0 && heurAdd == x.hour)
         {
-            heurAdd /= 60;
-            minAdd %=  60;
+            d.minute =  minAdd;;
+            d.hour = heurAdd;
+            return d;
         }
-        d.hour = x.hour + heurAdd;
-        d.minute = x.minute + minAdd;
+
+        if (minAdd >= 60)
+        {
+            heurAdd = heurAdd + (minAdd / 60);
+            minAdd = minAdd % 60;
+        }
+        if(heurAdd >= 24)
+            heurAdd = heurAdd % 24;
+
+
+        d.minute =  minAdd;;
+        d.hour = heurAdd;
+
         return d;
     }
+
+
+      /*  Time operator+(const Time& a, const Time& b)
+    {
+        Time d;
+        int heurAdd = x.hour ;
+        minAdd = minAdd + x.minute;
+
+        if (minAdd == 0 && heurAdd == x.hour)
+        {
+            d.minute =  minAdd;;
+            d.hour = heurAdd;
+            return d;
+        }
+
+        if (minAdd >= 60)
+        {
+            heurAdd = heurAdd + (minAdd / 60);
+            minAdd = minAdd % 60;
+        }
+
+
+        d.minute =  minAdd;;
+        d.hour = heurAdd;
+
+        return d;
+    }*/
 
 }
