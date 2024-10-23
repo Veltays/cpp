@@ -9,34 +9,33 @@ namespace planning
 
     Time::Time()
     {
-        
+
         setHour(0);
         setMinute(0);
     };
 
     Time::Time(int h, int m)
     {
-    
+
         setHour(h);
         setMinute(m);
     };
 
     Time::Time(int duree)
     {
-       
+
         setHour(duree / 60);
         setMinute(duree % 60);
     };
 
     Time::Time(const Time &x)
     {
-        
+
         setHour(x.getHour());
         setMinute(x.getMinute());
     };
 
-    Time::~Time()
-    {
+    Time::~Time(){
         //cout << "Destructeur" << endl;
     };
 
@@ -69,23 +68,22 @@ namespace planning
         cout << "Il est actuellement " << hour << ":" << minute << endl;
     }
 
-    const Time& Time::operator=( const Time& x)
+    const Time &Time::operator=(const Time &x)
     {
         hour = x.hour;
         minute = x.minute;
         return (*this);
     }
 
-
     Time Time::operator+(int minAdd)
     {
         Time d(*this);
         int heurAdd = 0;
-        
-        if (minAdd == 0) 
+
+        if (minAdd == 0)
             return d;
 
-        if(minAdd >= 60)
+        if (minAdd >= 60)
         {
             heurAdd = minAdd / 60;
             minAdd = minAdd % 60;
@@ -95,61 +93,120 @@ namespace planning
         return d;
     }
 
-
-
-    Time operator+(int minAdd, const Time& x)
+    Time operator+(int minAdd, const Time &x)
     {
         Time d;
-        int heurAdd = x.hour ;
+        int hourAdd = x.hour;
         minAdd = minAdd + x.minute;
 
-        if (minAdd == 0 && heurAdd == x.hour)
+        if (minAdd == 0 && hourAdd == x.hour)
         {
-            d.minute =  minAdd;;
-            d.hour = heurAdd;
+            d.minute = minAdd;
+            ;
+            d.hour = hourAdd;
             return d;
         }
 
         if (minAdd >= 60)
         {
-            heurAdd = heurAdd + (minAdd / 60);
+            hourAdd = hourAdd + (minAdd / 60);
             minAdd = minAdd % 60;
         }
-        if(heurAdd >= 24)
-            heurAdd = heurAdd % 24;
+        if (hourAdd >= 24) //si l'heure depasse 23h59
+            hourAdd = hourAdd % 24;
 
-
-        d.minute =  minAdd;;
-        d.hour = heurAdd;
+        d.minute = minAdd;
+        ;
+        d.hour = hourAdd;
 
         return d;
     }
 
-
-      /*  Time operator+(const Time& a, const Time& b)
+    Time operator+(const Time &a, const Time &b)
     {
         Time d;
-        int heurAdd = x.hour ;
-        minAdd = minAdd + x.minute;
 
-        if (minAdd == 0 && heurAdd == x.hour)
-        {
-            d.minute =  minAdd;;
-            d.hour = heurAdd;
-            return d;
-        }
+        int hourAdd = a.hour + b.hour;
+        int minAdd = a.minute + b.minute;
 
         if (minAdd >= 60)
         {
-            heurAdd = heurAdd + (minAdd / 60);
+            hourAdd = hourAdd + (minAdd / 60);
             minAdd = minAdd % 60;
         }
+        if (hourAdd >= 24) //si l'heure depasse 23h59
+            hourAdd = hourAdd % 24;
 
-
-        d.minute =  minAdd;;
-        d.hour = heurAdd;
+        d.minute = minAdd;
+        d.hour = hourAdd;
 
         return d;
-    }*/
+    }
+
+    Time Time::operator-(int minAdd)
+    {
+        Time d(*this);
+        int heurAdd = 0;
+
+        if (minAdd == 0)
+            return d;
+
+        if (minAdd >= 60)
+        {
+            heurAdd = minAdd / 60;
+            minAdd = minAdd % 60;
+        }
+        d.hour -= heurAdd;
+        d.minute -= minAdd;
+        return d;
+    }
+
+    Time operator-(int minAdd, const Time &x)
+    {
+        Time d;
+        int minX = (x.hour * 60) + x.minute;
+        int hourAdd;
+        cout << "Minute " << minX << endl;
+
+        
+        minAdd = minAdd - minX;
+
+        if (minAdd < 0)
+        {
+           minAdd = minAdd + (24*60);     //ainsi le mod donnera une reponse coherente
+        }
+
+    
+        hourAdd = minAdd /60;
+        minAdd = minAdd %60;
+
+
+        d.minute = minAdd;
+        d.hour = hourAdd;
+        
+        return d;
+    }
+
+
+    Time operator-(const Time &a, const Time &b)
+    {
+        Time d;
+
+        int hourAdd = a.hour - b.hour;
+        int minAdd = a.minute - b.minute;
+
+        if (minAdd >= 60)
+        {
+            hourAdd = hourAdd - (minAdd / 60);
+            minAdd = minAdd % 60;
+        }
+        if (hourAdd >= 24) //si l'heure depasse 23h59
+            hourAdd = hourAdd % 24;
+
+        d.minute = minAdd;
+        d.hour = hourAdd;
+
+        return d;
+    }
 
 }

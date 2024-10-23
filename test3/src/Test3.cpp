@@ -10,7 +10,7 @@ using namespace planning;
 int  Menu();
 void Essai1();
 void Essai2();
-//void Essai3();
+void Essai3();
 //void Essai4();
 //void Essai5();
 //void Essai6();
@@ -29,8 +29,8 @@ int main(int argc,char* argv[])
     {
       case 1 : Essai1(); break;
       case 2 : Essai2(); break;
-      /*case 3 : Essai3(); break;
-      case 4 : Essai4(); break;
+      case 3 : Essai3(); break;
+      /*case 4 : Essai4(); break;
       case 5 : Essai5(); break;
       case 6 : Essai6(); break;
       case 7 : Essai7(); break;*/
@@ -119,7 +119,7 @@ void Essai2()
   cout <<         "(2) ***** Test de l'operateur (int + Time) *************************" << endl;
   cout <<         "********************************************************************" << endl;
   {
-    Time h(23,30);
+    Time h(13,30);
     cout << "h (avant) : ";
     h.display();
     Time h2;
@@ -128,14 +128,14 @@ void Essai2()
     cout << "h2 : ";
     h2.display();
     cout << endl << ">>>>> h2 = 30 + h2;" << endl;
-    h2 = 30 + h2;      //h2 = 13:40               24h10 ==> 1h10
+    h2 = 30 + h2;      //h2 = 13:40       
     cout << "h2 : ";
     h2.display();
     cout << endl << "h (apres) : "; // h ne doit pas etre modifie !!!!
     h.display();
     cout << endl;
   }
-/*
+
   cout << endl << "********************************************************************" << endl;
   cout <<         "(3) ***** Test de l'operateur (Time + Time) ************************" << endl;
   cout <<         "********************************************************************" << endl;
@@ -154,13 +154,13 @@ void Essai2()
     cout << "end : ";
     end.display();
     cout << endl;
-  }*/
+  }
 }
-/*
+
 /*******************************************************************************************************/
 /*** Tests de l'operateur - de la classe Time **********************************************************/
 /*******************************************************************************************************/
-/*
+
 void Essai3()
 {
   cout << endl << "********************************************************************" << endl;
@@ -183,7 +183,7 @@ void Essai3()
     h.display();
     cout << endl;
   }
-
+  
   cout << endl << "********************************************************************" << endl;
   cout <<         "(2) ***** Test de l'operateur (int - Time) *************************" << endl;
   cout <<         "********************************************************************" << endl;
@@ -196,9 +196,9 @@ void Essai3()
     duration = 120 - d;
     cout << "duration : ";
     duration.display();
-    cout << endl;
-  }
 
+  }
+  /*
   cout << endl << "********************************************************************" << endl;
   cout <<         "(3) ***** Test de l'operateur (Time - Time) ************************" << endl;
   cout <<         "********************************************************************" << endl;
@@ -215,9 +215,9 @@ void Essai3()
     cout << "duration : ";
     duration.display();
     cout << endl;
-  }
+  }*/
 }
-*/
+
 /*******************************************************************************************************/
 /*** Test des operateurs < > == de la classe Time ******************************************************/
 /*******************************************************************************************************/
