@@ -230,4 +230,33 @@ namespace planning
         return 0;
 
     }
+
+    ostream& operator<<(ostream& s,const Time& x)
+    {
+        s << x.hour << "h" << x.minute;
+        return s;
+    }
+
+    istream& operator>>(istream& s, Time& x)
+    {
+        int heure, minute;
+        do
+        {
+            cout <<endl << "entrer une heure entre (0-23)" << endl;
+            s >> heure;
+        }while (heure < 0 || heure >= 24);
+        
+        do
+        {
+            cout << "entre des minutes" <<endl;
+            s >> minute;
+        }while(minute < 0 || minute >= 60);
+
+        x.minute = minute;
+        x.hour = heure;
+        return s;
+    }
+
+
+    
 }

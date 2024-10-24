@@ -14,12 +14,15 @@ namespace planning
     friend  Time operator+(const Time&,const Time&);    
     friend  Time operator-(const Time&,const Time&);   
 
+    // cin cout
+    friend ostream& operator<<(ostream&,const Time&);
+    friend istream& operator>>(istream&,Time&);
+
 
 
     /* il sont en friend car chaque instance de classe ne peut acceder uniquement 
     a ses propres parametre, hors ici on a plusieurs instance d'une meme classe, donc on a besoin 
     de lui autoriser l'acces partout*/
-
 
     private:
         int hour;

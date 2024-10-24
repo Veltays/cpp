@@ -12,7 +12,7 @@ void Essai1();
 void Essai2();
 void Essai3();
 void Essai4();
-//void Essai5();
+void Essai5();
 //void Essai6();
 //void Essai7();
 
@@ -31,8 +31,8 @@ int main(int argc,char* argv[])
       case 2 : Essai2(); break;
       case 3 : Essai3(); break;
       case 4 : Essai4(); break;
-      /*case 5 : Essai5(); break;
-      case 6 : Essai6(); break;
+      case 5 : Essai5(); break;
+      /*case 6 : Essai6(); break;
       case 7 : Essai7(); break;*/
       default : fini = true ; break;
     }
@@ -249,7 +249,7 @@ void Essai4()
 /*******************************************************************************************************/
 /*** Test des operateurs << et >> de la classe Time ****************************************************/
 /*******************************************************************************************************/
-/*
+
 void Essai5()
 {
   cout << "**********************************************************************" << endl;
@@ -261,11 +261,11 @@ void Essai5()
   cout << endl << "Voici l'heure que vous avez encodee : " << h << endl;
   cout << endl;
 }
-*/
+
 /*******************************************************************************************************/
 /*** Tests des operateurs de pre/post in(de)crementation de la classe Time *****************************/
 /*******************************************************************************************************/
-/*
+
 void Essai6()
 
 
@@ -277,7 +277,7 @@ void Essai6()
   cout << "h1   : " << h1 << endl;
   cout << "++h1 : " << ++h1 << endl;  // Si tout va bien, h1 est incremente avant d'etre affiche !
   cout << "h1   : " << h1 << endl << endl;
-
+  /*
   cout << "**********************************************************************" << endl;
   cout << "(2) ***** Test de l'operateur de post-incrementation *****************" << endl;
   cout << "**********************************************************************" << endl;
@@ -301,8 +301,8 @@ void Essai6()
   cout << "h4   : " << h4 << endl;
   cout << "h4-- : " << h4-- << endl;  // Si tout va bien, h4 est decremente apres avoir ete affiche !
   cout << "h4   : " << h4 << endl << endl;
-}
-*/
+}*/
+
 /*******************************************************************************************************/
 /*** Test des operateurs < > == de la classe Timing ****************************************************/
 /*******************************************************************************************************/
