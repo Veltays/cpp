@@ -25,6 +25,8 @@ namespace planning
         int hour;
         int minute;
 
+        int compTime(const Time&);
+
     public:
         // constructeur
         Time(); //initiliateur
@@ -55,6 +57,11 @@ namespace planning
         Time operator+(int);     // Time - Int
         
         Time operator-(int);     //Time + int
+
+        int operator>(const Time&);
+        int operator<(const Time&);
+        int operator==(const Time&);
+
 
 
         //destructeur

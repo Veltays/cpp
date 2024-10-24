@@ -11,7 +11,7 @@ int  Menu();
 void Essai1();
 void Essai2();
 void Essai3();
-//void Essai4();
+void Essai4();
 //void Essai5();
 //void Essai6();
 //void Essai7();
@@ -30,8 +30,8 @@ int main(int argc,char* argv[])
       case 1 : Essai1(); break;
       case 2 : Essai2(); break;
       case 3 : Essai3(); break;
-      /*case 4 : Essai4(); break;
-      case 5 : Essai5(); break;
+      case 4 : Essai4(); break;
+      /*case 5 : Essai5(); break;
       case 6 : Essai6(); break;
       case 7 : Essai7(); break;*/
       default : fini = true ; break;
@@ -221,7 +221,7 @@ void Essai3()
 /*******************************************************************************************************/
 /*** Test des operateurs < > == de la classe Time ******************************************************/
 /*******************************************************************************************************/
-/*
+
 void Essai4()
 {
   cout << "**********************************************************************" << endl;
@@ -232,7 +232,10 @@ void Essai4()
   cout << "h1 : ";
   h1.display();
 
-  Time h2(10,20);
+  Time h2(10,20);    // plus grand
+  //Time h2(12,35);    // egale
+  //Time h2(14,50);    // plus petit
+
   cout << endl << "h2 : ";
   h2.display();
 
@@ -242,7 +245,7 @@ void Essai4()
   if (h1 == h2) cout << "h1 == h2" << endl;
   cout << endl;
 }
-*/
+
 /*******************************************************************************************************/
 /*** Test des operateurs << et >> de la classe Time ****************************************************/
 /*******************************************************************************************************/

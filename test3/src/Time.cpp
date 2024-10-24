@@ -65,7 +65,15 @@ namespace planning
 
     void Time::display() const
     {
-        cout << "Il est actuellement " << hour << ":" << minute << endl;
+        if (minute == 0)
+        {
+            cout << "Il est actuellement " << hour << ":" << "00" << endl;
+        }
+        else
+        {
+            cout << "Il est actuellement " << hour << ":" << minute << endl;
+        }
+        
     }
 
     const Time &Time::operator=(const Time &x)
@@ -189,4 +197,37 @@ namespace planning
         return d;
     }
 
+    int Time::operator>(const Time &x){
+        return compTime(x) == -1;
+
+    }
+
+    int Time::operator<(const Time &x){
+        return compTime(x) == 1;
+
+    }
+
+    int Time::operator==(const Time &x){
+        return compTime(x) == 0;
+
+    }
+
+    int Time::compTime(const Time& x)
+    {
+        //comparaison des heure 
+        if(hour < x.hour)     
+            return 1;
+        if(hour > x.hour)
+            return -1;
+
+        //comparaison des minute
+        if(minute < x.minute)     
+            return 1;
+        if(minute > x.minute)
+            return -1;
+
+        //égalité 
+        return 0;
+
+    }
 }
