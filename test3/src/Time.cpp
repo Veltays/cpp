@@ -265,6 +265,7 @@ namespace planning
         (*this) = (*this) + 30;
         return temp;
     }
+
     Time Time::operator--()
     { //préincré la valeur change avant l'exé
         (*this) = (*this) - 30;

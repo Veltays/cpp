@@ -120,4 +120,62 @@ namespace planning
         cout << " Le durée de l'évenement est de " << duration.getHour() << ":" << duration.getMinute() << "Heure" << endl;
     }
 
+
+    int Timing::operator>(const Timing& x)
+    {
+        return compTiming(x) == -1;
+    }
+    int Timing::operator<(const Timing& x )
+    {
+        return compTiming(x) == 1;
+    }
+    int Timing::operator==(const Timing& x)
+    {
+        return compTiming(x) == 0;
+    }
+    int Timing::compTiming(const Timing& x)
+    {
+        //les jours
+
+        if (dayToInt(*this) < dayToInt(x))
+            return 1;
+        if (day > x.day)
+            return -1;
+
+        // le debut
+        if (start < x.start)
+            return 1;
+        if (start > x.start)
+            return -1;
+
+        //la durée
+        if (duration < x.duration)
+            return 1;
+        if (duration > x.duration)
+            return -1;
+
+        //tt pareille
+        return 0;
+        
+
+    }
+
+    int Timing::dayToInt(const Timing &x)
+    {
+        if(x.day == "Lundi")
+            return 1;
+        if(x.day == "Mardi")
+            return 2;
+        if(x.day == "Mercredi")
+            return 3;
+        if(x.day == "Jeudi")
+            return 4;
+        if(x.day == "Vendredi")
+            return 5;
+        if(x.day == "Samedi")
+            return 6;
+        if(x.day == "Dimanche")
+            return 7;
+        return -1;
+    }
 }

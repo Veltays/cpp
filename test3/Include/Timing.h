@@ -6,14 +6,17 @@
 using namespace std;
 
 namespace planning
-{
+{   
+    
     class Timing
     {
+
     private:
         string day;
         Time start;
         Time duration;
-
+        
+        int compTiming(const Timing&);
     public:
         static const string MONDAY;
         static const string TUESDAY;
@@ -44,6 +47,14 @@ namespace planning
         Time getDuration() const;
 
         void display() const;
+
+        int operator>(const Timing&);
+        int operator<(const Timing&);
+        int operator==(const Timing&);
+
+
+        //utile
+        int dayToInt(const Timing&);
     };
 }
 #endif

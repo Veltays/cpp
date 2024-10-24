@@ -20,6 +20,7 @@ namespace planning
 
 
 
+
     /* il sont en friend car chaque instance de classe ne peut acceder uniquement 
     a ses propres parametre, hors ici on a plusieurs instance d'une meme classe, donc on a besoin 
     de lui autoriser l'acces partout*/
@@ -73,6 +74,7 @@ namespace planning
         Time operator--();
 
         Time operator--(int);
+
 
 
 

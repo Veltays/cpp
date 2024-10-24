@@ -14,7 +14,7 @@ void Essai3();
 void Essai4();
 void Essai5();
 void Essai6();
-//void Essai7();
+void Essai7();
 
 int main(int argc,char* argv[])
 {
@@ -33,7 +33,7 @@ int main(int argc,char* argv[])
       case 4 : Essai4(); break;
       case 5 : Essai5(); break;
       case 6 : Essai6(); break;
-      /*case 7 : Essai7(); break;*/
+      case 7 : Essai7(); break;
       default : fini = true ; break;
     }
   }
@@ -306,7 +306,7 @@ void Essai6()
 /*******************************************************************************************************/
 /*** Test des operateurs < > == de la classe Timing ****************************************************/
 /*******************************************************************************************************/
-/*
+
 void Essai7()
 {
   cout << "**********************************************************************" << endl;
@@ -353,4 +353,3 @@ void Essai7()
   if (h4 == ref) cout << "h4 == ref" << endl;
   cout << endl;
 }
-*/
