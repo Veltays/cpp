@@ -67,13 +67,13 @@ namespace planning
     {
         if (minute == 0)
         {
-            cout << "Il est actuellement " << hour << ":" << "00" << endl;
+            cout << "Il est actuellement " << hour << ":"
+                 << "00" << endl;
         }
         else
         {
             cout << "Il est actuellement " << hour << ":" << minute << endl;
         }
-        
     }
 
     const Time &Time::operator=(const Time &x)
@@ -99,7 +99,7 @@ namespace planning
         }
         if (hourAdd >= 24) //si l'heure depasse 23h59
             hourAdd = hourAdd % 24;
-            
+
         d.hour = hourAdd;
         d.minute = minAdd;
 
@@ -134,23 +134,23 @@ namespace planning
 
     Time Time::operator-(int minAdd)
     {
-      
+
         Time d(*this);
         int minX = (d.hour * 60) + d.minute;
-        cout << "Minute de this" << minX << endl;
+        //cout << "Minute de this" << minX << endl;
 
         minAdd = abs(minAdd - minX);
-        
-        cout << "MinuteAdd " << minAdd << endl;
+
+        //cout << "MinuteAdd " << minAdd << endl;
 
         if (minAdd < 0)
         {
-           minAdd = minAdd + (24*60);     //ainsi le mod donnera une reponse coherente
+            minAdd = minAdd + (24 * 60); //ainsi le mod donnera une reponse coherente
         }
-        
-        d.minute = minAdd %60;
-        d.hour = minAdd /60;
-        
+
+        d.minute = minAdd % 60;
+        d.hour = minAdd / 60;
+
         return d;
     }
 
@@ -160,26 +160,22 @@ namespace planning
         int minX = (x.hour * 60) + x.minute;
         cout << "Minute " << minX << endl;
 
-        
         minAdd = minAdd - minX;
 
         if (minAdd < 0)
         {
-           minAdd = minAdd + (24*60);     //ainsi le mod donnera une reponse coherente
+            minAdd = minAdd + (24 * 60); //ainsi le mod donnera une reponse coherente
         }
 
+        d.minute = minAdd % 60;
+        d.hour = minAdd / 60;
 
-        d.minute = minAdd %60;
-        d.hour = minAdd /60;
-        
         return d;
     }
-
 
     Time operator-(const Time &a, const Time &b)
     {
         Time d;
-        
 
         int minA = (a.hour * 60) + a.minute;
         int minB = (b.hour * 60) + b.minute;
@@ -188,75 +184,98 @@ namespace planning
 
         if (minAdd < 0)
         {
-            minAdd = minAdd + (24*60);
+            minAdd = minAdd + (24 * 60);
         }
-        
-        d.minute = minAdd %60;
-        d.hour = minAdd /60;
+
+        d.minute = minAdd % 60;
+        d.hour = minAdd / 60;
 
         return d;
     }
 
-    int Time::operator>(const Time &x){
-        return compTime(x) == -1;
-
-    }
-
-    int Time::operator<(const Time &x){
-        return compTime(x) == 1;
-
-    }
-
-    int Time::operator==(const Time &x){
-        return compTime(x) == 0;
-
-    }
-
-    int Time::compTime(const Time& x)
+    int Time::operator>(const Time &x)
     {
-        //comparaison des heure 
-        if(hour < x.hour)     
+        return compTime(x) == -1;
+    }
+
+    int Time::operator<(const Time &x)
+    {
+        return compTime(x) == 1;
+    }
+
+    int Time::operator==(const Time &x)
+    {
+        return compTime(x) == 0;
+    }
+
+    int Time::compTime(const Time &x)
+    {
+        //comparaison des heure
+        if (hour < x.hour)
             return 1;
-        if(hour > x.hour)
+        if (hour > x.hour)
             return -1;
 
         //comparaison des minute
-        if(minute < x.minute)     
+        if (minute < x.minute)
             return 1;
-        if(minute > x.minute)
+        if (minute > x.minute)
             return -1;
 
-        //égalité 
+        //égalité
         return 0;
-
     }
 
-    ostream& operator<<(ostream& s,const Time& x)
+    ostream &operator<<(ostream &s, const Time &x)
     {
         s << x.hour << "h" << x.minute;
         return s;
     }
 
-    istream& operator>>(istream& s, Time& x)
+    istream &operator>>(istream &s, Time &x)
     {
         int heure, minute;
         do
         {
-            cout <<endl << "entrer une heure entre (0-23)" << endl;
+            cout << endl
+                 << "entrer une heure entre (0-23)" << endl;
             s >> heure;
-        }while (heure < 0 || heure >= 24);
-        
+        } while (heure < 0 || heure >= 24);
+
         do
         {
-            cout << "entre des minutes" <<endl;
+            cout << "entre des minutes" << endl;
             s >> minute;
-        }while(minute < 0 || minute >= 60);
+        } while (minute < 0 || minute >= 60);
 
         x.minute = minute;
         x.hour = heure;
         return s;
     }
 
+    Time Time::operator++()
+    { //préincré la valeur change avant l'exé
+        (*this) = (*this) + 30;
+        return (*this);
+    }
 
-    
+    Time Time::operator++(int)
+    { //postincré la valeur change apres l'execution
+        Time temp(*this);
+        (*this) = (*this) + 30;
+        return temp;
+    }
+    Time Time::operator--()
+    { //préincré la valeur change avant l'exé
+        (*this) = (*this) - 30;
+        return (*this);
+    }
+
+    Time Time::operator--(int)
+    { //postincré la valeur change apres l'execution
+        Time temp(*this);
+        (*this) = (*this) - 30;
+        return temp;
+    }
+
 }

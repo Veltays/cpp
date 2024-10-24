@@ -66,6 +66,15 @@ namespace planning
         int operator==(const Time&);
 
 
+        Time operator++();
+
+        Time operator++(int);
+
+        Time operator--();
+
+        Time operator--(int);
+
+
 
         //destructeur
 
