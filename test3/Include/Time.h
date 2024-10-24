@@ -6,7 +6,7 @@ namespace planning
     class Time
     {
     //Les int -+ Time
-    friend  Time operator+(int,const Time&);
+    friend  Time operator+(int,Time );
     friend  Time operator-(int,const Time&);
 
 

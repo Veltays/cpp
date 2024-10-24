@@ -78,34 +78,11 @@ namespace planning
     Time Time::operator+(int minAdd)
     {
         Time d(*this);
-        int heurAdd = 0;
+        int hourAdd = d.hour;
+        minAdd = minAdd + d.minute;
 
         if (minAdd == 0)
             return d;
-
-        if (minAdd >= 60)
-        {
-            heurAdd = minAdd / 60;
-            minAdd = minAdd % 60;
-        }
-        d.hour += heurAdd;
-        d.minute += minAdd;
-        return d;
-    }
-
-    Time operator+(int minAdd, const Time &x)
-    {
-        Time d;
-        int hourAdd = x.hour;
-        minAdd = minAdd + x.minute;
-
-        if (minAdd == 0 && hourAdd == x.hour)
-        {
-            d.minute = minAdd;
-            ;
-            d.hour = hourAdd;
-            return d;
-        }
 
         if (minAdd >= 60)
         {
@@ -114,12 +91,16 @@ namespace planning
         }
         if (hourAdd >= 24) //si l'heure depasse 23h59
             hourAdd = hourAdd % 24;
-
-        d.minute = minAdd;
-        ;
+            
         d.hour = hourAdd;
+        d.minute = minAdd;
 
         return d;
+    }
+
+    Time operator+(int minAdd, Time x)
+    {
+        return x + minAdd;
     }
 
     Time operator+(const Time &a, const Time &b)
@@ -145,19 +126,23 @@ namespace planning
 
     Time Time::operator-(int minAdd)
     {
+      
         Time d(*this);
-        int heurAdd = 0;
+        int minX = (d.hour * 60) + d.minute;
+        cout << "Minute de this" << minX << endl;
 
-        if (minAdd == 0)
-            return d;
+        minAdd = abs(minAdd - minX);
+        
+        cout << "MinuteAdd " << minAdd << endl;
 
-        if (minAdd >= 60)
+        if (minAdd < 0)
         {
-            heurAdd = minAdd / 60;
-            minAdd = minAdd % 60;
+           minAdd = minAdd + (24*60);     //ainsi le mod donnera une reponse coherente
         }
-        d.hour -= heurAdd;
-        d.minute -= minAdd;
+        
+        d.minute = minAdd %60;
+        d.hour = minAdd /60;
+        
         return d;
     }
 
