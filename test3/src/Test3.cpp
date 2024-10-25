@@ -273,7 +273,7 @@ void Essai6()
   cout << "**********************************************************************" << endl;
   cout << "(1) ***** Test de l'operateur de pre-incrementation ******************" << endl;
   cout << "**********************************************************************" << endl;
-  Time h1(8,50);
+  Time h1(8,59);
   cout << "h1   : " << h1 << endl;
   cout << "++h1 : " << ++h1 << endl;  // Si tout va bien, h1 est incremente avant d'etre affiche !
   cout << "h1   : " << h1 << endl << endl;

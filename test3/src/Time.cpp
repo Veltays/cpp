@@ -85,25 +85,7 @@ namespace planning
 
     Time Time::operator+(int minAdd)
     {
-        Time d(*this);
-        int hourAdd = d.hour;
-        minAdd = minAdd + d.minute;
-
-        if (minAdd == 0)
-            return d;
-
-        if (minAdd >= 60)
-        {
-            hourAdd = hourAdd + (minAdd / 60);
-            minAdd = minAdd % 60;
-        }
-        if (hourAdd >= 24) //si l'heure depasse 23h59
-            hourAdd = hourAdd % 24;
-
-        d.hour = hourAdd;
-        d.minute = minAdd;
-
-        return d;
+        return Time(hour*60+minute+minAdd);
     }
 
     Time operator+(int minAdd, Time x)
@@ -135,23 +117,7 @@ namespace planning
     Time Time::operator-(int minAdd)
     {
 
-        Time d(*this);
-        int minX = (d.hour * 60) + d.minute;
-        //cout << "Minute de this" << minX << endl;
-
-        minAdd = abs(minAdd - minX);
-
-        //cout << "MinuteAdd " << minAdd << endl;
-
-        if (minAdd < 0)
-        {
-            minAdd = minAdd + (24 * 60); //ainsi le mod donnera une reponse coherente
-        }
-
-        d.minute = minAdd % 60;
-        d.hour = minAdd / 60;
-
-        return d;
+        return *this + (-minAdd);
     }
 
     Time operator-(int minAdd, const Time &x)
@@ -235,27 +201,18 @@ namespace planning
     istream &operator>>(istream &s, Time &x)
     {
         int heure, minute;
-        do
-        {
-            cout << endl
-                 << "entrer une heure entre (0-23)" << endl;
-            s >> heure;
-        } while (heure < 0 || heure >= 24);
-
-        do
-        {
-            cout << "entre des minutes" << endl;
-            s >> minute;
-        } while (minute < 0 || minute >= 60);
+        char ch;
+        cin >> heure >> ch >> minute;
 
         x.minute = minute;
         x.hour = heure;
+
         return s;
     }
 
     Time Time::operator++()
     { //préincré la valeur change avant l'exé
-        (*this) = (*this) + 30;
+        (*this) = (*this) + 1;
         return (*this);
     }
 
