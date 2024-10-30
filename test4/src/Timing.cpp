@@ -28,7 +28,6 @@ namespace planning
 
     Timing::Timing(string d, Time str, Time dur)
     {
-        
         setDay(d);
         setStart(str);
         setDuration(dur);
