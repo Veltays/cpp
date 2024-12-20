@@ -1,4 +1,4 @@
-#Projet : Gestion d’Horaires de Cours
+# Projet : Gestion d’Horaires de Cours
 
 Ce projet, réalisé dans le cadre de notre cours de C++, consiste en la création d’un programme permettant de gérer efficacement les horaires de cours.
 
