@@ -1,9 +1,10 @@
-Projet : Gestion d’Horaires de Cours
+#Projet : Gestion d’Horaires de Cours
 
 Ce projet, réalisé dans le cadre de notre cours de C++, consiste en la création d’un programme permettant de gérer efficacement les horaires de cours.
 
 Grâce à ce défi, nous avons exploré et appliqué une multitude de compétences en programmation C++ :
-🌟 Compétences techniques développées
+
+# 🌟 Compétences techniques développées
 
     🛠️ Outils de build : Création de Makefiles et utilisation de CMake.
     🧩 Programmation orientée objet : Mise en œuvre de principes avancés d’OOP.
@@ -14,6 +15,6 @@ Grâce à ce défi, nous avons exploré et appliqué une multitude de compétenc
     🔄 Gestion des flux : Lecture, écriture et manipulation de données en C++.
     🏛️ Héritage : Structuration et réutilisation du code.
 
-🚀 Objectif du projet
+# 🚀 Objectif du projet
 
 Fournir une solution performante et modulable pour organiser les emplois du temps, tout en consolidant nos bases et en approfondissant notre maîtrise du langage C++.
