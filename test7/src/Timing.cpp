@@ -6,6 +6,7 @@ using namespace std;
 
 #include "Timing.h"
 #include "Time.h"
+#include "TimingException.h"
 
 namespace planning
 {
@@ -47,7 +48,7 @@ namespace planning
     void Timing::setDay(string jour)
     {
         if (jour.empty())
-            return;
+            throw TimingException(TimingException::INVALID_DAY, "Jour invalide !");
 
         if (jour == Timing::MONDAY)
         {
@@ -79,7 +80,7 @@ namespace planning
         }
         else
         {
-            day = "Jour non valide.";
+            throw TimingException(TimingException::INVALID_DAY, "Jour invalide !");
             cout << "Jour non valide." << endl;
         }
     }
@@ -113,7 +114,8 @@ namespace planning
 
     void Timing::display() const
     {
-        cout << "Date :" << day << endl;
+        cout << endl
+             << " Date :" << day << endl;
         cout << " Le début de l'évenement est à " << start.getHour() << ":" << start.getMinute() << "Heure" << endl;
         cout << " Le durée de l'évenement est de " << duration.getHour() << ":" << duration.getMinute() << "Heure" << endl;
     }
@@ -190,7 +192,8 @@ namespace planning
         s << t.duration << endl;
         s << "</duration>" << endl;
 
-        s << "</Timing>" << endl;;
+        s << "</Timing>" << endl;
+        ;
 
         return s;
     }
@@ -213,4 +216,5 @@ namespace planning
 
         return s;
     }
+
 }

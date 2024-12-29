@@ -6,14 +6,14 @@ using namespace std;
 #include "Event.h"
 #include "Timing.h"
 #include "time.h"
-
+#include "TimingException.h"
 namespace planning
 {
   int Event::currentCode = 1;
 
   Event::Event() // Constructeur d'initilisation
   {
-
+    
     setCode(1);
     title = nullptr;
     setTitle("default");
@@ -22,7 +22,7 @@ namespace planning
 
   Event::Event(int c, const char *t) // constructeur par défaut
   {
-
+  
     setCode(c);
     title = nullptr;
     setTitle(t);
@@ -32,7 +32,7 @@ namespace planning
   Event::Event(const Event &e) //constructeur de copie
 
   {
-
+    
     setCode(e.getCode());
     title = nullptr;
     setTitle(e.getTitle());
@@ -40,10 +40,11 @@ namespace planning
   };
   Event::~Event()
   { //destructeur
-
+    
     delete title;
     if (timing != nullptr)
       delete timing;
+
   };
 
   const char *Event::getTitle() const
@@ -58,6 +59,9 @@ namespace planning
 
   Timing Event::getTiming() const
   {
+
+    if (timing == nullptr) 
+      throw TimingException(TimingException::NO_TIMING, "Pas de TIMING !");
     return *timing;
   }
 
@@ -85,7 +89,7 @@ namespace planning
 
   void Event::display() const
   {
-
+    
     cout << "title = " << title << endl;
     cout << "code = " << code << endl;
     if (timing != nullptr)
@@ -146,4 +150,5 @@ namespace planning
 
     return s;
   }
+
 }

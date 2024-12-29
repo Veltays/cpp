@@ -5,7 +5,6 @@ SRCPATH = ./src
 INCLUDEPATH = ./Include
 
 
-
 all : $(BINPATH) $(OBJCPATH) $(BINPATH)/Test7
 
 $(BINPATH):
@@ -16,9 +15,9 @@ $(OBJCPATH):
 	mkdir -p $(OBJCPATH)
 	@echo "Création du fichier obj"
 
-$(BINPATH)/Test7: $(SRCPATH)/Test7.cpp $(OBJCPATH)/Time.o $(OBJCPATH)/Event.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Group.o $(OBJCPATH)/Classroom.o
-	$(COMPIL) $(SRCPATH)/Test7.cpp $(OBJCPATH)/Event.o $(OBJCPATH)/Time.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Group.o $(OBJCPATH)/Classroom.o -o $(BINPATH)/Test7
 
+$(BINPATH)/Test7: $(SRCPATH)/Test7.cpp $(OBJCPATH)/Time.o $(OBJCPATH)/Event.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Group.o $(OBJCPATH)/Classroom.o $(OBJCPATH)/Exception.o $(OBJCPATH)/TimeException.o $(OBJCPATH)/TimingException.o
+	$(COMPIL) $(SRCPATH)/Test7.cpp $(OBJCPATH)/Event.o $(OBJCPATH)/Time.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Classroom.o $(OBJCPATH)/Group.o $(OBJCPATH)/Exception.o $(OBJCPATH)/TimeException.o $(OBJCPATH)/TimingException.o -o $(BINPATH)/Test7
 
 $(OBJCPATH)/Event.o: $(SRCPATH)/Event.cpp $(INCLUDEPATH)/Event.h
 	$(COMPIL) $(SRCPATH)/Event.cpp -c -o $(OBJCPATH)/Event.o
@@ -40,9 +39,24 @@ $(OBJCPATH)/Classroom.o: $(SRCPATH)/Classroom.cpp $(INCLUDEPATH)/Classroom.h
 
 $(OBJCPATH)/Group.o: $(SRCPATH)/Group.cpp $(INCLUDEPATH)/Group.h
 	$(COMPIL) $(SRCPATH)/Group.cpp  -c -o $(OBJCPATH)/Group.o	
+
+$(OBJCPATH)/Exception.o: $(SRCPATH)/Exception.cpp $(INCLUDEPATH)/Exception.h
+	$(COMPIL) $(SRCPATH)/Exception.cpp  -c -o $(OBJCPATH)/Exception.o	
+
+$(OBJCPATH)/TimeException.o: $(SRCPATH)/TimeException.cpp $(INCLUDEPATH)/TimeException.h
+	$(COMPIL) $(SRCPATH)/TimeException.cpp  -c -o $(OBJCPATH)/TimeException.o	
+
+
+$(OBJCPATH)/TimingException.o: $(SRCPATH)/TimingException.cpp $(INCLUDEPATH)/TimingException.h
+	$(COMPIL) $(SRCPATH)/TimingException.cpp  -c -o $(OBJCPATH)/TimingException.o	
+
+
+$(OBJCPATH)/XmlFileSerializer.o: $(SRCPATH)/XmlFileSerializer.ipp $(INCLUDEPATH)/XmlFileSerializer.hpp
+	$(COMPIL) $(SRCPATH)/XmlFileSerializer.ipp -c -o $(OBJCPATH)/XmlFileSerializer.o
+
+
 clean:
-	rm -f $(OBJCPATH)/*.o
+	rm -f $(OBJCPATH)/*.o 
 
 clobber: clean
-	rm -f $(OBJCPATH)/*.o $(BINPATH)/Test7
-
+	rm -f $(BINPATH)/Test7 *.xml

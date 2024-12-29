@@ -10,11 +10,11 @@ using namespace planning;
 
 int  Menu();
 void Essai1();
-void Essai2();
-void Essai3();
-void Essai4();
-void Essai5();
-void Essai6();
+// void Essai2();
+// void Essai3();
+// void Essai4();
+// void Essai5();
+// void Essai6();
 
 int main(int argc,char* argv[])
 {
@@ -28,11 +28,11 @@ int main(int argc,char* argv[])
     switch(choix)
     {
       case 1 : Essai1(); break;
-      case 2 : Essai2(); break;
-      case 3 : Essai3(); break;
-      case 4 : Essai4(); break;
-      case 5 : Essai5(); break;
-      case 6 : Essai6(); break;
+      // case 2 : Essai2(); break;
+      // case 3 : Essai3(); break;
+      // case 4 : Essai4(); break;
+      // case 5 : Essai5(); break;
+      // case 6 : Essai6(); break;
       default : fini = true ; break;
     }
   }
@@ -78,16 +78,17 @@ void Essai1()
     fsw.write(i);
   }
 
-  cout << "----- 1.3 Tentative de lecture dans le fichier ouvert en écriture ---------------------------" << endl;
-  try {
-    int val = fsw.read();
-    cout << "val = " << val << endl << endl;
-  } catch(const XmlFileSerializerException& e) {
-    cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
-  }
+  // cout << "----- 1.3 Tentative de lecture dans le fichier ouvert en écriture ---------------------------" << endl;
+  // try {
+  //   int val = fsw.read();
+  //   cout << "val = " << val << endl << endl;
+  // } catch(const XmlFileSerializerException& e) {
+  //   cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
+  // }
 }
 
 /*******************************************************************************************************/
+/*
 void Essai2()
 {
   cout << "----- 2. Test en lecture du template XmlFileSerializer avec des entiers ---------------------" << endl;
@@ -146,8 +147,10 @@ void Essai2()
     delete fsr;
   }
 }
+*/
 
 /*******************************************************************************************************/
+/*
 void Essai3()
 {
   cout << "----- 3. Test du template XmlFileSerializer avec des objets Time ----------------------------" << endl;
@@ -198,8 +201,9 @@ void Essai3()
     delete fsr;
   }
 }
-
+*/
 /*******************************************************************************************************/
+/*
 void Essai4()
 {
   cout << "----- 4. Test du template XmlFileSerializer avec des objets Timing --------------------------" << endl;
@@ -257,8 +261,9 @@ void Essai4()
     delete fsr;
   }
 }
-
+*/
 /*******************************************************************************************************/
+/*
 void Essai5()
 {
   cout << "----- 5. Test du template XmlFileSerializer avec des objets Event ---------------------------" << endl;
@@ -327,8 +332,9 @@ void Essai5()
     delete fsr;
   }
 }
-
+*/
 /*******************************************************************************************************/
+/*
 void Essai6()
 {
   cout << "----- 6. Test du template XmlFileSerializer avec des objets Classroom -----------------------" << endl;
@@ -385,4 +391,4 @@ void Essai6()
     delete fsr;
   }
 }
-
+*/
