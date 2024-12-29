@@ -78,13 +78,13 @@ void Essai1()
     fsw.write(i);
   }
 
-  // cout << "----- 1.3 Tentative de lecture dans le fichier ouvert en écriture ---------------------------" << endl;
-  // try {
-  //   int val = fsw.read();
-  //   cout << "val = " << val << endl << endl;
-  // } catch(const XmlFileSerializerException& e) {
-  //   cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
-  // }
+  cout << "----- 1.3 Tentative de lecture dans le fichier ouvert en écriture ---------------------------" << endl;
+  try {
+    int val = fsw.read();
+    cout << "val = " << val << endl << endl;
+  } catch(const XmlFileSerializerException& e) {
+    cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
+  }
 }
 
 /*******************************************************************************************************/

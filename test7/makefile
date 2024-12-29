@@ -16,8 +16,8 @@ $(OBJCPATH):
 	@echo "Création du fichier obj"
 
 
-$(BINPATH)/Test7: $(SRCPATH)/Test7.cpp $(OBJCPATH)/Time.o $(OBJCPATH)/Event.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Group.o $(OBJCPATH)/Classroom.o $(OBJCPATH)/Exception.o $(OBJCPATH)/TimeException.o $(OBJCPATH)/TimingException.o
-	$(COMPIL) $(SRCPATH)/Test7.cpp $(OBJCPATH)/Event.o $(OBJCPATH)/Time.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Classroom.o $(OBJCPATH)/Group.o $(OBJCPATH)/Exception.o $(OBJCPATH)/TimeException.o $(OBJCPATH)/TimingException.o -o $(BINPATH)/Test7
+$(BINPATH)/Test7: $(SRCPATH)/Test7.cpp $(OBJCPATH)/Time.o $(OBJCPATH)/Event.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Group.o $(OBJCPATH)/Classroom.o $(OBJCPATH)/Exception.o $(OBJCPATH)/TimeException.o $(OBJCPATH)/TimingException.o $(OBJCPATH)/XmlFileSerializerException.o 
+	$(COMPIL) $(SRCPATH)/Test7.cpp $(OBJCPATH)/Event.o $(OBJCPATH)/Time.o $(OBJCPATH)/Timing.o $(OBJCPATH)/Schedulable.o $(OBJCPATH)/Professor.o $(OBJCPATH)/Classroom.o $(OBJCPATH)/Group.o $(OBJCPATH)/Exception.o $(OBJCPATH)/TimeException.o $(OBJCPATH)/TimingException.o $(OBJCPATH)/XmlFileSerializerException.o -o $(BINPATH)/Test7
 
 $(OBJCPATH)/Event.o: $(SRCPATH)/Event.cpp $(INCLUDEPATH)/Event.h
 	$(COMPIL) $(SRCPATH)/Event.cpp -c -o $(OBJCPATH)/Event.o
@@ -54,6 +54,8 @@ $(OBJCPATH)/TimingException.o: $(SRCPATH)/TimingException.cpp $(INCLUDEPATH)/Tim
 $(OBJCPATH)/XmlFileSerializer.o: $(SRCPATH)/XmlFileSerializer.ipp $(INCLUDEPATH)/XmlFileSerializer.hpp
 	$(COMPIL) $(SRCPATH)/XmlFileSerializer.ipp -c -o $(OBJCPATH)/XmlFileSerializer.o
 
+$(OBJCPATH)/XmlFileSerializerException.o: $(SRCPATH)/XmlFileSerializerException.cpp $(INCLUDEPATH)/XmlFileSerializerException.h
+	$(COMPIL) $(SRCPATH)/XmlFileSerializerException.cpp -c -o $(OBJCPATH)/XmlFileSerializerException.o
 
 clean:
 	rm -f $(OBJCPATH)/*.o 

@@ -13,14 +13,18 @@ class XmlFileSerializerException : public Exception
         static int FILE_NOT_FOUND;
         static int END_OF_FILE;
 
+        //Constructeur
         XmlFileSerializerException();
-        ~XmlFileSerializerException() = default;
         XmlFileSerializerException(int, string);
         XmlFileSerializerException(const XmlFileSerializerException&) = default;
-        int getCode();
+
+        //Destructeur
+        ~XmlFileSerializerException() = default;
+
+        //
+        int getCode() const;
         void setCode(int); 
 
 };
-
 
 #endif

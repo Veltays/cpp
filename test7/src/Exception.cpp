@@ -1,17 +1,17 @@
 #include "Exception.h"
 
 Exception::Exception(){
-    setMsg("vide");
+    setMessage("vide");
 }
 
 Exception::Exception(string msg){
-    setMsg(msg);
+    setMessage(msg);
 }
 
-string Exception::getMsg() const{
+string Exception::getMessage() const{
     return message;
 }
 
-void Exception::setMsg(string m){
+void Exception::setMessage(string m){
     message = m;
 }

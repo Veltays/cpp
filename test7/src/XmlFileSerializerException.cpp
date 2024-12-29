@@ -14,13 +14,13 @@ XmlFileSerializerException::XmlFileSerializerException(int co, string msg): Exce
     setCode(co);
 }
 
-int XmlFileSerializerException::getCode()
+int XmlFileSerializerException::getCode() const
 {
     return code;
 }
 void XmlFileSerializerException::setCode(int co)
 {
-    if(code < 0);
+    if(code < 0)
         return;
     code = co;
 }

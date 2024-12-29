@@ -14,7 +14,7 @@ class Exception {
         ~Exception() = default;
         Exception(string);
         Exception(const Exception&) = default;
-        string getMsg() const;
-        void setMsg(string);
+        string getMessage() const;
+        void setMessage(string);
 };
 #endif

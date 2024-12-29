@@ -92,8 +92,11 @@ T XmlFileSerializer<T>::read()
     file >> ligne;
     cout << "----- Lecture d'une donnée dans le fichier réussi " << filename << "-----" << endl;
 
-    if (line[1] == '/')
+    if (ligne[1] == '/')
         throw XmlFileSerializerException(XmlFileSerializerException::END_OF_FILE, "Fin du fichier");
+    // T = ligne;
+    // return T;
+
 }
 
 template <typename T>
