@@ -6,7 +6,7 @@ using namespace std;
 #include "Event.h"
 #include "Timing.h"
 #include "time.h"
-
+#include "TimingException.h"
 namespace planning
 {
   int Event::currentCode = 1;
@@ -59,6 +59,9 @@ namespace planning
 
   Timing Event::getTiming() const
   {
+
+    if (timing == nullptr) 
+      throw TimingException(TimingException::NO_TIMING, "Pas de TIMING !");
     return *timing;
   }
 

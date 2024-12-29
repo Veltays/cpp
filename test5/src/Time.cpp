@@ -4,6 +4,7 @@
 using namespace std;
 
 #include "Time.h"
+#include "TimeException.h"
 namespace planning
 {
 
@@ -16,13 +17,14 @@ namespace planning
 
     Time::Time(int h, int m)
     {
-
         setHour(h);
         setMinute(m);
     };
 
     Time::Time(int duree)
     {
+        if (duree < 0)
+            throw TimeException(TimeException::INVALID_MINUTE, "Negative duration is invalid!");
 
         setHour(duree / 60);
         setMinute(duree % 60);
@@ -30,7 +32,6 @@ namespace planning
 
     Time::Time(const Time &x)
     {
-
         setHour(x.getHour());
         setMinute(x.getMinute());
     };
@@ -42,14 +43,14 @@ namespace planning
     void Time::setHour(int h)
     {
         if (h < 0 || h >= 24)
-            return;
+            throw TimeException(TimeException::INVALID_HOUR, "Invalid hour !");
         hour = h;
     };
 
     void Time::setMinute(int min)
     {
         if (min < 0 || min >= 60)
-            return;
+            throw TimeException(TimeException::INVALID_MINUTE, "Invalid Minute !");
         minute = min;
     }
 
@@ -85,12 +86,12 @@ namespace planning
 
     Time Time::operator+(int minAdd)
     {
-        return Time(hour*60+minute+minAdd);
+        return Time(hour * 60 + minute + minAdd);
     }
 
     Time operator+(int minAdd, Time x)
     {
-        return x + minAdd;
+        return (x + minAdd);
     }
 
     Time operator+(const Time &a, const Time &b)
@@ -100,16 +101,8 @@ namespace planning
         int hourAdd = a.hour + b.hour;
         int minAdd = a.minute + b.minute;
 
-        if (minAdd >= 60)
-        {
-            hourAdd = hourAdd + (minAdd / 60);
-            minAdd = minAdd % 60;
-        }
-        if (hourAdd >= 24) //si l'heure depasse 23h59
-            hourAdd = hourAdd % 24;
-
-        d.minute = minAdd;
-        d.hour = hourAdd;
+        d.setMinute(minAdd);
+        d.setHour(hourAdd);
 
         return d;
     }
@@ -117,24 +110,22 @@ namespace planning
     Time Time::operator-(int minAdd)
     {
 
-        return *this + (-minAdd);
+        Time d;
+        int totalMinutes = (hour * 60 + minute) - minAdd;
+
+        d.setMinute(totalMinutes % 60);
+        d.setHour(totalMinutes / 60);
+        return Time(totalMinutes);
     }
 
     Time operator-(int minAdd, const Time &x)
     {
         Time d;
-        int minX = (x.hour * 60) + x.minute;
-        cout << "Minute " << minX << endl;
 
-        minAdd = minAdd - minX;
+        int totalMinutes = ((x.hour * 60 + x.minute) - minAdd);
 
-        if (minAdd < 0)
-        {
-            minAdd = minAdd + (24 * 60); //ainsi le mod donnera une reponse coherente
-        }
-
-        d.minute = minAdd % 60;
-        d.hour = minAdd / 60;
+        d.setMinute(totalMinutes % 60);
+        d.setHour(totalMinutes / 60);
 
         return d;
     }
@@ -143,18 +134,11 @@ namespace planning
     {
         Time d;
 
-        int minA = (a.hour * 60) + a.minute;
-        int minB = (b.hour * 60) + b.minute;
+        int hourAdd = a.hour - b.hour;
+        int minAdd = a.minute - b.minute;
 
-        int minAdd = minA - minB;
-
-        if (minAdd < 0)
-        {
-            minAdd = minAdd + (24 * 60);
-        }
-
-        d.minute = minAdd % 60;
-        d.hour = minAdd / 60;
+        d.setMinute(minAdd);
+        d.setHour(hourAdd);
 
         return d;
     }
@@ -212,28 +196,63 @@ namespace planning
 
     Time Time::operator++()
     { //préincré la valeur change avant l'exé
+        int min = (*this).minute;
+        int heure = (*this).hour;
+
+        int minTT = heure * 60 + min;
+
+        if (minTT > (60 * 24))
+            throw TimeException(TimeException::OVERFLOW, "Overflow !");
+
         (*this) = (*this) + 30;
         return (*this);
     }
 
     Time Time::operator++(int)
     { //postincré la valeur change apres l'execution
+        int min = (*this).minute;
+        int heure = (*this).hour;
+
+        int minTT = heure * 60 + min;
+
+        if (minTT > (60 * 24))
+            throw TimeException(TimeException::OVERFLOW, "Overflow !");
+
         Time temp(*this);
         (*this) = (*this) + 30;
+
         return temp;
     }
 
     Time Time::operator--()
     { //préincré la valeur change avant l'exé
+        int min = (*this).minute;
+        int heure = (*this).hour;
+
+        int minTT = heure * 60 + min;
+
+        if (minTT < 0)
+            throw TimeException(TimeException::OVERFLOW, "Overflow !");
+
         (*this) = (*this) - 30;
+
         return (*this);
     }
 
     Time Time::operator--(int)
     { //postincré la valeur change apres l'execution
+
+        int min = (*this).minute;
+        int heure = (*this).hour;
+
+        int minTT = heure * 60 + min;
+
+        if (minTT < 0)
+            throw TimeException(TimeException::OVERFLOW, "Overflow !");
+
         Time temp(*this);
         (*this) = (*this) - 30;
+
         return temp;
     }
-
 }
