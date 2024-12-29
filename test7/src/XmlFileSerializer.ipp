@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <cstring>
+
+#include "XmlFileSerializerException.h"
 using namespace std;
 
 template <typename T>
@@ -8,8 +10,6 @@ const char XmlFileSerializer<T>::READ = 'r';
 
 template <typename T>
 const char XmlFileSerializer<T>::WRITE = 'w';
-
-
 
 template <typename T>
 XmlFileSerializer<T>::XmlFileSerializer(const string &fn, char m, const string &cn)
@@ -21,7 +21,7 @@ XmlFileSerializer<T>::XmlFileSerializer(const string &fn, char m, const string &
     if (m == WRITE)
     {
         cout << "----- création du fichier d'un fichier " << fn << "-----" << endl;
-        file.open(fn,ios::out);
+        file.open(fn, ios::out);
         file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
         file << "<" << cn << ">" << endl;
 
@@ -32,37 +32,38 @@ XmlFileSerializer<T>::XmlFileSerializer(const string &fn, char m, const string &
     {
         string firstLine;
         cout << "----- Lecture de l'entête dans le fichier " << fn << "-----" << endl;
-        file.open(fn,ios::in);
-        getline(file,firstLine);
- 
+        file.open(fn, ios::in);
+        if (file.is_open() != 0)
+            throw XmlFileSerializerException(XmlFileSerializerException::FILE_NOT_FOUND, "Fichier introuvable");
+
+        getline(file, firstLine);
     }
 }
 
-
 template <typename T>
-string XmlFileSerializer<T>::getFilename(){
+string XmlFileSerializer<T>::getFilename()
+{
     return filename;
 }
 
-
 template <typename T>
-string XmlFileSerializer<T>::getCollectionName(){
+string XmlFileSerializer<T>::getCollectionName()
+{
     return collectionName;
 }
 
-
 template <typename T>
-bool XmlFileSerializer<T>::isReadable(){
-    if(mode == READ)
+bool XmlFileSerializer<T>::isReadable()
+{
+    if (mode == READ)
         return true;
     return false;
 }
 
-
 template <typename T>
 bool XmlFileSerializer<T>::isWritable()
 {
-    if(mode == WRITE)
+    if (mode == WRITE)
         return true;
     return false;
 }
@@ -70,24 +71,37 @@ bool XmlFileSerializer<T>::isWritable()
 template <typename T>
 void XmlFileSerializer<T>::write(const T &val)
 {
+    if (mode == READ)
+        throw XmlFileSerializerException(XmlFileSerializerException::NOT_ALLOWED, "Ecriture en mode lecture est impossible");
 
-        cout << "----- Ecriture d'un entier dans le fichier " << filename << "-----" << endl;
-        file << val << endl;
-        cout << "----- Ecriture d'un entier dans le fichier réussi " << filename << "-----" << endl;
+    cout << "----- Ecriture d'un donnée dans le fichier " << filename << "-----" << endl;
+    file << val << endl;
+    cout << "----- Ecriture d'un donnée dans le fichier réussi " << filename << "-----" << endl;
 }
 
-
 template <typename T>
-T XmlFileSerializer<T>::read(){
+T XmlFileSerializer<T>::read()
+{
+    if (mode == WRITE) 
+        throw XmlFileSerializerException(XmlFileSerializerException::NOT_ALLOWED, "Lecture en mode écriture est impossible");
 
+
+    string ligne;
+
+    cout << "----- Lecture d'un donnée dans le fichier " << filename << "-----" << endl;
+    file >> ligne;
+    cout << "----- Lecture d'une donnée dans le fichier réussi " << filename << "-----" << endl;
+
+    if (line[1] == '/')
+        throw XmlFileSerializerException(XmlFileSerializerException::END_OF_FILE, "Fin du fichier");
 }
 
-
 template <typename T>
-XmlFileSerializer<T>::~XmlFileSerializer(){
+XmlFileSerializer<T>::~XmlFileSerializer()
+{
 
-        cout << "----- Ecriture de la fin de fichier" << filename << "-----" << endl;
-        file << "<" << collectionName << "/>" << endl;
-        file.close();
-        cout << "----- Ecriture de la fin de fichier réussi " << filename << "-----" << endl;
+    cout << "----- Ecriture de la fin de fichier" << filename << "-----" << endl;
+    file << "</" << collectionName << ">" << endl;
+    file.close();
+    cout << "----- Ecriture de la fin de fichier réussi " << filename << "-----" << endl;
 }
