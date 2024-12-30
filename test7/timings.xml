@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<events>
-<Event>
-<code>
-1
-</code>
-<title>
-Theorie C++
-</title>
-<timing>
+<timings>
 <Timing>
 <day>
 Lundi
@@ -33,16 +25,6 @@ Lundi
 </Time>
 </duration>
 </Timing>
-</timing>
-</Event>
-<Event>
-<code>
-4
-</code>
-<title>
-Labo C/Linux
-</title>
-<timing>
 <Timing>
 <day>
 Mardi
@@ -68,24 +50,6 @@ Mardi
 </Time>
 </duration>
 </Timing>
-</timing>
-</Event>
-<Event>
-<code>
-9
-</code>
-<title>
-Theorie Java
-</title>
-</Event>
-<Event>
-<code>
-17
-</code>
-<title>
-Labo C++
-</title>
-<timing>
 <Timing>
 <day>
 Jeudi
@@ -111,16 +75,6 @@ Jeudi
 </Time>
 </duration>
 </Timing>
-</timing>
-</Event>
-<Event>
-<code>
-3
-</code>
-<title>
-Seminaire EVS
-</title>
-<timing>
 <Timing>
 <day>
 Vendredi
@@ -146,6 +100,4 @@ Vendredi
 </Time>
 </duration>
 </Timing>
-</timing>
-</Event>
-</events>
+</timings>

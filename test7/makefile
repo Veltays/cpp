@@ -50,7 +50,6 @@ $(OBJCPATH)/TimeException.o: $(SRCPATH)/TimeException.cpp $(INCLUDEPATH)/TimeExc
 $(OBJCPATH)/TimingException.o: $(SRCPATH)/TimingException.cpp $(INCLUDEPATH)/TimingException.h
 	$(COMPIL) $(SRCPATH)/TimingException.cpp  -c -o $(OBJCPATH)/TimingException.o	
 
-
 $(OBJCPATH)/XmlFileSerializer.o: $(SRCPATH)/XmlFileSerializer.ipp $(INCLUDEPATH)/XmlFileSerializer.hpp
 	$(COMPIL) $(SRCPATH)/XmlFileSerializer.ipp -c -o $(OBJCPATH)/XmlFileSerializer.o
 

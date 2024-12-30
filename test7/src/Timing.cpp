@@ -220,7 +220,7 @@ namespace planning
 
     string Timing::toString()
     {
-        return day + "start :" + start.toString() + "duration : " + duration.toString();
+        return " | " + day + " | " + "start " + start.toString() + " | " +"duration " + duration.toString();
     }
 
 }

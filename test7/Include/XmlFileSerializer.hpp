@@ -42,10 +42,4 @@ class XmlFileSerializer{
 
 #include "XmlFileSerializer.ipp"
 
-
-
-
-
-
-
 #endif

@@ -134,18 +134,18 @@ namespace planning
     getline(s, line);         //     <variable>
     x.setTitle(line.c_str()); // Assigne le titre
     getline(s, line);         //   </title>
-    getline(s, line);         //   </title>
+    getline(s, line);        //   <Event> <timing<
 
-    if (line == "<timing>")
+    if (line == "<timing>")    
     {
-      cout << "Lecture de Timing..." << endl;
       Timing tmp; // Temporaire pour lecture sécurisée
-      s >> tmp;
+      s >> tmp;           //<Timing> -> </Timing>
       x.setTiming(tmp);
-      cout << "intiilisation" << endl;
+
+      getline(s, line); // </timing>
+      getline(s, line); // </Event>
     }
 
-    getline(s, line); // </Event>
 
     return s;
   }
@@ -154,8 +154,8 @@ namespace planning
   {
 
     if (this->timing)
-      return to_string(this->code) + ":" + this->title + this->timing->toString();
+      return " | " + to_string(this->code) + " | " + this->title + " | " + this->timing->toString();
     else
-      return to_string(this->code) + ":" + this->title + " No Timing";
+      return " | " + to_string(this->code) + " | " + this->title + " | " " No Timing";
   }
 }

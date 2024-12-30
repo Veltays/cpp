@@ -272,6 +272,6 @@ namespace planning
 
     string Time::toString()
     {
-        return hour + "h" + minute;
+        return " | " + to_string(hour) + "h" + to_string(minute);
     }
 }
