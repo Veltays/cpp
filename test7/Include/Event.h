@@ -42,6 +42,7 @@ namespace planning
     Timing getTiming() const;
 
     void display() const;
+    string toString();
   };
 }
 #endif

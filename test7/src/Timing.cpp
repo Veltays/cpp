@@ -192,7 +192,7 @@ namespace planning
         s << t.duration << endl;
         s << "</duration>" << endl;
 
-        s << "</Timing>" << endl;
+        s << "</Timing>";
         ;
 
         return s;
@@ -215,6 +215,12 @@ namespace planning
         getline(s, line); // </timing>
 
         return s;
+    }
+
+
+    string Timing::toString()
+    {
+        return day + "start :" + start.toString() + "duration : " + duration.toString();
     }
 
 }

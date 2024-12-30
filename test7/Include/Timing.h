@@ -58,6 +58,8 @@ namespace planning
 
         //utile
         int dayToInt(const Timing &);
+
+        string toString();
     };
 }
 #endif

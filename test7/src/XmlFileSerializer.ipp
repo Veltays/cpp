@@ -114,7 +114,6 @@ T XmlFileSerializer<T>::read()
     file.seekg(currentPos);
     T type;
     file >> type;
-    sleep(1);
 
     return type;
 }

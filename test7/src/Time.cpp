@@ -268,4 +268,10 @@ namespace planning
 
         return s;
     }
+
+
+    string Time::toString()
+    {
+        return hour + "h" + minute;
+    }
 }

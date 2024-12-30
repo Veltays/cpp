@@ -13,7 +13,7 @@ namespace planning
 
   Event::Event() // Constructeur d'initilisation
   {
-    
+
     setCode(1);
     title = nullptr;
     setTitle("default");
@@ -22,7 +22,7 @@ namespace planning
 
   Event::Event(int c, const char *t) // constructeur par défaut
   {
-  
+
     setCode(c);
     title = nullptr;
     setTitle(t);
@@ -32,7 +32,7 @@ namespace planning
   Event::Event(const Event &e) //constructeur de copie
 
   {
-    
+
     setCode(e.getCode());
     title = nullptr;
     setTitle(e.getTitle());
@@ -40,11 +40,10 @@ namespace planning
   };
   Event::~Event()
   { //destructeur
-    
+
     delete title;
     if (timing != nullptr)
       delete timing;
-
   };
 
   const char *Event::getTitle() const
@@ -60,7 +59,7 @@ namespace planning
   Timing Event::getTiming() const
   {
 
-    if (timing == nullptr) 
+    if (timing == nullptr)
       throw TimingException(TimingException::NO_TIMING, "Pas de TIMING !");
     return *timing;
   }
@@ -89,7 +88,7 @@ namespace planning
 
   void Event::display() const
   {
-    
+
     cout << "title = " << title << endl;
     cout << "code = " << code << endl;
     if (timing != nullptr)
@@ -108,12 +107,14 @@ namespace planning
     s << x.title << endl;
     s << "</title>" << endl;
 
-    if (x.timing != nullptr) {
+    if (x.timing != nullptr)
+    {
       s << "<timing>" << endl;
       s << *(x.timing); // Déférencement du pointeur pour accéder à l'objet Timing
-      s << "</timing>"<< endl;
+      s << endl;
+      s << "</timing>" << endl;
     }
-    s << "</Event>"<< endl;
+    s << "</Event>";
 
     return s;
   }
@@ -136,19 +137,25 @@ namespace planning
     getline(s, line);         //   </title>
 
     if (line == "<timing>")
-    {  
+    {
       cout << "Lecture de Timing..." << endl;
       Timing tmp; // Temporaire pour lecture sécurisée
       s >> tmp;
       x.setTiming(tmp);
       cout << "intiilisation" << endl;
-      
-    }    
-
+    }
 
     getline(s, line); // </Event>
 
     return s;
   }
 
+  string Event::toString()
+  {
+
+    if (this->timing)
+      return to_string(this->code) + ":" + this->title + this->timing->toString();
+    else
+      return to_string(this->code) + ":" + this->title + " No Timing";
+  }
 }

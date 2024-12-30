@@ -33,6 +33,7 @@ public:
 
     int getSeatingCapacity() const;
     string getName() const;
+   
 };
 
 #endif

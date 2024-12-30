@@ -83,6 +83,8 @@ namespace planning
         Time operator--(int);
 
 
+        string toString();
+
 
 
         //destructeur
