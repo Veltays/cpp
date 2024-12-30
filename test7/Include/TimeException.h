@@ -4,12 +4,14 @@
 #include <string>
 #include "Exception.h"
 
-
 using namespace std;
-
-class TimeException : public Exception{
+namespace planning
+{
+    class TimeException : public Exception
+    {
     private:
         int code;
+
     public:
         static int INVALID_HOUR;
         static int INVALID_MINUTE;
@@ -18,8 +20,9 @@ class TimeException : public Exception{
         TimeException();
         ~TimeException() = default;
         TimeException(int, string);
-        TimeException(const TimeException&) = default;
+        TimeException(const TimeException &) = default;
         int getCode();
         void setCode(int);
-};
+    };
+}
 #endif

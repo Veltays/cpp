@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <stdlib.h>
 #include <iostream>
 #include <cstring>
@@ -30,15 +31,27 @@ XmlFileSerializer<T>::XmlFileSerializer(const string &fn, char m, const string &
 
     if (m == READ)
     {
-        string firstLine;
+        string ligne;
         cout << "----- Lecture de l'entête dans le fichier " << fn << "-----" << endl;
         file.open(fn, ios::in);
-        if (file.is_open() != 0)
+        if (!file.is_open())
             throw XmlFileSerializerException(XmlFileSerializerException::FILE_NOT_FOUND, "Fichier introuvable");
 
-        getline(file, firstLine);
+        getline(file, ligne);
+        cout << "Lecture de la première ligne du fichier : " << ligne << endl;
+        getline(file, ligne);
+        cout << "Lecture de la seconde ligne du fichier qui sera notre Collection Name : " << ligne << endl << endl;
+
+        cout << "Suppression des < > du collectionName ..." << ligne << endl << endl;
+        ligne = ligne.substr(1,ligne.length() - 2); // Supprime les caractères <
+
+
+        collectionName = ligne;
+
+        cout << "---------------Collection Name --------------- : " << ligne << endl;
     }
 }
+
 
 template <typename T>
 string XmlFileSerializer<T>::getFilename()
@@ -82,29 +95,36 @@ void XmlFileSerializer<T>::write(const T &val)
 template <typename T>
 T XmlFileSerializer<T>::read()
 {
-    if (mode == WRITE) 
+    if (mode == WRITE)
         throw XmlFileSerializerException(XmlFileSerializerException::NOT_ALLOWED, "Lecture en mode écriture est impossible");
 
-
     string ligne;
+    string endCollectionName = "</" + collectionName + ">";
+    streampos currentPos = file.tellg();
 
     cout << "----- Lecture d'un donnée dans le fichier " << filename << "-----" << endl;
     file >> ligne;
     cout << "----- Lecture d'une donnée dans le fichier réussi " << filename << "-----" << endl;
 
-    if (ligne[1] == '/')
+    cout << "----- Vérification du template : " << ligne << " pour savoir si on est à la fin du fichier ou non"
+         << "-----" << endl;
+    if (ligne == endCollectionName)
         throw XmlFileSerializerException(XmlFileSerializerException::END_OF_FILE, "Fin du fichier");
-    // T = ligne;
-    // return T;
 
+    file.seekg(currentPos);
+    T type;
+    file >> type;
+    sleep(1);
+
+    return type;
 }
 
 template <typename T>
 XmlFileSerializer<T>::~XmlFileSerializer()
 {
 
-    cout << "----- Ecriture de la fin de fichier" << filename << "-----" << endl;
+    cout << "----- Ecriture de la fin de fichier : " << filename << "-----" << endl;
     file << "</" << collectionName << ">" << endl;
     file.close();
-    cout << "----- Ecriture de la fin de fichier réussi " << filename << "-----" << endl;
+    cout << "----- Ecriture de la fin de fichier réussi : " << filename << "-----" << endl;
 }

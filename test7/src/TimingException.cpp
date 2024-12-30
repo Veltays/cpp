@@ -1,20 +1,27 @@
 #include "TimingException.h"
 
-int TimingException::INVALID_DAY = 4;
-int TimingException::NO_TIMING = 5;
+namespace planning
+{
+    int TimingException::INVALID_DAY = 4;
+    int TimingException::NO_TIMING = 5;
 
-TimingException::TimingException() : Exception(){
-    code = 0;
-}
+    TimingException::TimingException() : Exception()
+    {
+        code = 0;
+    }
 
-TimingException::TimingException(int c, string msg) : Exception(msg){
-    code = c;
-}
+    TimingException::TimingException(int c, string msg) : Exception(msg)
+    {
+        code = c;
+    }
 
-void TimingException::setCode(int co){
-    code = co;
-}
+    void TimingException::setCode(int co)
+    {
+        code = co;
+    }
 
-int TimingException::getCode(){
-    return code;
+    int TimingException::getCode()
+    {
+        return code;
+    }
 }

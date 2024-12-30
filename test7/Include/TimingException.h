@@ -4,23 +4,26 @@
 #include <string>
 #include "Exception.h"
 
-using namespace std;
+namespace planning
+{
+    using namespace std;
 
-class TimingException : public Exception{
+    class TimingException : public Exception
+    {
     private:
-    int code;
+        int code;
 
-    
     public:
-    static int INVALID_DAY;
-    static int NO_TIMING;
+        static int INVALID_DAY;
+        static int NO_TIMING;
 
-    TimingException();
-    TimingException(const TimingException&) = default;
-    TimingException(int, string);
-    ~TimingException() = default;
+        TimingException();
+        TimingException(const TimingException &) = default;
+        TimingException(int, string);
+        ~TimingException() = default;
 
-    void setCode(int);
-    int getCode();
-};
+        void setCode(int);
+        int getCode();
+    };
+}
 #endif
