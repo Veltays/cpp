@@ -42,14 +42,14 @@ namespace planning
 
     void Time::setHour(int h)
     {
-        if (h < 0 || h >= 24)
+        if (h < 0 || h > 23)
             throw TimeException(TimeException::INVALID_HOUR, "Invalid hour !");
         hour = h;
     };
 
     void Time::setMinute(int min)
     {
-        if (min < 0 || min >= 60)
+        if (min < 0 || min > 59)
             throw TimeException(TimeException::INVALID_MINUTE, "Invalid Minute !");
         minute = min;
     }
@@ -79,8 +79,8 @@ namespace planning
 
     const Time &Time::operator=(const Time &x)
     {
-        hour = x.hour;
-        minute = x.minute;
+        setHour(x.hour);
+        setMinute(x.minute);
         return (*this);
     }
 

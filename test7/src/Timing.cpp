@@ -201,7 +201,7 @@ namespace planning
     istream &operator>>(istream &s, Timing &x)
     {
         string line;
-        getline(s, line); // <timing>
+        getline(s, line); // <Timing>
         getline(s, line); //   <day>
         getline(s, line); //     <variable>
         x.setDay(line);
@@ -212,7 +212,7 @@ namespace planning
         getline(s, line); //   <duration>
         s >> x.duration;
         getline(s, line); //  </duratin>
-        getline(s, line); // </timing>
+        getline(s, line); // </Timing>
 
         return s;
     }

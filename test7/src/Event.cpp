@@ -134,7 +134,7 @@ namespace planning
     getline(s, line);         //     <variable>
     x.setTitle(line.c_str()); // Assigne le titre
     getline(s, line);         //   </title>
-    getline(s, line);        //   <Event> <timing<
+    getline(s, line);        //   <Event> ou  <timing>
 
     if (line == "<timing>")    
     {
