@@ -32,6 +32,8 @@ public:
     string getFirstName() const;
     string getLastName() const;
 
+    bool operator<(const Professor& c) const;
+
     
 };
 

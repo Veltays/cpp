@@ -57,3 +57,9 @@ string Professor::tuple() const{
     return to_string(id) + ";" + lastName + ";" + firstName;
 
 };
+
+
+ bool Professor::operator<(const Professor& c) const
+ {
+     return this->getLastName() < c.getLastName();
+ }

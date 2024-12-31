@@ -22,6 +22,8 @@ public:
 
     void setName(string);
     string getName() const;
+
+        bool operator<(const Group& c) const;
 };
 
 #endif

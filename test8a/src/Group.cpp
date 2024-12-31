@@ -38,3 +38,8 @@ string Group::tuple() const
 {
     return to_string(id) + ";" + name;
 }
+
+ bool Group::operator<(const Group& c) const
+ {
+     return this->getName() < c.getName();
+ }
