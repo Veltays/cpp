@@ -9,7 +9,7 @@ using namespace std;
 Event::Event()                       // Constructeur d'initilisation
     {
       cout << "Initialisation" << endl;
-      setCode(2);
+      setCode(0);
       title = nullptr;
       setTitle("default");
     };
