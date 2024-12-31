@@ -80,16 +80,6 @@ QtWidgets/QTableWidget
 QtWidgets/QWidget
 -
 
-/home/student/Bureau/cpp/test9/sources/Professor.cpp
-stdlib.h
--
-iostream
--
-cstring
--
-Professor.h
-/home/student/Bureau/cpp/test9/sources/Professor.h
-
 /home/student/Bureau/cpp/test9/sources/applichorairewindow.cpp
 applichorairewindow.h
 /home/student/Bureau/cpp/test9/sources/applichorairewindow.h
