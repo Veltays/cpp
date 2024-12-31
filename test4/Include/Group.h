@@ -10,6 +10,7 @@ class Group : public Schedulable
     friend ostream &operator<<(ostream&, const Group&);
 private:
     string name;
+    
 
 public:
     Group();
