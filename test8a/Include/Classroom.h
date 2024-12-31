@@ -34,6 +34,7 @@ public:
     int getSeatingCapacity() const;
     string getName() const;
    
+    bool operator<(const Classroom& c) const;
 };
 
 #endif

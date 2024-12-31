@@ -21,18 +21,18 @@ int main(int argc,char* argv[])
   t.addClassroom("LE0",25);                   // id = 5
 
   // Ajout de professeurs
-  t.addProfessor("Wagner","Jean-Marc");       // id = 6
-  t.addProfessor("Quettier","Patrick");       // id = 7
-  t.addProfessor("Leonard","Anne");           // id = 8
-  t.addProfessor("Matagne","Xavier");         // id = 9
+  // t.addProfessor("Wagner","Jean-Marc");       // id = 6
+  // t.addProfessor("Quettier","Patrick");       // id = 7
+  // t.addProfessor("Leonard","Anne");           // id = 8
+  // t.addProfessor("Matagne","Xavier");         // id = 9
 
-  // Ajout de groupes
-  t.addGroup("INFO2_D201");                   // id = 10
-  t.addGroup("INFO2_R202");                   // id = 11
-  t.addGroup("INFO2_I201");                   // id = 12
-  t.addGroup("INFO2_D202");                   // id = 13
-  t.addGroup("INFO2_I202");                   // id = 14
-  t.addGroup("INFO2_R201");                   // id = 15
+  // // Ajout de groupes
+  // t.addGroup("INFO2_D201");                   // id = 10
+  // t.addGroup("INFO2_R202");                   // id = 11
+  // t.addGroup("INFO2_I201");                   // id = 12
+  // t.addGroup("INFO2_D202");                   // id = 13
+  // t.addGroup("INFO2_I202");                   // id = 14
+  // t.addGroup("INFO2_R201");                   // id = 15
 
   int choix;
   bool fini = false; 

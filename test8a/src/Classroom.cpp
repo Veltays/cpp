@@ -87,5 +87,8 @@ string Classroom::tuple() const {
 }
 
 
-
+ bool Classroom::operator<(const Classroom& c) const
+ {
+     return this->getName() < c.getName();
+ }
 //faire operateur < 
