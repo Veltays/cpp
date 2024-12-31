@@ -62,6 +62,7 @@ namespace planning
     int Time::getMinute() const
     {
         return minute;
+        
     }
 
     void Time::display() const
