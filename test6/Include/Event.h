@@ -13,7 +13,7 @@ namespace planning
   private:
     int code;
     char *title;
-    Timing *timing;
+    Timing *timing;  
 
   public:
     static int currentCode;
