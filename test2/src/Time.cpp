@@ -9,7 +9,6 @@ namespace planning
 
     Time::Time()
     {
-        
         setHour(0);
         setMinute(0);
     };
