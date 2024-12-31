@@ -20,13 +20,13 @@ int main(int argc,char* argv[])
   Timetable::getInstance().addClassroom("PV11",20);                  // id = 4
   Timetable::getInstance().addClassroom("LE0",25);                   // id = 5
 
-  // Ajout de professeurs
+  // // Ajout de professeurs
   Timetable::getInstance().addProfessor("Wagner","Jean-Marc");       // id = 6
   Timetable::getInstance().addProfessor("Quettier","Patrick");       // id = 7
   Timetable::getInstance().addProfessor("Leonard","Anne");           // id = 8
   Timetable::getInstance().addProfessor("Matagne","Xavier");         // id = 9
 
-  // Ajout de groupes
+  // // Ajout de groupes
   Timetable::getInstance().addGroup("INFO2_D201");                   // id = 10
   Timetable::getInstance().addGroup("INFO2_R202");                   // id = 11
   Timetable::getInstance().addGroup("INFO2_I201");                   // id = 12
