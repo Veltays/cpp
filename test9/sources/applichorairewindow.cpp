@@ -677,16 +677,22 @@ void ApplicHoraireWindow::on_pushButtonSupprimerGroupe_clicked()
 {
     cout << "Clic sur bouton Supprimer Groupe" << endl;
     list<int> index = getIndexesGroupsSelection();
+
+    if(index.empty())
+    {
+        dialogError("Suppression impossible", "Aucun Groupe n'a été sélectionné, la suppression est impossible");
+        return;
+    }
     
-    index.sort(greater<int>());       //On reverse.sort() comme ca lors de la suppression on supprimera le plus grand puis le plus petit comme ca les index ne changeront pas et permettent de supprimer le bon index (greater<int> (operateur de la STL))
+    index.sort(greater<int>());       //On reverse.sort() comme ca lors de la suppression on supprimera le plus grand puis le plus petit comme ca les index ne changeront pas et permettent de supprimer le bon index (greater<int> (operateur de la ))
     auto it = index.begin();
 
     auto &Timetable = Timetable::getInstance();
 
-    while(it != index.cend()){
-        cout << "Index cliquer : " << *it << endl;;
+    for (auto it = index.cbegin(); it != index.cend(); it++)
+    {
+        cout << "Index cliquer : " << *it << endl;
         Timetable.deleteGroupByIndex(*it);
-        it++;
     }
 
 
@@ -780,21 +786,29 @@ void ApplicHoraireWindow::on_actionEnregistrer_triggered()
 void ApplicHoraireWindow::on_actionSupprimerProfesseur_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Professeur" << endl;
-    // TO DO (Etape 9)
+
+    int id = dialogInputInt("Suppression par ID d'un professeur","Qu'elle est l'id du professeur que vous souhaiter supprimer ?");
+    cout << "ID à supprimer : " << id << endl;
+
+    auto &Timetable = Timetable::getInstance();
+
+   
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerGroupe_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Groupe" << endl;
-    // TO DO (Etape 9)
+
+    int id = dialogInputInt("Suppression par ID du groupe","Qu'elle est l'id du Groupe que vous souhaiter supprimer ?");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerLocal_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Local" << endl;
-    // TO DO (Etape 9)
+   
+       int id = dialogInputInt("Suppression par ID d'un local","Qu'elle est l'id du Local que vous souhaiter supprimer ?");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
