@@ -1,7 +1,6 @@
 #include "Timetable.h"
 #include "Schedulable.h"
 
-
 Timetable::Timetable()
 {
 }
@@ -36,7 +35,13 @@ Classroom Timetable::findClassroomByIndex(int index) const
         i++;
     }
 
-    return *it;
+    if (it != classrooms.cend())
+        return *it;
+    else
+    {
+        cout << "Index hors limites" << endl;
+        return Classroom(); // Retourne un objet Classroom vide ou un autre objet par défaut
+    }
 }
 
 Classroom Timetable::findClassroomById(int id) const
@@ -109,7 +114,13 @@ Professor Timetable::findProfessorByIndex(int index) const
         i++;
     }
 
-    return *it;
+    if (it != professors.cend())
+        return *it;
+    else
+    {
+        cout << "Index hors limites" << endl;
+        return Professor(); // Retourne un objet Classroom vide ou un autre objet par défaut
+    }
 }
 Professor Timetable::findProfessorById(int id) const
 {
@@ -144,7 +155,7 @@ void Timetable::deleteProfessorByIndex(int index)
 
 void Timetable::deleteProfessorById(int id)
 {
-        Professor Deleted = findProfessorById(id);
+    Professor Deleted = findProfessorById(id);
 
     auto it = professors.find(Deleted);
 
@@ -180,7 +191,13 @@ Group Timetable::findGroupByIndex(int index) const
         i++;
     }
 
-    return *it;
+    if (it != groups.cend())
+        return *it;
+    else
+    {
+        cout << "Index hors limites" << endl;
+        return Group(); // Retourne un objet Classroom vide ou un autre objet par défaut
+    }
 }
 Group Timetable::findGroupById(int id) const
 {
@@ -211,7 +228,6 @@ void Timetable::deleteGroupByIndex(int index)
         groups.erase(it);
     else
         cout << "index inatteignable" << endl;
-
 }
 void Timetable::deleteGroupById(int id)
 {
