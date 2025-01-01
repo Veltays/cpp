@@ -797,6 +797,7 @@ void ApplicHoraireWindow::on_actionExporterGroupe_triggered()
 {
     cout << "Clic sur Menu Exporter horaire --> Item Groupe" << endl;
     // TO DO (Etape 12)
+    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
