@@ -61,12 +61,21 @@ public:
     void deleteGroupByIndex(int index);
     int deleteGroupById(int id);
 
+
+    bool isProfessorAvailable(int id, const Timing& timing);
+    bool isGroupAvailable(int id, const Timing& timing);
+    bool isClassroomAvailable(int id, const Timing& timing);
+    void schedule(Course& c, const Timing& t);
+
+    
     static Timetable& getInstance();
 
 
     string getProfessorTupleByIndex(int);
     string getGroupTupleByIndex(int);
     string getClassroomTupleByIndex(int);
+
+
 
     int vider();
 

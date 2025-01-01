@@ -290,6 +290,29 @@ int Timetable::deleteGroupById(int id)
 	return 0;
 }
 
+
+
+
+
+//? Les course
+
+bool Timetable::isProfessorAvailable(int id, const Timing &timing)
+{
+
+}
+bool Timetable::isGroupAvailable(int id, const Timing &timing)
+{
+
+}
+bool Timetable::isClassroomAvailable(int id, const Timing &timing)
+{
+
+}
+void Timetable::schedule(Course &c, const Timing &t)
+{
+	
+}
+
 Timetable &Timetable::getInstance()
 {
 	return instance;
