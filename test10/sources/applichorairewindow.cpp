@@ -700,19 +700,18 @@ void ApplicHoraireWindow::on_actionQuitter_triggered()
 void ApplicHoraireWindow::on_actionOuvrir_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Ouvrir" << endl;
-    string NomFichier =  dialogInputText("Qu'elle fichier souhaitez vous ouvrir", "Entrez le fichier que vous souhaitez ouvrir");
-     auto &Timetable = Timetable::getInstance();
+    string NomFichier = dialogInputText("Qu'elle fichier souhaitez vous ouvrir", "Entrez le fichier que vous souhaitez ouvrir");
+    auto &Timetable = Timetable::getInstance();
 
-    if(Timetable.load(NomFichier))
+    if (Timetable.load(NomFichier))
     {
-        dialogMessage("Ouverture réussie","Votre fichier a bien été Ouvert");
+        dialogMessage("Ouverture réussie", "Votre fichier a bien été Ouvert");
         MiseAJourTableClassroom(Timetable);
         MiseAJourTableGroup(Timetable);
         MiseAJourTableProfesseur(Timetable);
         return;
     }
     dialogError("L'ouverture n'a pas marche", "L'ouverture de votre fichier n'a malencontreusement pas fonctionné");
-    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -720,8 +719,11 @@ void ApplicHoraireWindow::on_actionNouveau_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Nouveau" << endl;
     auto &Timetable = Timetable::getInstance();
-    
-    
+    Timetable.vider();
+
+    MiseAJourTableClassroom(Timetable);
+    MiseAJourTableGroup(Timetable);
+    MiseAJourTableProfesseur(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -730,12 +732,12 @@ void ApplicHoraireWindow::on_actionEnregistrer_triggered()
     cout << "Clic sur Menu Fichier --> Item Enregistrer" << endl;
     auto &Timetable = Timetable::getInstance();
     string NomFichier = dialogInputFileForSave("Entrez le nom du fichier que vous souhaitez sauvegarder");
-    if(Timetable.save(NomFichier))
+    if (Timetable.save(NomFichier))
     {
-        dialogMessage("Sauvegarde réussie","Votre fichier a bien été sauvegardé");
+        dialogMessage("Sauvegarde réussie", "Votre fichier a bien été sauvegardé");
         return;
     }
-    dialogError("NAAAAAAAAAAAAAAAAA","Po marcher la sovegard.... T*T");
+    dialogError("NAAAAAAAAAAAAAAAAA", "Po marcher la sovegard.... T*T");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

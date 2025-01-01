@@ -583,8 +583,28 @@ int Timetable::load(const string &timetableName)
 	return 1;
 }
 
+int Timetable::vider()
+{
 
-int Timetable::vider(){
+	for (auto itc = classrooms.begin(); itc != classrooms.end();)
+	{
+		itc = classrooms.erase(itc); // Effacer l'élément et obtenir le nouvel itérateur
+	}
 
-	// it = cbegin
+	// Effacer les groupes
+	for (auto itg = groups.begin(); itg != groups.end();)
+	{
+		itg = groups.erase(itg); // Effacer l'élément et obtenir le nouvel itérateur
+	}
+
+	// Effacer les professeurs
+	for (auto itp = professors.begin(); itp != professors.end();)
+	{
+		itp = professors.erase(itp); // Effacer l'élément et obtenir le nouvel itérateur
+	}
+
+	// Réinitialisation de currentId
+	Schedulable::currentId = 1;
+
+	return 1;
 }
