@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Professors>
+    <Professor>
+    <id>
+    4
+    </id>
+    <firstName>
+    Vincent
+    </firstName>
+    <lastName>
+    Collard
+    </lastName>
+    </Professor>
+    <Professor>
+    <id>
+    2
+    </id>
+    <firstName>
+    Vincent
+    </firstName>
+    <lastName>
+    Fallais
+    </lastName>
+    </Professor>
+    <Professor>
+    <id>
+    1
+    </id>
+    <firstName>
+    Vincent
+    </firstName>
+    <lastName>
+    Ferrara
+    </lastName>
+    </Professor>
+    <Professor>
+    <id>
+    3
+    </id>
+    <firstName>
+    Vincent
+    </firstName>
+    <lastName>
+    Gran
+    </lastName>
+    </Professor>
+</Professors>

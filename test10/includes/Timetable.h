@@ -6,6 +6,11 @@
 #include "Professor.h"
 #include "Group.h"
 
+#include "Schedulable.h"
+#include "XmlFileSerializer.hpp"
+#include "XmlFileSerializerException.h"
+
+
 using namespace std;
 
 class Timetable
@@ -30,7 +35,7 @@ public:
     Classroom findClassroomByIndex(int index) const;
     Classroom findClassroomById(int id) const;
     void deleteClassroomByIndex(int index);
-    void deleteClassroomById(int id);
+    int deleteClassroomById(int id);
 
 
 
@@ -39,7 +44,7 @@ public:
     Professor findProfessorByIndex(int index) const;
     Professor findProfessorById(int id) const;
     void deleteProfessorByIndex(int index);
-    void deleteProfessorById(int id);
+    int deleteProfessorById(int id);
 
 
     int addGroup(const string &name);
@@ -47,7 +52,7 @@ public:
     Group findGroupByIndex(int index) const;
     Group findGroupById(int id) const;
     void deleteGroupByIndex(int index);
-    void deleteGroupById(int id);
+    int deleteGroupById(int id);
 
     static Timetable& getInstance();
 
@@ -55,6 +60,10 @@ public:
     string getProfessorTupleByIndex(int);
     string getGroupTupleByIndex(int);
     string getClassroomTupleByIndex(int);
+
+
+    int save(const string& timetableName);
+    int load(const string& timetableName);
 };
 
 

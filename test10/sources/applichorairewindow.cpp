@@ -558,7 +558,7 @@ void ApplicHoraireWindow::on_pushButtonAjouterProfesseur_clicked()
         return;
     }
 
-    if(Timetable.addProfessor(ProfLastName, ProfFirstName))
+    if (Timetable.addProfessor(ProfLastName, ProfFirstName))
     {
         MiseAJourTableProfesseur(Timetable);
     }
@@ -579,7 +579,7 @@ void ApplicHoraireWindow::on_pushButtonAjouterGroupe_clicked()
         return;
     }
 
-    if(Timetable.addGroup(GroupName))
+    if (Timetable.addGroup(GroupName))
     {
         MiseAJourTableGroup(Timetable);
     }
@@ -591,7 +591,7 @@ void ApplicHoraireWindow::on_pushButtonAjouterLocal_clicked()
     cout << "Clic sur bouton Ajouter Local" << endl;
 
     string ClassName = getClassroomName();
-    int SeatingCapacity = 30;
+    int SeatingCapacity = dialogInputInt("Combien de place ?", "Entrez le nombre de place dans votre classe  ?");
 
     auto &Timetable = Timetable::getInstance();
 
@@ -601,11 +601,10 @@ void ApplicHoraireWindow::on_pushButtonAjouterLocal_clicked()
         return;
     }
 
-    if(Timetable.addClassroom(ClassName, SeatingCapacity))
+    if (Timetable.addClassroom(ClassName, SeatingCapacity))
     {
 
-      MiseAJourTableClassroom(Timetable);
-
+        MiseAJourTableClassroom(Timetable);
     }
 }
 
@@ -615,12 +614,12 @@ void ApplicHoraireWindow::on_pushButtonSupprimerProfesseur_clicked()
     cout << "Clic sur bouton Supprimer Professeur" << endl;
     int index;
 
-    if((index = getIndexProfessorSelection()) == -1)
+    if ((index = getIndexProfessorSelection()) == -1)
     {
         dialogError("Suppression impossible", "Aucun professeur n'est sélectionné, la suppression est impossible");
         return;
     }
-     cout << "Index cliquer : " << index;
+    cout << "Index cliquer : " << index;
 
     auto &Timetable = Timetable::getInstance();
 
@@ -629,20 +628,19 @@ void ApplicHoraireWindow::on_pushButtonSupprimerProfesseur_clicked()
     MiseAJourTableProfesseur(Timetable);
 }
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonSupprimerGroupe_clicked()
 {
     cout << "Clic sur bouton Supprimer Groupe" << endl;
     list<int> index = getIndexesGroupsSelection();
 
-    if(index.empty())
+    if (index.empty())
     {
         dialogError("Suppression impossible", "Aucun Groupe n'a été sélectionné, la suppression est impossible");
         return;
     }
-    
-    index.sort(greater<int>());       //On reverse.sort() comme ca lors de la suppression on supprimera le plus grand puis le plus petit comme ca les index ne changeront pas et permettent de supprimer le bon index (greater<int> (operateur de la ))
+
+    index.sort(greater<int>()); //On reverse.sort() comme ca lors de la suppression on supprimera le plus grand puis le plus petit comme ca les index ne changeront pas et permettent de supprimer le bon index (greater<int> (operateur de la ))
     auto it = index.begin();
 
     auto &Timetable = Timetable::getInstance();
@@ -654,7 +652,6 @@ void ApplicHoraireWindow::on_pushButtonSupprimerGroupe_clicked()
     }
 
     MiseAJourTableGroup(Timetable);
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -673,9 +670,7 @@ void ApplicHoraireWindow::on_pushButtonSupprimerLocal_clicked()
     auto &Timetable = Timetable::getInstance();
     Timetable.deleteClassroomByIndex(index);
 
-
     MiseAJourTableClassroom(Timetable);
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -705,7 +700,8 @@ void ApplicHoraireWindow::on_actionQuitter_triggered()
 void ApplicHoraireWindow::on_actionOuvrir_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Ouvrir" << endl;
-    // TO DO (Etape 10)
+    string dialogInputText(const string& title, const string& question);
+    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -719,7 +715,14 @@ void ApplicHoraireWindow::on_actionNouveau_triggered()
 void ApplicHoraireWindow::on_actionEnregistrer_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Enregistrer" << endl;
-    // TO DO (Etape 10)
+    auto &Timetable = Timetable::getInstance();
+    string NomFichier = dialogInputFileForSave("Entrez le nom du fichier que vous souhaitez sauvegarder");
+    if(Timetable.save(NomFichier))
+    {
+        dialogMessage("Sauvegarde réussie","Votre fichier a bien été sauvegardé");
+        return;
+    }
+    dialogError("NAAAAAAAAAAAAAAAAA","Po marcher la sovegard.... T*T");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -727,31 +730,36 @@ void ApplicHoraireWindow::on_actionSupprimerProfesseur_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Professeur" << endl;
 
-    int id = dialogInputInt("Suppression par ID d'un professeur","Qu'elle est l'id du professeur que vous souhaiter supprimer ?");
+    int id = dialogInputInt("Suppression par ID d'un professeur", "Qu'elle est l'id du professeur que vous souhaiter supprimer ?");
     cout << "ID à supprimer : " << id << endl;
 
     auto &Timetable = Timetable::getInstance();
 
+    if (Timetable.deleteProfessorById(id))
+    {
+        MiseAJourTableProfesseur(Timetable);
+        return;
+    }
 
-
-    Timetable.deleteProfessorById(id);
-
-    MiseAJourTableProfesseur(Timetable);
+    dialogError("Id pas trouver", "Impossible de trouver l'id demandé");
 }
-   
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerGroupe_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Groupe" << endl;
 
-    int id = dialogInputInt("Suppression par ID du groupe","Qu'elle est l'id du Groupe que vous souhaiter supprimer ?");
-    
+    int id = dialogInputInt("Suppression par ID du groupe", "Qu'elle est l'id du Groupe que vous souhaiter supprimer ?");
+
     auto &Timetable = Timetable::getInstance();
 
-    Timetable.deleteGroupById(id);
+    if (Timetable.deleteGroupById(id))
+    {
+        MiseAJourTableGroup(Timetable);
+        return;
+    }
 
-    MiseAJourTableGroup(Timetable);
+    dialogError("Id pas trouver", "Impossible de trouver l'id demandé");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -762,8 +770,12 @@ void ApplicHoraireWindow::on_actionSupprimerLocal_triggered()
     int id = dialogInputInt("Suppression par ID d'un local", "Qu'elle est l'id du Local que vous souhaiter supprimer ?");
     auto &Timetable = Timetable::getInstance();
 
-    Timetable.deleteClassroomById(id);
-    MiseAJourTableClassroom(Timetable);
+    if (Timetable.deleteClassroomById(id))
+    {
+        MiseAJourTableClassroom(Timetable);
+        return;
+    }
+    dialogError("Id pas trouver", "Impossible de trouver l'id demandé");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -815,49 +827,47 @@ void ApplicHoraireWindow::on_actionExporterLocal_triggered()
     // TO DO (Etape 12)
 }
 
-
-
 void ApplicHoraireWindow::MiseAJourTableProfesseur(Timetable &x)
 {
     int i = 0;
-    clearTableProfessors();  // Vide la table des professeurs
+    clearTableProfessors(); // Vide la table des professeurs
 
     do
     {
-        string tuple = x.getProfessorTupleByIndex(i);  // Récupère un tuple
+        string tuple = x.getProfessorTupleByIndex(i); // Récupère un tuple
         i++;
-        if (tuple.empty())  // Arrête si aucun tuple n'est retourné
+        if (tuple.empty()) // Arrête si aucun tuple n'est retourné
             break;
-        addTupleTableProfessors(tuple);  // Ajoute le tuple à la table
+        addTupleTableProfessors(tuple); // Ajoute le tuple à la table
     } while (true);
 }
 
 void ApplicHoraireWindow::MiseAJourTableGroup(Timetable &x)
 {
     int i = 0;
-    clearTableGroups();  // Vide la table des groupes
+    clearTableGroups(); // Vide la table des groupes
 
     do
     {
-        string tuple = x.getGroupTupleByIndex(i);  // Récupère un tuple
+        string tuple = x.getGroupTupleByIndex(i); // Récupère un tuple
         i++;
-        if (tuple.empty())  // Arrête si aucun tuple n'est retourné
+        if (tuple.empty()) // Arrête si aucun tuple n'est retourné
             break;
-        addTupleTableGroups(tuple);  // Ajoute le tuple à la table
+        addTupleTableGroups(tuple); // Ajoute le tuple à la table
     } while (true);
 }
 
 void ApplicHoraireWindow::MiseAJourTableClassroom(Timetable &x)
 {
     int i = 0;
-    clearTableClassrooms();  // Vide la table des salles
+    clearTableClassrooms(); // Vide la table des salles
 
     do
     {
-        string tuple = x.getClassroomTupleByIndex(i);  // Récupère un tuple
+        string tuple = x.getClassroomTupleByIndex(i); // Récupère un tuple
         i++;
-        if (tuple.empty())  // Arrête si aucun tuple n'est retourné
+        if (tuple.empty()) // Arrête si aucun tuple n'est retourné
             break;
-        addTupleTableClassrooms(tuple);  // Ajoute le tuple à la table
+        addTupleTableClassrooms(tuple); // Ajoute le tuple à la table
     } while (true);
 }

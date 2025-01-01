@@ -4,6 +4,7 @@
 #include <cstring>
 
 #include "XmlFileSerializerException.h"
+
 using namespace std;
 
 template <typename T>

@@ -37,10 +37,14 @@ CMakeFiles/ApplicHoraire.dir/sources/TimeException.cpp.o
  /home/student/Bureau/cpp/test10/sources/TimeException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o
  ../includes/Classroom.h
+ ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
  ../includes/Timetable.h
+ ../includes/XmlFileSerializer.hpp
+ ../includes/XmlFileSerializerException.h
+ ../sources/XmlFileSerializer.ipp
  /home/student/Bureau/cpp/test10/sources/Timetable.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timing.cpp.o
  ../includes/Exception.h
@@ -58,12 +62,16 @@ CMakeFiles/ApplicHoraire.dir/sources/XmlFileSerializerException.cpp.o
  /home/student/Bureau/cpp/test10/sources/XmlFileSerializerException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  ../includes/Classroom.h
+ ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
  ../includes/Timetable.h
+ ../includes/XmlFileSerializer.hpp
+ ../includes/XmlFileSerializerException.h
  ../includes/applichorairewindow.h
  ../includes/ui_applichorairewindow.h
+ ../sources/XmlFileSerializer.ipp
  /home/student/Bureau/cpp/test10/sources/applichorairewindow.cpp
  /usr/include/qt5/QtCore/QVariant
  /usr/include/qt5/QtCore/qabstractitemmodel.h
@@ -238,11 +246,15 @@ CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  ../includes/Classroom.h
+ ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
  ../includes/Timetable.h
+ ../includes/XmlFileSerializer.hpp
+ ../includes/XmlFileSerializerException.h
  ../includes/applichorairewindow.h
+ ../sources/XmlFileSerializer.ipp
  /home/student/Bureau/cpp/test10/sources/main.cpp
  /usr/include/qt5/QtCore/qalgorithms.h
  /usr/include/qt5/QtCore/qarraydata.h
@@ -360,11 +372,15 @@ CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o
  ../includes/Classroom.h
+ ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
  ../includes/Timetable.h
+ ../includes/XmlFileSerializer.hpp
+ ../includes/XmlFileSerializerException.h
  ../includes/applichorairewindow.h
+ ../sources/XmlFileSerializer.ipp
  /home/student/Bureau/cpp/test10/sources/moc_applichorairewindow.cpp
  /usr/include/qt5/QtCore/qalgorithms.h
  /usr/include/qt5/QtCore/qarraydata.h

@@ -33,6 +33,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../includes"
+  "../sources"
   "/usr/include/qt5"
   "/usr/include/qt5/QtCore"
   "/usr/lib64/qt5/mkspecs/linux-g++"
