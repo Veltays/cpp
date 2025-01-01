@@ -1,6 +1,8 @@
 #ifndef PROFESSOR_H
 #define PROFESSOR_H
-
+#include <stdlib.h>
+#include <iostream>
+#include <cstring>
 #include "Schedulable.h"
 
 using namespace std;

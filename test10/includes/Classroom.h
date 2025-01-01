@@ -1,7 +1,8 @@
 #ifndef CLASSROOM_H
 #define CLASSROOM_H
 
-#include<iostream>
+#include <stdlib.h>
+#include <iostream>
 #include <cstring>
 #include "Schedulable.h"
 
@@ -13,7 +14,6 @@ class Classroom : public Schedulable
     friend ostream& operator<<(ostream &, const Classroom&);
     friend istream& operator>>(istream&,Classroom&);
 
-    
 
 private:
     string name;

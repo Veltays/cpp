@@ -547,7 +547,6 @@ void ApplicHoraireWindow::on_pushButtonAjouterProfesseur_clicked()
 {
     cout << "Clic sur bouton Ajouter Professeur" << endl;
 
-    int index = 0;
     string ProfLastName = getProfessorLastName();
     string ProfFirstName = getProfessorFirstName();
 
@@ -570,7 +569,6 @@ void ApplicHoraireWindow::on_pushButtonAjouterGroupe_clicked()
 {
     cout << "Clic sur bouton Ajouter Groupe" << endl;
 
-    int index = 0;
     string GroupName = getGroupName();
 
     auto &Timetable = Timetable::getInstance();
@@ -592,7 +590,6 @@ void ApplicHoraireWindow::on_pushButtonAjouterLocal_clicked()
 {
     cout << "Clic sur bouton Ajouter Local" << endl;
 
-    int index = 0;
     string ClassName = getClassroomName();
     int SeatingCapacity = 30;
 
@@ -617,7 +614,6 @@ void ApplicHoraireWindow::on_pushButtonSupprimerProfesseur_clicked()
 {
     cout << "Clic sur bouton Supprimer Professeur" << endl;
     int index;
-    int i = 0;
 
     if((index = getIndexProfessorSelection()) == -1)
     {
@@ -666,7 +662,6 @@ void ApplicHoraireWindow::on_pushButtonSupprimerLocal_clicked()
 {
     cout << "Clic sur bouton Supprimer Local" << endl;
     int index;
-    int i = 0;
 
     if ((index = getIndexClassroomSelection()) == -1)
     {

@@ -4,38 +4,58 @@
 CMakeFiles/ApplicHoraire.dir/sources/Classroom.cpp.o
  ../includes/Classroom.h
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test9/sources/Classroom.cpp
+ /home/student/Bureau/cpp/test10/sources/Classroom.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Event.cpp.o
- /home/student/Bureau/cpp/test9/sources/Event.cpp
+ ../includes/Event.h
+ ../includes/Exception.h
+ ../includes/Time.h
+ ../includes/Timing.h
+ ../includes/TimingException.h
+ /home/student/Bureau/cpp/test10/sources/Event.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Exception.cpp.o
- /home/student/Bureau/cpp/test9/sources/Exception.cpp
+ ../includes/Exception.h
+ /home/student/Bureau/cpp/test10/sources/Exception.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Group.cpp.o
  ../includes/Group.h
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test9/sources/Group.cpp
+ /home/student/Bureau/cpp/test10/sources/Group.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Professor.cpp.o
  ../includes/Professor.h
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test9/sources/Professor.cpp
+ /home/student/Bureau/cpp/test10/sources/Professor.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Schedulable.cpp.o
- /home/student/Bureau/cpp/test9/sources/Schedulable.cpp
+ ../includes/Schedulable.h
+ /home/student/Bureau/cpp/test10/sources/Schedulable.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Time.cpp.o
- /home/student/Bureau/cpp/test9/sources/Time.cpp
+ ../includes/Exception.h
+ ../includes/Time.h
+ ../includes/TimeException.h
+ /home/student/Bureau/cpp/test10/sources/Time.cpp
 CMakeFiles/ApplicHoraire.dir/sources/TimeException.cpp.o
- /home/student/Bureau/cpp/test9/sources/TimeException.cpp
+ ../includes/Exception.h
+ ../includes/TimeException.h
+ /home/student/Bureau/cpp/test10/sources/TimeException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o
  ../includes/Classroom.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
  ../includes/Timetable.h
- /home/student/Bureau/cpp/test9/sources/Timetable.cpp
+ /home/student/Bureau/cpp/test10/sources/Timetable.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timing.cpp.o
- /home/student/Bureau/cpp/test9/sources/Timing.cpp
+ ../includes/Exception.h
+ ../includes/Time.h
+ ../includes/Timing.h
+ ../includes/TimingException.h
+ /home/student/Bureau/cpp/test10/sources/Timing.cpp
 CMakeFiles/ApplicHoraire.dir/sources/TimingException.cpp.o
- /home/student/Bureau/cpp/test9/sources/TimingException.cpp
+ ../includes/Exception.h
+ ../includes/TimingException.h
+ /home/student/Bureau/cpp/test10/sources/TimingException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/XmlFileSerializerException.cpp.o
- /home/student/Bureau/cpp/test9/sources/XmlFileSerializerException.cpp
+ ../includes/Exception.h
+ ../includes/XmlFileSerializerException.h
+ /home/student/Bureau/cpp/test10/sources/XmlFileSerializerException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  ../includes/Classroom.h
  ../includes/Group.h
@@ -44,7 +64,7 @@ CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  ../includes/Timetable.h
  ../includes/applichorairewindow.h
  ../includes/ui_applichorairewindow.h
- /home/student/Bureau/cpp/test9/sources/applichorairewindow.cpp
+ /home/student/Bureau/cpp/test10/sources/applichorairewindow.cpp
  /usr/include/qt5/QtCore/QVariant
  /usr/include/qt5/QtCore/qabstractitemmodel.h
  /usr/include/qt5/QtCore/qalgorithms.h
@@ -217,7 +237,13 @@ CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
- /home/student/Bureau/cpp/test9/sources/main.cpp
+ ../includes/Classroom.h
+ ../includes/Group.h
+ ../includes/Professor.h
+ ../includes/Schedulable.h
+ ../includes/Timetable.h
+ ../includes/applichorairewindow.h
+ /home/student/Bureau/cpp/test10/sources/main.cpp
  /usr/include/qt5/QtCore/qalgorithms.h
  /usr/include/qt5/QtCore/qarraydata.h
  /usr/include/qt5/QtCore/qatomic.h
@@ -301,6 +327,7 @@ CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  /usr/include/qt5/QtGui/qfontinfo.h
  /usr/include/qt5/QtGui/qfontmetrics.h
  /usr/include/qt5/QtGui/qguiapplication.h
+ /usr/include/qt5/QtGui/qicon.h
  /usr/include/qt5/QtGui/qimage.h
  /usr/include/qt5/QtGui/qinputmethod.h
  /usr/include/qt5/QtGui/qkeysequence.h
@@ -322,14 +349,23 @@ CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  /usr/include/qt5/QtGui/qwindowdefs.h
  /usr/include/qt5/QtGui/qwindowdefs_win.h
  /usr/include/qt5/QtWidgets/QApplication
+ /usr/include/qt5/QtWidgets/QMainWindow
  /usr/include/qt5/QtWidgets/qapplication.h
  /usr/include/qt5/QtWidgets/qdesktopwidget.h
+ /usr/include/qt5/QtWidgets/qmainwindow.h
  /usr/include/qt5/QtWidgets/qsizepolicy.h
+ /usr/include/qt5/QtWidgets/qtabwidget.h
  /usr/include/qt5/QtWidgets/qtwidgets-config.h
  /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o
- /home/student/Bureau/cpp/test9/sources/moc_applichorairewindow.cpp
+ ../includes/Classroom.h
+ ../includes/Group.h
+ ../includes/Professor.h
+ ../includes/Schedulable.h
+ ../includes/Timetable.h
+ ../includes/applichorairewindow.h
+ /home/student/Bureau/cpp/test10/sources/moc_applichorairewindow.cpp
  /usr/include/qt5/QtCore/qalgorithms.h
  /usr/include/qt5/QtCore/qarraydata.h
  /usr/include/qt5/QtCore/qatomic.h
@@ -338,27 +374,102 @@ CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o
  /usr/include/qt5/QtCore/qatomic_msvc.h
  /usr/include/qt5/QtCore/qbasicatomic.h
  /usr/include/qt5/QtCore/qbytearray.h
+ /usr/include/qt5/QtCore/qbytearraylist.h
+ /usr/include/qt5/QtCore/qchar.h
  /usr/include/qt5/QtCore/qcompilerdetection.h
  /usr/include/qt5/QtCore/qconfig-64.h
  /usr/include/qt5/QtCore/qconfig-bootstrapped.h
  /usr/include/qt5/QtCore/qconfig.h
  /usr/include/qt5/QtCore/qcontainerfwd.h
+ /usr/include/qt5/QtCore/qcontiguouscache.h
+ /usr/include/qt5/QtCore/qcoreevent.h
+ /usr/include/qt5/QtCore/qdatastream.h
+ /usr/include/qt5/QtCore/qdebug.h
+ /usr/include/qt5/QtCore/qfile.h
+ /usr/include/qt5/QtCore/qfiledevice.h
  /usr/include/qt5/QtCore/qflags.h
  /usr/include/qt5/QtCore/qgenericatomic.h
  /usr/include/qt5/QtCore/qglobal.h
  /usr/include/qt5/QtCore/qglobalstatic.h
+ /usr/include/qt5/QtCore/qhash.h
+ /usr/include/qt5/QtCore/qhashfunctions.h
+ /usr/include/qt5/QtCore/qiodevice.h
+ /usr/include/qt5/QtCore/qiterator.h
+ /usr/include/qt5/QtCore/qline.h
+ /usr/include/qt5/QtCore/qlist.h
+ /usr/include/qt5/QtCore/qlocale.h
  /usr/include/qt5/QtCore/qlogging.h
+ /usr/include/qt5/QtCore/qmap.h
+ /usr/include/qt5/QtCore/qmargins.h
  /usr/include/qt5/QtCore/qmetatype.h
  /usr/include/qt5/QtCore/qmutex.h
  /usr/include/qt5/QtCore/qnamespace.h
  /usr/include/qt5/QtCore/qnumeric.h
+ /usr/include/qt5/QtCore/qobject.h
+ /usr/include/qt5/QtCore/qobject_impl.h
  /usr/include/qt5/QtCore/qobjectdefs.h
  /usr/include/qt5/QtCore/qobjectdefs_impl.h
+ /usr/include/qt5/QtCore/qpair.h
+ /usr/include/qt5/QtCore/qpoint.h
  /usr/include/qt5/QtCore/qprocessordetection.h
+ /usr/include/qt5/QtCore/qrect.h
  /usr/include/qt5/QtCore/qrefcount.h
+ /usr/include/qt5/QtCore/qregexp.h
+ /usr/include/qt5/QtCore/qscopedpointer.h
+ /usr/include/qt5/QtCore/qset.h
+ /usr/include/qt5/QtCore/qshareddata.h
+ /usr/include/qt5/QtCore/qsharedpointer.h
+ /usr/include/qt5/QtCore/qsharedpointer_impl.h
+ /usr/include/qt5/QtCore/qsize.h
+ /usr/include/qt5/QtCore/qstring.h
+ /usr/include/qt5/QtCore/qstringalgorithms.h
+ /usr/include/qt5/QtCore/qstringbuilder.h
+ /usr/include/qt5/QtCore/qstringlist.h
+ /usr/include/qt5/QtCore/qstringliteral.h
+ /usr/include/qt5/QtCore/qstringmatcher.h
+ /usr/include/qt5/QtCore/qstringview.h
  /usr/include/qt5/QtCore/qsysinfo.h
  /usr/include/qt5/QtCore/qsystemdetection.h
  /usr/include/qt5/QtCore/qtcore-config.h
+ /usr/include/qt5/QtCore/qtextstream.h
  /usr/include/qt5/QtCore/qtypeinfo.h
+ /usr/include/qt5/QtCore/qurl.h
+ /usr/include/qt5/QtCore/qurlquery.h
+ /usr/include/qt5/QtCore/qvariant.h
  /usr/include/qt5/QtCore/qvarlengtharray.h
+ /usr/include/qt5/QtCore/qvector.h
  /usr/include/qt5/QtCore/qversiontagging.h
+ /usr/include/qt5/QtGui/qbrush.h
+ /usr/include/qt5/QtGui/qcolor.h
+ /usr/include/qt5/QtGui/qcursor.h
+ /usr/include/qt5/QtGui/qevent.h
+ /usr/include/qt5/QtGui/qfont.h
+ /usr/include/qt5/QtGui/qfontinfo.h
+ /usr/include/qt5/QtGui/qfontmetrics.h
+ /usr/include/qt5/QtGui/qicon.h
+ /usr/include/qt5/QtGui/qimage.h
+ /usr/include/qt5/QtGui/qkeysequence.h
+ /usr/include/qt5/QtGui/qmatrix.h
+ /usr/include/qt5/QtGui/qpaintdevice.h
+ /usr/include/qt5/QtGui/qpainterpath.h
+ /usr/include/qt5/QtGui/qpalette.h
+ /usr/include/qt5/QtGui/qpixelformat.h
+ /usr/include/qt5/QtGui/qpixmap.h
+ /usr/include/qt5/QtGui/qpolygon.h
+ /usr/include/qt5/QtGui/qregion.h
+ /usr/include/qt5/QtGui/qrgb.h
+ /usr/include/qt5/QtGui/qrgba64.h
+ /usr/include/qt5/QtGui/qtgui-config.h
+ /usr/include/qt5/QtGui/qtguiglobal.h
+ /usr/include/qt5/QtGui/qtouchdevice.h
+ /usr/include/qt5/QtGui/qtransform.h
+ /usr/include/qt5/QtGui/qvector2d.h
+ /usr/include/qt5/QtGui/qwindowdefs.h
+ /usr/include/qt5/QtGui/qwindowdefs_win.h
+ /usr/include/qt5/QtWidgets/QMainWindow
+ /usr/include/qt5/QtWidgets/qmainwindow.h
+ /usr/include/qt5/QtWidgets/qsizepolicy.h
+ /usr/include/qt5/QtWidgets/qtabwidget.h
+ /usr/include/qt5/QtWidgets/qtwidgets-config.h
+ /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
+ /usr/include/qt5/QtWidgets/qwidget.h
