@@ -2,7 +2,7 @@
 <Classrooms>
 <Classroom>
 <id>
-12
+1
 </id>
 <name>
 CollardHouse
@@ -13,7 +13,7 @@ CollardHouse
 </Classroom>
 <Classroom>
 <id>
-11
+2
 </id>
 <name>
 FerraraStripClub
@@ -24,7 +24,7 @@ FerraraStripClub
 </Classroom>
 <Classroom>
 <id>
-10
+3
 </id>
 <name>
 GranHouse
@@ -35,7 +35,7 @@ GranHouse
 </Classroom>
 <Classroom>
 <id>
-13
+4
 </id>
 <name>
 SoiréePipiCaca

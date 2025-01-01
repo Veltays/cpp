@@ -2,6 +2,9 @@
 #define TIMETABLE_H
 
 #include <set>
+#include <fcntl.h>
+#include <unistd.h>
+
 #include "Classroom.h"
 #include "Professor.h"
 #include "Group.h"
@@ -61,6 +64,7 @@ public:
     string getGroupTupleByIndex(int);
     string getClassroomTupleByIndex(int);
 
+    int vider();
 
     int save(const string& timetableName);
     int load(const string& timetableName);

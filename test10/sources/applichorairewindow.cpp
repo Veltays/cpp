@@ -99,19 +99,19 @@ ApplicHoraireWindow::ApplicHoraireWindow(QWidget *parent) : QMainWindow(parent),
     move((QApplication::desktop()->width() - width()) / 2, (QApplication::desktop()->height() - height()) / 2);
 
     // Tests a supprimer ------------------------------------------------
-    addTupleTableProfessors("1;Wagner;Jean-Marc");
-    addTupleTableProfessors("4;Leonard;Anne");
-    addTupleTableProfessors("6;Quettier;Patrick");
+    // addTupleTableProfessors("1;Wagner;Jean-Marc");
+    // addTupleTableProfessors("4;Leonard;Anne");
+    // addTupleTableProfessors("6;Quettier;Patrick");
 
-    addTupleTableGroups("4;INFO2_D201");
-    addTupleTableGroups("6;INFO2_I201");
-    addTupleTableGroups("7;INFO2_R201");
-    addTupleTableGroups("9;INFO2_D202");
-    addTupleTableGroups("10;INFO2_R202");
+    // addTupleTableGroups("4;INFO2_D201");
+    // addTupleTableGroups("6;INFO2_I201");
+    // addTupleTableGroups("7;INFO2_R201");
+    // addTupleTableGroups("9;INFO2_D202");
+    // addTupleTableGroups("10;INFO2_R202");
 
-    addTupleTableClassrooms("23;AN");
-    addTupleTableClassrooms("25;LP03");
-    addTupleTableClassrooms("29;LE0");
+    // addTupleTableClassrooms("23;AN");
+    // addTupleTableClassrooms("25;LP03");
+    // addTupleTableClassrooms("29;LE0");
 
     addTupleTableCourses("1;Lundi;8h30;2h00;AN;Théorie C++;Wagner Jean-Marc;INFO2 D201,INFO2 D202");
     addTupleTableCourses("3;Mardi;10h30;1h30;AN;Théorie UNIX;Quettier Patrick;INFO2 R201,INFO2 R202");
@@ -700,7 +700,18 @@ void ApplicHoraireWindow::on_actionQuitter_triggered()
 void ApplicHoraireWindow::on_actionOuvrir_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Ouvrir" << endl;
-    string dialogInputText(const string& title, const string& question);
+    string NomFichier =  dialogInputText("Qu'elle fichier souhaitez vous ouvrir", "Entrez le fichier que vous souhaitez ouvrir");
+     auto &Timetable = Timetable::getInstance();
+
+    if(Timetable.load(NomFichier))
+    {
+        dialogMessage("Ouverture réussie","Votre fichier a bien été Ouvert");
+        MiseAJourTableClassroom(Timetable);
+        MiseAJourTableGroup(Timetable);
+        MiseAJourTableProfesseur(Timetable);
+        return;
+    }
+    dialogError("L'ouverture n'a pas marche", "L'ouverture de votre fichier n'a malencontreusement pas fonctionné");
     
 }
 
@@ -708,7 +719,9 @@ void ApplicHoraireWindow::on_actionOuvrir_triggered()
 void ApplicHoraireWindow::on_actionNouveau_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Nouveau" << endl;
-    // TO DO (Etape 10)
+    auto &Timetable = Timetable::getInstance();
+    
+    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

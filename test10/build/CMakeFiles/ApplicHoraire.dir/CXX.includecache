@@ -49,6 +49,10 @@ cstring
 ../includes/Timetable.h
 set
 -
+fcntl.h
+-
+unistd.h
+-
 Classroom.h
 ../includes/Classroom.h
 Professor.h

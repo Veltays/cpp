@@ -16,7 +16,7 @@ int Timetable::addClassroom(const string &name, int seatingCapacity)
 
 	if (result.second) // result.second est true si l'insertion a réussi
 	{
-		cout << "Le groupe a été ajouté avec succès." << endl;
+		cout << "La classe a été ajouté avec succès." << endl;
 		Schedulable::currentId++;
 		return 1;
 	}
@@ -347,10 +347,23 @@ string Timetable::getClassroomTupleByIndex(int index)
 // les load
 int Timetable::save(const string &timetableName)
 {
-
-	//!Enregistrer un fichier Classroom
-	string NomConcat;
 	int i;
+	string NomConcat;
+	const char* NomFichier;
+
+    NomConcat = timetableName + "_config.dat";
+    NomFichier= NomConcat.c_str();
+
+    int fd;
+      if ((fd = open(NomFichier, O_WRONLY | O_CREAT | O_APPEND, 0777)) == -1)
+      {
+        cerr << "Une erreur lors de l'ouverture du fichier est survenue lors de l'ajout du fichier" << endl;
+        return -1;
+      }
+    write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+    close(fd);
+	//!Enregistrer un fichier Classroom
+
 
 
 
@@ -407,21 +420,26 @@ int Timetable::save(const string &timetableName)
 	return 1;
 }
 
+
+
+
+
 int Timetable::load(const string &timetableName)
 {
 	string NomConcat;
 	int i;
+	
 
 	NomConcat = timetableName + "_classroom.xml";
 
-	XmlFileSerializer<Classroom> *fsr = nullptr;
+	XmlFileSerializer<Classroom> *FC = nullptr;
 	try
 	{
-		fsr = new XmlFileSerializer<Classroom>(NomConcat, XmlFileSerializer<Classroom>::READ);
-		cout << "Filename = " << fsr->getFilename() << endl;
-		cout << "Collection name = " << fsr->getCollectionName() << endl;
-		cout << "Readable = " << fsr->isReadable() << endl;
-		cout << "Writable = " << fsr->isWritable() << endl
+		FC = new XmlFileSerializer<Classroom>(NomConcat, XmlFileSerializer<Classroom>::READ);
+		cout << "Filename = " << FC->getFilename() << endl;
+		cout << "Collection name = " << FC->getCollectionName() << endl;
+		cout << "Readable = " << FC->isReadable() << endl;
+		cout << "Writable = " << FC->isWritable() << endl
 			 << endl;
 	}
 	catch (const XmlFileSerializerException &e)
@@ -429,22 +447,144 @@ int Timetable::load(const string &timetableName)
 		cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
 	}
 
-	if (fsr != nullptr)
+	if (FC != nullptr)
 	{
 		bool end = false;
 		while (!end)
 		{
 			try
 			{
-				Classroom val = fsr->read();
+				Classroom val = FC->read();
+				addClassroom(val.getName(),val.getSeatingCapacity());
 			}
 			catch (const XmlFileSerializerException &e)
 			{
 				if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
 					end = true;
+				else
+				{
+					cout << "Erreur de lecture XML : " << e.getMessage() << endl;
+					break;
+				}
 			}
 		}
-		delete fsr;
+		delete FC;
 	}
-	return 0;
+
+
+	//! GRoup
+
+	NomConcat = timetableName + "_group.xml";
+
+	XmlFileSerializer<Group> *FG = nullptr;
+	try
+	{
+		FG = new XmlFileSerializer<Group>(NomConcat, XmlFileSerializer<Group>::READ);
+		cout << "Filename = " << FG->getFilename() << endl;
+		cout << "Collection name = " << FG->getCollectionName() << endl;
+		cout << "Readable = " << FG->isReadable() << endl;
+		cout << "Writable = " << FG->isWritable() << endl
+			 << endl;
+	}
+	catch (const XmlFileSerializerException &e)
+	{
+		cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
+	}
+
+	if (FG != nullptr)
+	{
+		bool end = false;
+		while (!end)
+		{
+			try
+			{
+				Group val = FG->read();
+				addGroup(val.getName());
+			}
+			catch (const XmlFileSerializerException &e)
+			{
+				if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+					end = true;
+				else
+				{
+					cout << "Erreur de lecture XML : " << e.getMessage() << endl;
+					break;
+				}
+			}
+		}
+		delete FG;
+	}
+
+	//! Professor
+
+	NomConcat = timetableName + "_professor.xml";
+
+	XmlFileSerializer<Professor> *FP = nullptr;
+	try
+	{
+		FP = new XmlFileSerializer<Professor>(NomConcat, XmlFileSerializer<Professor>::READ);
+		cout << "Filename = " << FP->getFilename() << endl;
+		cout << "Collection name = " << FP->getCollectionName() << endl;
+		cout << "Readable = " << FP->isReadable() << endl;
+		cout << "Writable = " << FP->isWritable() << endl
+			 << endl;
+	}
+	catch (const XmlFileSerializerException &e)
+	{
+		cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
+	}
+
+	if (FP != nullptr)
+	{
+		bool end = false;
+		while (!end)
+		{
+			try
+			{
+				Professor val = FP->read();
+				addProfessor(val.getLastName(),val.getFirstName());
+			}
+			catch (const XmlFileSerializerException &e)
+			{
+				if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+					end = true;
+				else
+				{
+					cout << "Erreur de lecture XML : " << e.getMessage() << endl;
+					break;
+				}
+			}
+		}
+		delete FP;
+	}
+
+	const char* NomFichier;
+	int fd;
+
+    NomConcat = timetableName + "_config.dat";
+    NomFichier= NomConcat.c_str();
+
+
+	 if ((fd = open(NomFichier, O_RDONLY, 0777)) == -1)
+      {
+    	cerr << "Une erreur lors de l'ouverture du fichier est survenue" << endl;
+        return -1;
+    }
+
+	if(read(fd, &Schedulable::currentId, sizeof(Schedulable::currentId)) < 1)
+	{
+		cerr << "Erreur: données lues incorrectes" << endl;
+        close(fd);
+        return -1;
+	}
+	cout << "L'entier lu du fichier est: " << Schedulable::currentId << endl;
+	close(fd);
+
+	return 1;
+}
+
+
+int Timetable::vider(){
+
+	// it = cbegin
 }
