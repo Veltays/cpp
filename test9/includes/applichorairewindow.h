@@ -2,6 +2,7 @@
 #define APPLICHORAIREWINDOW_H
 
 #include <QMainWindow>
+#include "Timetable.h"
 #include <string>
 #include <list>
 using namespace std;
@@ -69,6 +70,11 @@ public:
     int    dialogInputInt(const string& title,const string& question);
     string dialogInputFileForLoad(const string& question);
     string dialogInputFileForSave(const string& question);
+
+
+    void MiseAJourTableClassroom(Timetable &x);
+    void MiseAJourTableGroup(Timetable &x);
+    void MiseAJourTableProfesseur(Timetable &x);
 
 private slots:
     void on_pushButtonAjouterProfesseur_clicked();

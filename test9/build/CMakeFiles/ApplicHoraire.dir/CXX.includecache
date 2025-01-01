@@ -41,6 +41,8 @@ Group.h
 ../includes/applichorairewindow.h
 QMainWindow
 -
+Timetable.h
+../includes/Timetable.h
 string
 -
 list
