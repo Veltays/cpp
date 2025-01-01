@@ -103,6 +103,8 @@ sstream
 -
 cstring
 -
+cstdlib
+-
 Timetable.h
 /home/student/Bureau/cpp/test9/sources/Timetable.h
 
