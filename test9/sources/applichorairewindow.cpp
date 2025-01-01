@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstring>
+#include <cstdlib>
 
 #include "Timetable.h"
 using namespace std;
@@ -99,19 +100,7 @@ ApplicHoraireWindow::ApplicHoraireWindow(QWidget *parent) : QMainWindow(parent),
     move((QApplication::desktop()->width() - width()) / 2, (QApplication::desktop()->height() - height()) / 2);
 
     // Tests a supprimer ------------------------------------------------
-    addTupleTableProfessors("1;Wagner;Jean-Marc");
-    addTupleTableProfessors("4;Leonard;Anne");
-    addTupleTableProfessors("6;Quettier;Patrick");
 
-    addTupleTableGroups("4;INFO2_D201");
-    addTupleTableGroups("6;INFO2_I201");
-    addTupleTableGroups("7;INFO2_R201");
-    addTupleTableGroups("9;INFO2_D202");
-    addTupleTableGroups("10;INFO2_R202");
-
-    addTupleTableClassrooms("23;AN");
-    addTupleTableClassrooms("25;LP03");
-    addTupleTableClassrooms("29;LE0");
 
     addTupleTableCourses("1;Lundi;8h30;2h00;AN;Théorie C++;Wagner Jean-Marc;INFO2 D201,INFO2 D202");
     addTupleTableCourses("3;Mardi;10h30;1h30;AN;Théorie UNIX;Quettier Patrick;INFO2 R201,INFO2 R202");
@@ -547,7 +536,6 @@ void ApplicHoraireWindow::on_pushButtonAjouterProfesseur_clicked()
 {
     cout << "Clic sur bouton Ajouter Professeur" << endl;
 
-    int index = 0;
     string ProfLastName = getProfessorLastName();
     string ProfFirstName = getProfessorFirstName();
 
@@ -570,7 +558,7 @@ void ApplicHoraireWindow::on_pushButtonAjouterGroupe_clicked()
 {
     cout << "Clic sur bouton Ajouter Groupe" << endl;
 
-    int index = 0;
+
     string GroupName = getGroupName();
 
     auto &Timetable = Timetable::getInstance();
@@ -592,9 +580,8 @@ void ApplicHoraireWindow::on_pushButtonAjouterLocal_clicked()
 {
     cout << "Clic sur bouton Ajouter Local" << endl;
 
-    int index = 0;
     string ClassName = getClassroomName();
-    int SeatingCapacity = 30;
+    int SeatingCapacity = rand() % 50;
 
     auto &Timetable = Timetable::getInstance();
 
@@ -647,7 +634,6 @@ void ApplicHoraireWindow::on_pushButtonSupprimerGroupe_clicked()
     }
     
     index.sort(greater<int>());       //On reverse.sort() comme ca lors de la suppression on supprimera le plus grand puis le plus petit comme ca les index ne changeront pas et permettent de supprimer le bon index (greater<int> (operateur de la ))
-    auto it = index.begin();
 
     auto &Timetable = Timetable::getInstance();
 
