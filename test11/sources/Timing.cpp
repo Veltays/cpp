@@ -217,10 +217,42 @@ namespace planning
         return s;
     }
 
-
     string Timing::toString()
     {
-        return " | " + day + " | " + "start " + start.toString() + " | " +"duration " + duration.toString();
+        return " | " + day + " | " + "start " + start.toString() + " | " + "duration " + duration.toString();
     }
 
+    bool Timing::intersect(const Timing &t)
+    {
+
+        if(dayToInt((*this)) != dayToInt(t))
+            return false;
+
+        Time start1 = this->getStart();
+        Time start2 = t.getStart();
+
+        Time durer1 = this->getDuration();
+        Time durer2 = t.getDuration();
+
+        if (start1 > start2)
+        {
+            if ((start2 + durer2) < start1)
+                return true;
+            else
+            {
+                printf("votre évenement commence a %d et dure %d ce qui intersise avec le second évenement %d\n", start1, durer1, start2);
+                return false;
+            }
+        }
+        else
+        {
+            if ((start1 + durer1) < start2)
+                return true;
+            else
+            {
+                printf("votre évenement commence a %d et dure %d ce qui intersise avec le second évenement %d \n", start2, durer2, start1);
+                return false;
+            }
+        }
+    }
 }

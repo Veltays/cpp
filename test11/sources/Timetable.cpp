@@ -1,4 +1,5 @@
 #include "Timetable.h"
+using namespace planning;
 
 Timetable Timetable::instance;
 
@@ -103,8 +104,6 @@ int Timetable::deleteClassroomById(int id)
 		return 1;
 	}
 	return 0;
-
-	
 }
 
 //? ------------Les Professeurs ----------------
@@ -290,26 +289,75 @@ int Timetable::deleteGroupById(int id)
 	return 0;
 }
 
-
-
-
-
 //? Les course
 
 bool Timetable::isProfessorAvailable(int id, const Timing &timing)
 {
+	bool resultat;
 
+	for (auto it = courses.begin(); it != courses.end(); it++)
+	{
+		if (it->getProfessorId() == id)
+		{
+			resultat = it->getTiming().intersect(timing);
+			if (resultat == false)
+				return false;
+		}
+	}
+	return true;
 }
+
 bool Timetable::isGroupAvailable(int id, const Timing &timing)
 {
+	bool resultat;
 
+	for (auto it = courses.begin(); it != courses.end(); it++)
+	{
+		set<int> grp = it->getGroupsId();
+
+		for (auto itgrp = grp.cbegin(); itgrp != grp.cend(); itgrp++)
+		{
+			if (*itgrp == id)
+			{
+				resultat = it->getTiming().intersect(timing);
+				if (resultat == false)
+					return false;
+			}
+		}
+	}
+	return true;
+	cout << "reflechis..";
 }
+
 bool Timetable::isClassroomAvailable(int id, const Timing &timing)
 {
-
+	bool resultat;
+	
+	for (auto it = courses.begin(); it != courses.end(); it++)
+	{
+		if (it->getClassroomId() == id)
+		{
+			if (!it->getTiming().intersect(timing));
+				return true;
+		}
+	}
+	return false;
 }
 void Timetable::schedule(Course &c, const Timing &t)
 {
+
+		int idProf = c.getProfessorId();
+		int idClass =c.getClassroomId();
+		set<int> idGroup =c.getGroupsId();
+
+		for(auto it = idGroup.cbegin(); it != idGroup.cend(); it++)
+		if(!(isProfessorAvailable(idProf,t)) && !(isClassroomAvailable(idClass,t)) && !(isGroupAvailable((*it),t)))
+		{
+			cout << "pas dispo" << endl;
+			throw  TimingException(TimingException::TIMING_NOT_AVAIBLE , "PAS DISPONIBLE CHERCHE TOI UNE VIE");
+		}
+
+		c.setTiming(t);
 	
 }
 
@@ -321,35 +369,29 @@ Timetable &Timetable::getInstance()
 //Fonction get
 
 string Timetable::getProfessorTupleByIndex(int index)
-{	
+{
 	Professor t = findProfessorByIndex(index);
 	auto it = professors.cbegin();
-	std::advance(it, index);  // pour avancer l'it jusqua un index précis
+	std::advance(it, index); // pour avancer l'it jusqua un index précis
 
-	if(it != professors.cend())
+	if (it != professors.cend())
 	{
 		return t.tuple();
 	}
 	return "";
-
-
-
 }
 
 string Timetable::getGroupTupleByIndex(int index)
 {
 	Group t = findGroupByIndex(index);
 	auto it = groups.cbegin();
-	std::advance(it, index);  // pour avancer l'it jusqua un index précis
+	std::advance(it, index); // pour avancer l'it jusqua un index précis
 
-	if(it != groups.cend())
+	if (it != groups.cend())
 	{
 		return t.tuple();
 	}
 	return "";
-
-
-
 }
 
 string Timetable::getClassroomTupleByIndex(int index)
@@ -357,14 +399,13 @@ string Timetable::getClassroomTupleByIndex(int index)
 
 	Classroom t = findClassroomByIndex(index);
 	auto it = classrooms.cbegin();
-	std::advance(it, index);  // pour avancer l'it jusqua un index précis
+	std::advance(it, index); // pour avancer l'it jusqua un index précis
 
-	if(it != classrooms.cend())
+	if (it != classrooms.cend())
 	{
 		return t.tuple();
 	}
 	return "";
-
 }
 
 // les load
@@ -372,31 +413,28 @@ int Timetable::save(const string &timetableName)
 {
 	int i;
 	string NomConcat;
-	const char* NomFichier;
+	const char *NomFichier;
 
-    NomConcat = timetableName + "_config.dat";
-    NomFichier= NomConcat.c_str();
+	NomConcat = timetableName + "_config.dat";
+	NomFichier = NomConcat.c_str();
 
-    int fd;
-      if ((fd = open(NomFichier, O_WRONLY | O_CREAT | O_APPEND, 0777)) == -1)
-      {
-        cerr << "Une erreur lors de l'ouverture du fichier est survenue lors de l'ajout du fichier" << endl;
-        return -1;
-      }
-    write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
-    close(fd);
+	int fd;
+	if ((fd = open(NomFichier, O_WRONLY | O_CREAT | O_APPEND, 0777)) == -1)
+	{
+		cerr << "Une erreur lors de l'ouverture du fichier est survenue lors de l'ajout du fichier" << endl;
+		return -1;
+	}
+	write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+	close(fd);
 	//!Enregistrer un fichier Classroom
-
-
-
 
 	NomConcat = timetableName + "_classroom.xml";
 	XmlFileSerializer<Classroom> *FC = new XmlFileSerializer<Classroom>(NomConcat, XmlFileSerializer<Classroom>::WRITE, "Classrooms");
-	
+
 	auto itc = classrooms.cbegin();
 	i = 0;
 
-	while(itc != classrooms.cend())
+	while (itc != classrooms.cend())
 	{
 		Classroom t = findClassroomByIndex(i);
 		FC->write(t);
@@ -405,8 +443,6 @@ int Timetable::save(const string &timetableName)
 	}
 	delete FC;
 
-
-
 	//!Enregistrer un fichier groupe
 	NomConcat = timetableName + "_group.xml";
 	XmlFileSerializer<Group> *FG = new XmlFileSerializer<Group>(NomConcat, XmlFileSerializer<Group>::WRITE, "Groups");
@@ -414,7 +450,7 @@ int Timetable::save(const string &timetableName)
 	auto itg = groups.cbegin();
 	i = 0;
 
-	while(itg != groups.cend())
+	while (itg != groups.cend())
 	{
 		Group t = findGroupByIndex(i);
 		FG->write(t);
@@ -423,7 +459,6 @@ int Timetable::save(const string &timetableName)
 	}
 	delete FG;
 
-
 	//!Enregistrer un fichier profresseur
 	NomConcat = timetableName + "_professor.xml";
 	XmlFileSerializer<Professor> *FP = new XmlFileSerializer<Professor>(NomConcat, XmlFileSerializer<Professor>::WRITE, "Professors");
@@ -431,7 +466,7 @@ int Timetable::save(const string &timetableName)
 	auto itp = professors.cbegin();
 	i = 0;
 
-	while(itp != professors.cend())
+	while (itp != professors.cend())
 	{
 		Professor t = findProfessorByIndex(i);
 		FP->write(t);
@@ -443,15 +478,10 @@ int Timetable::save(const string &timetableName)
 	return 1;
 }
 
-
-
-
-
 int Timetable::load(const string &timetableName)
 {
 	string NomConcat;
 	int i;
-	
 
 	NomConcat = timetableName + "_classroom.xml";
 
@@ -478,7 +508,7 @@ int Timetable::load(const string &timetableName)
 			try
 			{
 				Classroom val = FC->read();
-				addClassroom(val.getName(),val.getSeatingCapacity());
+				addClassroom(val.getName(), val.getSeatingCapacity());
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -493,7 +523,6 @@ int Timetable::load(const string &timetableName)
 		}
 		delete FC;
 	}
-
 
 	//! GRoup
 
@@ -565,7 +594,7 @@ int Timetable::load(const string &timetableName)
 			try
 			{
 				Professor val = FP->read();
-				addProfessor(val.getLastName(),val.getFirstName());
+				addProfessor(val.getLastName(), val.getFirstName());
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -581,24 +610,23 @@ int Timetable::load(const string &timetableName)
 		delete FP;
 	}
 
-	const char* NomFichier;
+	const char *NomFichier;
 	int fd;
 
-    NomConcat = timetableName + "_config.dat";
-    NomFichier= NomConcat.c_str();
+	NomConcat = timetableName + "_config.dat";
+	NomFichier = NomConcat.c_str();
 
+	if ((fd = open(NomFichier, O_RDONLY, 0777)) == -1)
+	{
+		cerr << "Une erreur lors de l'ouverture du fichier est survenue" << endl;
+		return -1;
+	}
 
-	 if ((fd = open(NomFichier, O_RDONLY, 0777)) == -1)
-      {
-    	cerr << "Une erreur lors de l'ouverture du fichier est survenue" << endl;
-        return -1;
-    }
-
-	if(read(fd, &Schedulable::currentId, sizeof(Schedulable::currentId)) < 1)
+	if (read(fd, &Schedulable::currentId, sizeof(Schedulable::currentId)) < 1)
 	{
 		cerr << "Erreur: données lues incorrectes" << endl;
-        close(fd);
-        return -1;
+		close(fd);
+		return -1;
 	}
 	cout << "L'entier lu du fichier est: " << Schedulable::currentId << endl;
 	close(fd);

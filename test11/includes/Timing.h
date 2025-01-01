@@ -60,6 +60,8 @@ namespace planning
         int dayToInt(const Timing &);
 
         string toString();
+
+        bool intersect(const Timing& t);
     };
 }
 #endif

@@ -12,6 +12,7 @@
 #include "Course.h"
 
 #include "Schedulable.h"
+#include "TimingException.h"
 #include "XmlFileSerializer.hpp"
 #include "XmlFileSerializerException.h"
 

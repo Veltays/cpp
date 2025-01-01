@@ -16,6 +16,7 @@ namespace planning
     public:
         static int INVALID_DAY;
         static int NO_TIMING;
+        static int TIMING_NOT_AVAIBLE;
 
         TimingException();
         TimingException(const TimingException &) = default;

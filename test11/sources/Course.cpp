@@ -54,9 +54,21 @@ set<int> Course::getGroupsId()
 
 bool Course::operator<(const Course &c) const
 {
-    return getCode() < c.getCode();
+   
+    Timing t = this->getTiming();
+    Timing ct = c.getTiming();
 
-    // on n'admet pas deux fois le même nom de familles ducoup
+    // Comparer d'abord les jours
+    if (t.dayToInt(t) < ct.dayToInt(ct))
+        return true;
+    if (t.dayToInt(t) > ct.dayToInt(ct))
+        return false;
+
+    // Si les jours sont égaux, comparer les heures de début (start)
+    return t.getStart() < ct.getStart();
+
+
+
 }
 
 void Course::addGroupId(int id)
