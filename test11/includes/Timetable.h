@@ -2,12 +2,14 @@
 #define TIMETABLE_H
 
 #include <set>
+#include <list>
 #include <fcntl.h>
 #include <unistd.h>
 
 #include "Classroom.h"
 #include "Professor.h"
 #include "Group.h"
+#include "Course.h"
 
 #include "Schedulable.h"
 #include "XmlFileSerializer.hpp"
@@ -15,6 +17,7 @@
 
 
 using namespace std;
+using namespace planning;
 
 class Timetable
 {
@@ -22,6 +25,7 @@ private:
     set<Classroom> classrooms;
     set<Professor> professors;
     set<Group> groups;
+    list<Course> courses;
     Timetable();
 
     Timetable(const Timetable &x) = delete; //constructeur de copie

@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/student/Bureau/cpp/test10
+CMAKE_SOURCE_DIR = /home/student/Bureau/cpp/test11
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/student/Bureau/cpp/test10/build
+CMAKE_BINARY_DIR = /home/student/Bureau/cpp/test11/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/student/Bureau/cpp/test10/build/CMakeFiles /home/student/Bureau/cpp/test10/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/student/Bureau/cpp/test11/build/CMakeFiles /home/student/Bureau/cpp/test11/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/student/Bureau/cpp/test10/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/student/Bureau/cpp/test11/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -168,6 +168,33 @@ sources/Classroom.s: sources/Classroom.cpp.s
 sources/Classroom.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ApplicHoraire.dir/build.make CMakeFiles/ApplicHoraire.dir/sources/Classroom.cpp.s
 .PHONY : sources/Classroom.cpp.s
+
+sources/Course.o: sources/Course.cpp.o
+
+.PHONY : sources/Course.o
+
+# target to build an object file
+sources/Course.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ApplicHoraire.dir/build.make CMakeFiles/ApplicHoraire.dir/sources/Course.cpp.o
+.PHONY : sources/Course.cpp.o
+
+sources/Course.i: sources/Course.cpp.i
+
+.PHONY : sources/Course.i
+
+# target to preprocess a source file
+sources/Course.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ApplicHoraire.dir/build.make CMakeFiles/ApplicHoraire.dir/sources/Course.cpp.i
+.PHONY : sources/Course.cpp.i
+
+sources/Course.s: sources/Course.cpp.s
+
+.PHONY : sources/Course.s
+
+# target to generate assembly for a file
+sources/Course.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ApplicHoraire.dir/build.make CMakeFiles/ApplicHoraire.dir/sources/Course.cpp.s
+.PHONY : sources/Course.cpp.s
 
 sources/Event.o: sources/Event.cpp.o
 
@@ -559,6 +586,9 @@ help:
 	@echo "... sources/Classroom.o"
 	@echo "... sources/Classroom.i"
 	@echo "... sources/Classroom.s"
+	@echo "... sources/Course.o"
+	@echo "... sources/Course.i"
+	@echo "... sources/Course.s"
 	@echo "... sources/Event.o"
 	@echo "... sources/Event.i"
 	@echo "... sources/Event.s"

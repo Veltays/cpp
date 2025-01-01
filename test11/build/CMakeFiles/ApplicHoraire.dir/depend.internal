@@ -4,75 +4,89 @@
 CMakeFiles/ApplicHoraire.dir/sources/Classroom.cpp.o
  ../includes/Classroom.h
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test10/sources/Classroom.cpp
+ /home/student/Bureau/cpp/test11/sources/Classroom.cpp
+CMakeFiles/ApplicHoraire.dir/sources/Course.cpp.o
+ ../includes/Course.h
+ ../includes/Event.h
+ ../includes/Time.h
+ ../includes/Timing.h
+ /home/student/Bureau/cpp/test11/sources/Course.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Event.cpp.o
  ../includes/Event.h
  ../includes/Exception.h
  ../includes/Time.h
  ../includes/Timing.h
  ../includes/TimingException.h
- /home/student/Bureau/cpp/test10/sources/Event.cpp
+ /home/student/Bureau/cpp/test11/sources/Event.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Exception.cpp.o
  ../includes/Exception.h
- /home/student/Bureau/cpp/test10/sources/Exception.cpp
+ /home/student/Bureau/cpp/test11/sources/Exception.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Group.cpp.o
  ../includes/Group.h
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test10/sources/Group.cpp
+ /home/student/Bureau/cpp/test11/sources/Group.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Professor.cpp.o
  ../includes/Professor.h
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test10/sources/Professor.cpp
+ /home/student/Bureau/cpp/test11/sources/Professor.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Schedulable.cpp.o
  ../includes/Schedulable.h
- /home/student/Bureau/cpp/test10/sources/Schedulable.cpp
+ /home/student/Bureau/cpp/test11/sources/Schedulable.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Time.cpp.o
  ../includes/Exception.h
  ../includes/Time.h
  ../includes/TimeException.h
- /home/student/Bureau/cpp/test10/sources/Time.cpp
+ /home/student/Bureau/cpp/test11/sources/Time.cpp
 CMakeFiles/ApplicHoraire.dir/sources/TimeException.cpp.o
  ../includes/Exception.h
  ../includes/TimeException.h
- /home/student/Bureau/cpp/test10/sources/TimeException.cpp
+ /home/student/Bureau/cpp/test11/sources/TimeException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o
  ../includes/Classroom.h
+ ../includes/Course.h
+ ../includes/Event.h
  ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
+ ../includes/Time.h
  ../includes/Timetable.h
+ ../includes/Timing.h
  ../includes/XmlFileSerializer.hpp
  ../includes/XmlFileSerializerException.h
  ../sources/XmlFileSerializer.ipp
- /home/student/Bureau/cpp/test10/sources/Timetable.cpp
+ /home/student/Bureau/cpp/test11/sources/Timetable.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timing.cpp.o
  ../includes/Exception.h
  ../includes/Time.h
  ../includes/Timing.h
  ../includes/TimingException.h
- /home/student/Bureau/cpp/test10/sources/Timing.cpp
+ /home/student/Bureau/cpp/test11/sources/Timing.cpp
 CMakeFiles/ApplicHoraire.dir/sources/TimingException.cpp.o
  ../includes/Exception.h
  ../includes/TimingException.h
- /home/student/Bureau/cpp/test10/sources/TimingException.cpp
+ /home/student/Bureau/cpp/test11/sources/TimingException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/XmlFileSerializerException.cpp.o
  ../includes/Exception.h
  ../includes/XmlFileSerializerException.h
- /home/student/Bureau/cpp/test10/sources/XmlFileSerializerException.cpp
+ /home/student/Bureau/cpp/test11/sources/XmlFileSerializerException.cpp
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  ../includes/Classroom.h
+ ../includes/Course.h
+ ../includes/Event.h
  ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
+ ../includes/Time.h
  ../includes/Timetable.h
+ ../includes/Timing.h
  ../includes/XmlFileSerializer.hpp
  ../includes/XmlFileSerializerException.h
  ../includes/applichorairewindow.h
  ../includes/ui_applichorairewindow.h
  ../sources/XmlFileSerializer.ipp
- /home/student/Bureau/cpp/test10/sources/applichorairewindow.cpp
+ /home/student/Bureau/cpp/test11/sources/applichorairewindow.cpp
  /usr/include/qt5/QtCore/QVariant
  /usr/include/qt5/QtCore/qabstractitemmodel.h
  /usr/include/qt5/QtCore/qalgorithms.h
@@ -246,16 +260,20 @@ CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  ../includes/Classroom.h
+ ../includes/Course.h
+ ../includes/Event.h
  ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
+ ../includes/Time.h
  ../includes/Timetable.h
+ ../includes/Timing.h
  ../includes/XmlFileSerializer.hpp
  ../includes/XmlFileSerializerException.h
  ../includes/applichorairewindow.h
  ../sources/XmlFileSerializer.ipp
- /home/student/Bureau/cpp/test10/sources/main.cpp
+ /home/student/Bureau/cpp/test11/sources/main.cpp
  /usr/include/qt5/QtCore/qalgorithms.h
  /usr/include/qt5/QtCore/qarraydata.h
  /usr/include/qt5/QtCore/qatomic.h
@@ -372,16 +390,20 @@ CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o
  ../includes/Classroom.h
+ ../includes/Course.h
+ ../includes/Event.h
  ../includes/Exception.h
  ../includes/Group.h
  ../includes/Professor.h
  ../includes/Schedulable.h
+ ../includes/Time.h
  ../includes/Timetable.h
+ ../includes/Timing.h
  ../includes/XmlFileSerializer.hpp
  ../includes/XmlFileSerializerException.h
  ../includes/applichorairewindow.h
  ../sources/XmlFileSerializer.ipp
- /home/student/Bureau/cpp/test10/sources/moc_applichorairewindow.cpp
+ /home/student/Bureau/cpp/test11/sources/moc_applichorairewindow.cpp
  /usr/include/qt5/QtCore/qalgorithms.h
  /usr/include/qt5/QtCore/qarraydata.h
  /usr/include/qt5/QtCore/qatomic.h

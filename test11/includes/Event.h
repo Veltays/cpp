@@ -10,7 +10,7 @@ namespace planning
     friend ostream &operator<<(ostream &, const Event &);
     friend istream &operator>>(istream &, Event &);
 
-  private:
+  protected:
     int code;
     char *title;
     Timing *timing;

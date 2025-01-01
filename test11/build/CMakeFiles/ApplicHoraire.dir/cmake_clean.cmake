@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "ApplicHoraire"
   "ApplicHoraire.pdb"
   "CMakeFiles/ApplicHoraire.dir/sources/Classroom.cpp.o"
+  "CMakeFiles/ApplicHoraire.dir/sources/Course.cpp.o"
   "CMakeFiles/ApplicHoraire.dir/sources/Event.cpp.o"
   "CMakeFiles/ApplicHoraire.dir/sources/Exception.cpp.o"
   "CMakeFiles/ApplicHoraire.dir/sources/Group.cpp.o"
