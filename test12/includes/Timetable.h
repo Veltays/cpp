@@ -5,6 +5,12 @@
 #include <list>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <iostream>
+#include <cstring>
+#include <sstream>
+#include <fstream>
+
 #include <algorithm>
 
 #include "Classroom.h"
@@ -35,7 +41,6 @@ private:
     static Timetable instance;
 
 public:
-    static int code;
 
     ~Timetable();
 
@@ -96,6 +101,16 @@ public:
     Course findCourseByCode(int code) const;
     int deleteCourseByCode(int code);
 
+
+
+    void importProfessorsFromCsv(const string& filename);
+    void importGroupsFromCsv(const string& filename);
+    void importClassroomsFromCsv(const string& filename);
+
+
+    void exportProfessorTimetable(int id);
+    void exportGroupTimetable(int id);
+    void exportClassroomTimetable(int id);
 
 
 };

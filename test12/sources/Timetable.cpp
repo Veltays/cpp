@@ -1,7 +1,6 @@
 #include "Timetable.h"
 using namespace planning;
 
-int Timetable::code = 1;
 Timetable Timetable::instance;
 
 Timetable::Timetable()
@@ -348,26 +347,25 @@ void Timetable::schedule(Course &c, const Timing &t)
 
 	for (auto it = idGroup.cbegin(); it != idGroup.cend(); it++)
 	{
-		if(!(isProfessorAvailable(idProf, t)))
+		if (!(isProfessorAvailable(idProf, t)))
 			throw TimingException(TimingException::PROFESSOR_NOT_AVAIBLE, "Le professeur n'est pas disponible");
 
-		if(!(isClassroomAvailable(idClass, t)))
+		if (!(isClassroomAvailable(idClass, t)))
 			throw TimingException(TimingException::CLASSROOM_NOT_AVAIBLE, "Le classroom n'est pas disponible");
 
-		if(!(isGroupAvailable((*it), t)))
+		if (!(isGroupAvailable((*it), t)))
 			throw TimingException(TimingException::GROUP_NOT_AVAIBLE, "Le groups n'est pas disponible");
 
 		cout << "Professor : " << isProfessorAvailable(idProf, t) << endl;
 		cout << "Classroom : " << isClassroomAvailable(idClass, t) << endl;
 		cout << "Group     : " << isGroupAvailable((*it), t) << endl;
-
 	}
 
-	c.setCode(code);
+	c.setCode(Event::currentCode);
 	c.setTiming(t);
 	courses.push_back(c);
 
-	code++;
+	Event::currentCode++;
 }
 
 Timetable &Timetable::getInstance()
@@ -473,11 +471,10 @@ int Timetable::save(const string &timetableName)
 	}
 	delete FP;
 
-
 	//!Enregistrer course
 	NomConcat = timetableName + "_courses.xml";
 	XmlFileSerializer<Course> *FCO = new XmlFileSerializer<Course>(NomConcat, XmlFileSerializer<Course>::WRITE, "Courses");
-	
+
 	auto itco = courses.begin();
 	i = 0;
 
@@ -490,19 +487,22 @@ int Timetable::save(const string &timetableName)
 	}
 	delete FCO;
 
-
-
 	NomConcat = timetableName + "_config.dat";
 	NomFichier = NomConcat.c_str();
 
 	int fd;
-	if ((fd = open(NomFichier, O_WRONLY | O_CREAT , 0777)) == -1)
+	if ((fd = open(NomFichier, O_WRONLY | O_CREAT, 0777)) == -1)
 	{
 		cerr << "Une erreur lors de l'ouverture du fichier est survenue lors de l'ajout du fichier" << endl;
 		return -1;
 	}
 	write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+	cout << "current code : " << Event::currentCode << endl
+		 << endl;
 	write(fd, &Event::currentCode, sizeof(Event::currentCode));
+	cout << "current code : " << Event::currentCode << endl
+		 << endl;
+	;
 	close(fd);
 	return 1;
 }
@@ -511,7 +511,6 @@ int Timetable::load(const string &timetableName)
 {
 	string NomConcat;
 	int i;
-
 
 	//! Professor
 
@@ -543,7 +542,7 @@ int Timetable::load(const string &timetableName)
 					end = true;
 				else
 				{
-					cout  << e.getMessage() << endl;
+					cout << e.getMessage() << endl;
 					break;
 				}
 			}
@@ -610,7 +609,6 @@ int Timetable::load(const string &timetableName)
 			{
 				Classroom val = FC->read();
 				addClassroom(val);
-				
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -618,7 +616,7 @@ int Timetable::load(const string &timetableName)
 					end = true;
 				else
 				{
-					cout  << e.getMessage() << endl;
+					cout << e.getMessage() << endl;
 					break;
 				}
 			}
@@ -657,7 +655,7 @@ int Timetable::load(const string &timetableName)
 					end = true;
 				else
 				{
-					cout  << e.getMessage() << endl;
+					cout << e.getMessage() << endl;
 					break;
 				}
 			}
@@ -665,7 +663,6 @@ int Timetable::load(const string &timetableName)
 
 		delete FCO;
 	}
-
 
 	const char *NomFichier;
 	int fd;
@@ -790,15 +787,12 @@ string Timetable::getCourseTupleByIndex(int index)
 	Course classes = findCourseByIndex(index); //! C LUI
 	if (classes.getProfessorId() != 0)
 	{
-		cout << "On est bien entrer dans getCourseTuple by index et on a bien instancer notre classes" << endl;
+
 		string tupleC = tuple(classes);
-		cout << "voici son tuple" << tupleC << endl;
 		return tupleC;
 	}
 	return "";
 }
-
-
 
 Course Timetable::findCourseByCode(int code) const
 {
@@ -816,13 +810,12 @@ Course Timetable::findCourseByCode(int code) const
 	return Course();
 }
 
-
 int Timetable::deleteCourseByCode(int Code)
 {
 
 	Course deleted = findCourseByCode(Code);
 
-	auto it = find(courses.begin(),courses.end(),deleted);
+	auto it = find(courses.begin(), courses.end(), deleted);
 
 	if (it != courses.end())
 	{
@@ -832,18 +825,198 @@ int Timetable::deleteCourseByCode(int Code)
 	return 0;
 }
 
-int Timetable::addClassroom(const Classroom& c)
+int Timetable::addClassroom(const Classroom &c)
 {
 	classrooms.insert(c);
 	return 1;
 }
-int Timetable::addProfessor(const Professor& c)
+int Timetable::addProfessor(const Professor &c)
 {
 	professors.insert(c);
 	return 1;
 }
-int Timetable::addGroup(const Group& c)
+int Timetable::addGroup(const Group &c)
 {
 	groups.insert(c);
 	return 1;
+}
+
+void Timetable::importProfessorsFromCsv(const string &filename)
+{
+	ifstream file(filename);
+	if (!file.is_open())
+	{
+		cerr << "Une erreur lors de l'ouverture du fichier est survenue" << endl;
+		exit(1);
+	}
+
+	string line;
+	string LastName;
+	string FirstName;
+
+	while (getline(file, line))
+	{
+		cout << "la ligne lue" << line << endl;
+		istringstream iss(line);
+
+		getline(iss, LastName, ';');
+		getline(iss, FirstName, ';');
+
+		cout << "nom :  " << LastName << "  | prenom :  " << FirstName << endl;
+		addProfessor(LastName, FirstName);
+	}
+}
+
+void Timetable::importGroupsFromCsv(const string &filename)
+{
+
+	ifstream file(filename);
+	if (!file.is_open())
+	{
+		cerr << "Une erreur lors de l'ouverture du fichier est survenue" << endl;
+		exit(1);
+	}
+
+	string line;
+	string Name;
+
+	while (getline(file, line))
+	{
+		cout << "la ligne lue" << line << endl;
+		istringstream iss(line);
+
+		getline(iss, Name, ';');
+
+		cout << "name :  " << Name << endl;
+		addGroup(Name);
+	}
+}
+void Timetable::importClassroomsFromCsv(const string &filename)
+{
+	ifstream file(filename);
+	if (!file.is_open())
+	{
+		cerr << "Une erreur lors de l'ouverture du fichier est survenue" << endl;
+		exit(1);
+	}
+
+	string line;
+	string Name;
+	string SeatingCapacity;
+
+	while (getline(file, line))
+	{
+		cout << "la ligne lue" << line << endl;
+		istringstream iss(line);
+
+		getline(iss, Name, ';');
+		getline(iss, SeatingCapacity, ';');
+
+		cout << "nom :  " << Name << "  | place :  " << stoi(SeatingCapacity) << endl;
+		addClassroom(Name, stoi(SeatingCapacity));
+	}
+}
+
+void Timetable::exportProfessorTimetable(int id)
+{
+	Professor t = findProfessorById(id);
+	const string NomFichier = t.getLastName() + "_" + t.getFirstName() + ".hor";
+	cout << "votre nom fichier " << NomFichier << endl;
+
+	fstream file;
+
+	file.open(NomFichier, ios::out);
+	file << "Horaire de " + t.getLastName() + t.getFirstName() + " :";
+	file << endl << endl;
+
+	for (auto it = courses.begin(); it != courses.end(); it++)
+	{
+		string groupsStr, ligne;
+		if (it->getProfessorId() == id)
+		{
+			int clsint = it->getClassroomId();
+			Classroom cls = findClassroomById(clsint);
+
+			ligne = it->getTiming().getDay() + "     " + it->getTiming().getStart().toString() + "  " + it->getTiming().getDuration().toString() + "  " + cls.getName() + "   " + it->getTitle() + "  ";
+
+			set<int> tmp = it->getGroupsId();
+			for (auto itg = tmp.cbegin(); itg != tmp.cend(); itg++)
+			{
+				Group group = findGroupById(*itg);
+				groupsStr += group.toString();
+				if (next(itg) != tmp.cend())
+				{ // Ajoute une virgule si ce n'est pas le dernier élément
+					groupsStr += ", ";
+				}
+			}
+
+			file << ligne + groupsStr << endl;
+		}
+	}
+}
+void Timetable::exportGroupTimetable(int id)
+{
+	Group g = findGroupById(id);
+	const string NomFichier = g.getName() + ".hor";
+	cout << "votre nom fichier " << NomFichier << endl;
+
+	fstream file;
+
+	file.open(NomFichier, ios::out);
+	file << "Horaire de " + g.getName() + " :";
+	file << endl << endl;
+
+	for (auto it = courses.begin(); it != courses.end(); it++)
+	{
+
+		set<int> tmp = it->getGroupsId();
+		for (auto itg = tmp.cbegin(); itg != tmp.cend(); itg++)
+		{
+			if (*itg == id)
+			{
+				Professor prof = findProfessorById(it->getProfessorId());
+				Classroom cls = findClassroomById(it->getClassroomId());
+				file << it->getTiming().getDay() + "     " + it->getTiming().getStart().toString() + "  " + it->getTiming().getDuration().toString() + "  " + cls.getName() + "   " + it->getTitle() + "  " + prof.getLastName() + " " + prof.getFirstName() << endl;
+
+			}
+		}
+	}
+}
+
+void Timetable::exportClassroomTimetable(int id)
+{
+
+	Classroom cls = findClassroomById(id);
+	const string NomFichier = cls.getName() + ".hor";
+	cout << "votre nom fichier " << NomFichier << endl;
+
+	fstream file;
+
+	file.open(NomFichier, ios::out);
+	file << "Horaire de " + cls.getName() + " :";
+	file << endl << endl;
+
+	for (auto it = courses.begin(); it != courses.end(); it++)
+	{
+		string groupsStr, ligne;
+		if (it->getClassroomId() == id)
+		{
+
+			Professor prof = findProfessorById(it->getProfessorId());
+			ligne = it->getTiming().getDay() + "     " + it->getTiming().getStart().toString() + "  " + it->getTiming().getDuration().toString() + "  " + cls.getName() + "   " + it->getTitle() + "  " + prof.getLastName()  + prof.getFirstName() + "  ";
+
+			set<int> tmp = it->getGroupsId();
+			for (auto itg = tmp.cbegin(); itg != tmp.cend(); itg++)
+			{
+				Group group = findGroupById(*itg);
+				groupsStr += group.toString();
+				if (next(itg) != tmp.cend())
+				{ // Ajoute une virgule si ce n'est pas le dernier élément
+					groupsStr += ", ";
+				}
+			}
+
+			file << ligne + groupsStr << endl;
+		}
+	}
 }

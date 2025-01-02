@@ -113,9 +113,9 @@ ApplicHoraireWindow::ApplicHoraireWindow(QWidget *parent) : QMainWindow(parent),
     // addTupleTableClassrooms("25;LP03");
     // addTupleTableClassrooms("29;LE0");
 
-    addTupleTableCourses("1;Lundi;8h30;2h00;AN;Théorie C++;Wagner Jean-Marc;INFO2 D201,INFO2 D202");
-    addTupleTableCourses("3;Mardi;10h30;1h30;AN;Théorie UNIX;Quettier Patrick;INFO2 R201,INFO2 R202");
-    addTupleTableCourses("4;Jeudi;13h30;2h00;LE0;Labo C++;Leonard Anne;INFO2 I201");
+    // addTupleTableCourses("1;Lundi;8h30;2h00;AN;Théorie C++;Wagner Jean-Marc;INFO2 D201,INFO2 D202");
+    // addTupleTableCourses("3;Mardi;10h30;1h30;AN;Théorie UNIX;Quettier Patrick;INFO2 R201,INFO2 R202");
+    // addTupleTableCourses("4;Jeudi;13h30;2h00;LE0;Labo C++;Leonard Anne;INFO2 I201");
     // -------------------------------------------------------------------
 }
 
@@ -720,7 +720,7 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
     try
     {
         Timing t(day, Time(startH, startM), Time(dur));
-        Course cls(Timetable::code, titles, idp, idc, groupsSet); // Passer le set<int> de groupes
+        Course cls(Event::currentCode, titles, idp, idc, groupsSet); // Passer le set<int> de groupes
 
         Timetable.schedule(cls, t);
 
@@ -771,6 +771,8 @@ void ApplicHoraireWindow::on_actionOuvrir_triggered()
     string NomFichier = dialogInputText("Qu'elle fichier souhaitez vous ouvrir", "Entrez le fichier que vous souhaitez ouvrir");
     auto &Timetable = Timetable::getInstance();
 
+    Timetable.vider();
+
     if (Timetable.load(NomFichier))
     {
         dialogMessage("Ouverture réussie", "Votre fichier a bien été Ouvert");
@@ -779,6 +781,7 @@ void ApplicHoraireWindow::on_actionOuvrir_triggered()
         MiseAJourTableProfesseur(Timetable);
         MiseAJourTableCourse(Timetable);
         return;
+        cout << "current code de ouvrir: " << Event::currentCode << endl;
     }
     dialogError("L'ouverture n'a pas marche", "L'ouverture de votre fichier n'a malencontreusement pas fonctionné");
 }
@@ -821,8 +824,6 @@ void ApplicHoraireWindow::on_actionSupprimerProfesseur_triggered()
     {
         return;
     }
-    cout << "ID à supprimer : " << id << endl;
-
     auto &Timetable = Timetable::getInstance();
 
     if (Timetable.deleteProfessorById(id))
@@ -897,42 +898,63 @@ void ApplicHoraireWindow::on_actionSupprimerCours_triggered()
 void ApplicHoraireWindow::on_actionImporterProfesseurs_triggered()
 {
     cout << "Clic sur Menu Importer --> Item Professeurs" << endl;
-    // TO DO (Etape 12)
+    auto &Timetable = Timetable::getInstance();
+
+
+    Timetable.importProfessorsFromCsv("../professors.csv");
+    MiseAJourTableProfesseur(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionImporterGroupes_triggered()
 {
     cout << "Clic sur Menu Importer --> Item Groupes" << endl;
-    // TO DO (Etape 12)
+    auto &Timetable = Timetable::getInstance();
+
+
+    Timetable.importGroupsFromCsv("../groups.csv");
+    MiseAJourTableGroup(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionImporterLocaux_triggered()
 {
     cout << "Clic sur Menu Importer --> Item Locaux" << endl;
-    // TO DO (Etape 12)
+    auto &Timetable = Timetable::getInstance();
+
+
+    Timetable.importClassroomsFromCsv("../classrooms.csv");
+    MiseAJourTableClassroom(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionExporterProfesseur_triggered()
 {
     cout << "Clic sur Menu Exporter horaire --> Item Professeur" << endl;
-    // TO DO (Etape 12)
+    auto &Timetable = Timetable::getInstance();
+    int id = dialogInputInt("Entre l'id ","Entrez l'id du professeur auquels vous souhaitez imprimer l'horaire");
+
+    Timetable.exportProfessorTimetable(id);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionExporterGroupe_triggered()
 {
     cout << "Clic sur Menu Exporter horaire --> Item Groupe" << endl;
-    // TO DO (Etape 12)
+    auto &Timetable = Timetable::getInstance();
+    int id = dialogInputInt("Entre l'id ","Entrez l'id du groupe auquels vous souhaitez imprimer l'horaire");
+
+    Timetable.exportGroupTimetable(id);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionExporterLocal_triggered()
 {
     cout << "Clic sur Menu Exporter horaire --> Item Local" << endl;
-    // TO DO (Etape 12)
+    auto &Timetable = Timetable::getInstance();
+    int id = dialogInputInt("Entre l'id ","Entrez l'id du Local auquels vous souhaitez imprimer l'horaire");
+
+    Timetable.exportClassroomTimetable(id);
 }
 
 void ApplicHoraireWindow::MiseAJourTableProfesseur(Timetable &x)
@@ -997,6 +1019,5 @@ void ApplicHoraireWindow::MiseAJourTableCourse(Timetable &t)
         addTupleTableCourses(tupleG);
 
     } while (true);
-    cout << "On arrive a la fin" << endl;
     return;
 }
