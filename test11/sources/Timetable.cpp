@@ -347,16 +347,19 @@ void Timetable::schedule(Course &c, const Timing &t)
 
 	for (auto it = idGroup.cbegin(); it != idGroup.cend(); it++)
 	{
-		if (!(isProfessorAvailable(idProf, t)) || !(isClassroomAvailable(idClass, t)) || !(isGroupAvailable((*it), t)))
-		{
-			cout << "Professor : " << isProfessorAvailable(idProf, t) << endl;
-			cout << "Classroom : " << isClassroomAvailable(idClass, t) << endl;
-			cout << "Group     : " << isGroupAvailable((*it), t) << endl;
-			throw TimingException(TimingException::TIMING_NOT_AVAIBLE, "Le professeur n'est pas disponible");
-		}
+		if(!(isProfessorAvailable(idProf, t)))
+			throw TimingException(TimingException::PROFESSOR_NOT_AVAIBLE, "Le professeur n'est pas disponible");
+
+		if(!(isClassroomAvailable(idClass, t)))
+			throw TimingException(TimingException::CLASSROOM_NOT_AVAIBLE, "Le classroom n'est pas disponible");
+
+		if(!(isGroupAvailable((*it), t)))
+			throw TimingException(TimingException::GROUP_NOT_AVAIBLE, "Le groups n'est pas disponible");
+
 		cout << "Professor : " << isProfessorAvailable(idProf, t) << endl;
 		cout << "Classroom : " << isClassroomAvailable(idClass, t) << endl;
 		cout << "Group     : " << isGroupAvailable((*it), t) << endl;
+
 	}
 
 	c.setCode(code);
@@ -420,17 +423,6 @@ int Timetable::save(const string &timetableName)
 	string NomConcat;
 	const char *NomFichier;
 
-	NomConcat = timetableName + "_config.dat";
-	NomFichier = NomConcat.c_str();
-
-	int fd;
-	if ((fd = open(NomFichier, O_WRONLY | O_CREAT | O_APPEND, 0777)) == -1)
-	{
-		cerr << "Une erreur lors de l'ouverture du fichier est survenue lors de l'ajout du fichier" << endl;
-		return -1;
-	}
-	write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
-	close(fd);
 	//!Enregistrer un fichier Classroom
 
 	NomConcat = timetableName + "_classroom.xml";
@@ -480,6 +472,36 @@ int Timetable::save(const string &timetableName)
 	}
 	delete FP;
 
+
+	//!Enregistrer course
+	NomConcat = timetableName + "_courses.xml";
+	XmlFileSerializer<Course> *FCO = new XmlFileSerializer<Course>(NomConcat, XmlFileSerializer<Course>::WRITE, "Courses");
+	
+	auto itco = courses.begin();
+	i = 0;
+
+	while (itco != courses.end())
+	{
+		Course t = findCourseByIndex(i);
+		FCO->write(t);
+		itco++;
+		i++;
+	}
+	delete FCO;
+
+
+
+	NomConcat = timetableName + "_config.dat";
+	NomFichier = NomConcat.c_str();
+
+	int fd;
+	if ((fd = open(NomFichier, O_WRONLY | O_CREAT , 0777)) == -1)
+	{
+		cerr << "Une erreur lors de l'ouverture du fichier est survenue lors de l'ajout du fichier" << endl;
+		return -1;
+	}
+	write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+	close(fd);
 	return 1;
 }
 
@@ -488,27 +510,30 @@ int Timetable::load(const string &timetableName)
 	string NomConcat;
 	int i;
 
-	NomConcat = timetableName + "_classroom.xml";
 
-	XmlFileSerializer<Classroom> *FC = nullptr;
+	//! Professor
+
+	NomConcat = timetableName + "_professor.xml";
+
+	XmlFileSerializer<Professor> *FP = nullptr;
 	try
 	{
-		FC = new XmlFileSerializer<Classroom>(NomConcat, XmlFileSerializer<Classroom>::READ);
+		FP = new XmlFileSerializer<Professor>(NomConcat, XmlFileSerializer<Professor>::READ);
 	}
 	catch (const XmlFileSerializerException &e)
 	{
 		cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
 	}
 
-	if (FC != nullptr)
+	if (FP != nullptr)
 	{
 		bool end = false;
 		while (!end)
 		{
 			try
 			{
-				Classroom val = FC->read();
-				addClassroom(val.getName(), val.getSeatingCapacity());
+				Professor val = FP->read();
+				addProfessor(val.getLastName(), val.getFirstName());
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -521,9 +546,8 @@ int Timetable::load(const string &timetableName)
 				}
 			}
 		}
-		delete FC;
+		delete FP;
 	}
-
 	//! GRoup
 
 	NomConcat = timetableName + "_group.xml";
@@ -562,29 +586,29 @@ int Timetable::load(const string &timetableName)
 		delete FG;
 	}
 
-	//! Professor
+	//!Classroom
+	NomConcat = timetableName + "_classroom.xml";
 
-	NomConcat = timetableName + "_professor.xml";
-
-	XmlFileSerializer<Professor> *FP = nullptr;
+	XmlFileSerializer<Classroom> *FC = nullptr;
 	try
 	{
-		FP = new XmlFileSerializer<Professor>(NomConcat, XmlFileSerializer<Professor>::READ);
+		FC = new XmlFileSerializer<Classroom>(NomConcat, XmlFileSerializer<Classroom>::READ);
 	}
 	catch (const XmlFileSerializerException &e)
 	{
 		cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
 	}
 
-	if (FP != nullptr)
+	if (FC != nullptr)
 	{
 		bool end = false;
 		while (!end)
 		{
 			try
 			{
-				Professor val = FP->read();
-				addProfessor(val.getLastName(), val.getFirstName());
+				Classroom val = FC->read();
+				addClassroom(val.getName(), val.getSeatingCapacity());
+				
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -597,7 +621,7 @@ int Timetable::load(const string &timetableName)
 				}
 			}
 		}
-		delete FP;
+		delete FC;
 	}
 
 	const char *NomFichier;
@@ -716,4 +740,38 @@ string Timetable::getCourseTupleByIndex(int index)
 		return tupleC;
 	}
 	return "";
+}
+
+
+
+Course Timetable::findCourseByCode(int code) const
+{
+	auto it = courses.begin();
+
+	while (it != courses.end() && it->getCode() != code)
+	{
+		it++;
+	}
+
+	if (it != courses.end())
+		return *it;
+
+	cout << "Cours pas trouvé" << endl;
+	return Course();
+}
+
+
+int Timetable::deleteCourseByCode(int Code)
+{
+
+	Course deleted = findCourseByCode(Code);
+
+	auto it = find(courses.begin(),courses.end(),deleted);
+
+	if (it != courses.end())
+	{
+		courses.erase(it);
+		return 1;
+	}
+	return 0;
 }

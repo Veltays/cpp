@@ -5,12 +5,19 @@
 #include <cstring>
 #include <fcntl.h>
 #include <unistd.h>
+#include <algorithm>
+
+
+#include <unistd.h>
 
 #include "Event.h"
+
 
 using namespace planning;
 class Course : public Event
 {
+    friend ostream &operator<<(ostream &, const Course &);
+    friend istream &operator>>(istream &, Course &);
 
 private:
     int professorId;
@@ -35,6 +42,7 @@ public:
 
     void addGroupId(int id);
     bool isGroupIdPresent(int id);
+    bool operator==(const Course &other) const;
 };
 
 #endif

@@ -725,14 +725,27 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
         Timetable.schedule(cls, t);
 
         MiseAJourTableCourse(Timetable);
-        cout << "Retour marche bien on sort de MAJCourse" << endl;
+        dialogMessage("Ajout avec succès", "Le cours a été ajouté avec succès");
     }
-    catch (TimingException &timing)
+    catch (TimingException &timingExcep)
     {
-        cout << timing.getMessage() << "\nCode: " << timing.getCode() << endl;
+        cout <<"message d'erreur" << timingExcep.getMessage() << "\nCode: " << timingExcep.getCode() << endl;
+        switch(timingExcep.getCode())
+        {
+            case 15:
+                dialogError("Professeur pas disponible", "Le Professeur demandé n'est pas disponible a cette horaire");
+            break;
+
+            case 16:
+                dialogError("Classroom pas disponible", "Le Classroom demandé n'est pas disponible a cette horaire");
+            break;
+
+            case 17:
+                dialogError("Group pas disponible", "Le Group demandé n'est pas disponible a cette horaire");
+        }
+        
     }
 
-    cout << "Apres ca jsp ou on va " << endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -867,14 +880,15 @@ void ApplicHoraireWindow::on_actionSupprimerCours_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Cours" << endl;
 
-    // int id = dialogInputInt("Suppression par ID d'un course", "Qu'elle est l'id du groupe que vous souhaiter supprimer ?");
-    // auto &Timetable = Timetable::getInstance();
+    int code = dialogInputInt("Suppression par code d'un course", "Qu'elle est le code du cours que vous souhaiter supprimer ?");
+    auto &Timetable = Timetable::getInstance();
 
-    // if (Timetable.deleteCourseById(id))  //!faire fonct
-    // {
-    //     MiseAJourTableCourse(Timetable); //!TableCourse
-    //     return;
-    // }
+    if (Timetable.deleteCourseByCode(code))  
+    {
+        MiseAJourTableCourse(Timetable); 
+        return;
+    }
+        dialogError("code pas trouver", "Impossible de trouver le codedemandé");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -971,7 +985,6 @@ void ApplicHoraireWindow::MiseAJourTableCourse(Timetable &t)
     string tupleG;
 
     clearTableCourses();
-
     do
     {
         tupleG = t.getCourseTupleByIndex(i);

@@ -236,23 +236,18 @@ namespace planning
 
         if (start1 > start2)
         {
-            if ((start2 + durer2) < start1)
+            if ((start2 + durer2) < start1 +1)
                 return true;
             else
-            {
-                printf("votre évenement commence a %d et dure %d ce qui intersise avec le second évenement %d\n", start1, durer1, start2);
                 return false;
-            }
         }
         else
         {
-            if ((start1 + durer1) < start2)
+            if ((start1 + durer1) < start2 +1)
                 return true;
             else
-            {
-                printf("votre évenement commence a %d et dure %d ce qui intersise avec le second évenement %d \n", start2, durer2, start1);
                 return false;
-            }
+
         }
     }
 }

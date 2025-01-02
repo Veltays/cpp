@@ -5,6 +5,7 @@
 #include <list>
 #include <fcntl.h>
 #include <unistd.h>
+#include <algorithm>
 
 #include "Classroom.h"
 #include "Professor.h"
@@ -90,6 +91,9 @@ public:
     string getCourseTupleByIndex(int index);
 
     Course findCourseByIndex(int index);
+    Course findCourseByCode(int code) const;
+    int deleteCourseByCode(int code);
+
 
 
 };

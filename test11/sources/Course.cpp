@@ -93,3 +93,75 @@ bool Course::isGroupIdPresent(int id)
         return false;
     }
 }
+
+bool Course::operator==(const Course &other) const
+{
+    return this->getCode() == other.getCode();
+}
+
+
+
+ostream &operator<<(ostream &s, const Course &x)
+{
+
+    s << "<Course>" << endl;
+    s << static_cast<const Event &>(x); //casting explicite de x en event pour ainsi appelé son opérateur <<
+    
+    s << "<professorId>" << endl; 
+    s << x.getProfessorId() << endl;
+    s << "</professorId>" << endl;
+    s << "<classroomId>" << endl;
+    s << x.getClassroomId() << endl;
+    s << "</classroomId>" << endl;
+    set <int> test = x.getGroupsId();
+
+    for(auto it = test.cbegin() ; it != test.cend(); it++)
+    {
+        s << "<groupsIds>" << endl;
+        cout << "voici votre *it lire" <<*it << endl; 
+        s << *it << endl;
+        s << "</groupsIds>" << endl;
+        if(next(it) == test.cend())
+            break;
+    }
+    cout << "on sort avant d'avoir fini" << endl; 
+    s << "</Course>";
+    return s;
+
+}
+
+
+
+
+istream &operator>>(istream &s, Course &x)
+{
+    string line;
+    bool ok = true;
+
+    getline(s, line); // <Course>
+    getline(s, line); // <Event>
+    s >> static_cast<Event &>(x); //<variable event>
+    getline(s, line); // <professorId>
+    getline(s,line);
+    x.setProfessorId(stoi(line));  // Lire l'ID du professeur
+    getline(s, line); // </professorId>
+
+    getline(s, line); // <classroomId>
+    getline(s, line); // <var>
+    x.setClassroomId(stoi(line));  // Lire l'ID du Classroom
+    getline(s, line); // </classroomId>
+
+    set<int> Envoyer;
+    while(ok)
+    {
+        getline(s, line); // <GroupId> ou classroom
+        if(line == "</Course>" )
+            ok = false;
+        getline(s, line); // <var>
+        Envoyer.insert(stoi(line));  // Lire l'ID du Group)
+        getline(s,line);
+    }
+    x.setGroupsId(Envoyer);  // Lire l'ID du Group
+    
+    return s;
+}

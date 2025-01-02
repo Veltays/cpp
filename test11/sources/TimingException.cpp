@@ -4,8 +4,9 @@ namespace planning
 {
     int TimingException::INVALID_DAY = 4;
     int TimingException::NO_TIMING = 5;
-    int TimingException::TIMING_NOT_AVAIBLE = 15;
-
+    int TimingException::PROFESSOR_NOT_AVAIBLE = 15;
+    int TimingException::CLASSROOM_NOT_AVAIBLE = 16;
+    int TimingException::GROUP_NOT_AVAIBLE = 17;
     TimingException::TimingException() : Exception()
     {
         code = 0;
