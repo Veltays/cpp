@@ -39,7 +39,9 @@ public:
 
     ~Timetable();
 
-
+    int addClassroom(const Classroom&);
+    int addProfessor(const Professor&);
+    int addGroup(const Group&);
     
     int addClassroom(const string &name, int seatingCapacity);
     void displayClassrooms() const;

@@ -138,28 +138,48 @@ istream &operator>>(istream &s, Course &x)
     string line;
     bool ok = true;
 
+    cout << "1" << endl;
     getline(s, line); // <Course>
-    getline(s, line); // <Event>
+    cout << "2" << endl;
     s >> static_cast<Event &>(x); //<variable event>
+    cout << "4" << endl;
     getline(s, line); // <professorId>
+    cout << "5" << endl;
     getline(s,line);
+    cout << "6" << endl;
     x.setProfessorId(stoi(line));  // Lire l'ID du professeur
+    cout << "7" << endl;
     getline(s, line); // </professorId>
-
-    getline(s, line); // <classroomId>
-    getline(s, line); // <var>
-    x.setClassroomId(stoi(line));  // Lire l'ID du Classroom
-    getline(s, line); // </classroomId>
-
+    cout << "8" << endl;
+    getline(s, line);
+    cout << "9" << endl; // <classroomId>
+    getline(s, line);
+    cout << "10" << endl; // <var>
+    x.setClassroomId(stoi(line));
+    cout << "11" << endl;  // Lire l'ID du Classroom
+    getline(s, line);
+    cout << "12" << endl; // </classroomId>
     set<int> Envoyer;
+    cout << "13" << endl;
     while(ok)
     {
+        cout << "14" << endl;
+
         getline(s, line); // <GroupId> ou classroom
+        cout << "15" << endl;
         if(line == "</Course>" )
             ok = false;
-        getline(s, line); // <var>
-        Envoyer.insert(stoi(line));  // Lire l'ID du Group)
-        getline(s,line);
+        else
+        {
+            cout << "16" << endl;
+            getline(s, line); // <var>
+            cout << "17" << endl;
+            cout << line << endl;
+            Envoyer.insert(stoi(line));  // Lire l'ID du Group)
+            cout << "18" << endl;
+            getline(s,line);
+            cout << "19" << endl;
+        }
     }
     x.setGroupsId(Envoyer);  // Lire l'ID du Group
     

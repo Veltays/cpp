@@ -211,6 +211,7 @@ int Timetable::addGroup(const string &name)
 		return 0;
 	}
 }
+
 void Timetable::displayGroups() const
 {
 	int index = 0;
@@ -501,6 +502,7 @@ int Timetable::save(const string &timetableName)
 		return -1;
 	}
 	write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+	write(fd, &Event::currentCode, sizeof(Event::currentCode));
 	close(fd);
 	return 1;
 }
@@ -533,7 +535,7 @@ int Timetable::load(const string &timetableName)
 			try
 			{
 				Professor val = FP->read();
-				addProfessor(val.getLastName(), val.getFirstName());
+				addProfessor(val);
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -570,7 +572,7 @@ int Timetable::load(const string &timetableName)
 			try
 			{
 				Group val = FG->read();
-				addGroup(val.getName());
+				addGroup(val);
 			}
 			catch (const XmlFileSerializerException &e)
 			{
@@ -607,7 +609,7 @@ int Timetable::load(const string &timetableName)
 			try
 			{
 				Classroom val = FC->read();
-				addClassroom(val.getName(), val.getSeatingCapacity());
+				addClassroom(val);
 				
 			}
 			catch (const XmlFileSerializerException &e)
@@ -623,6 +625,47 @@ int Timetable::load(const string &timetableName)
 		}
 		delete FC;
 	}
+
+	//? Course
+	NomConcat = timetableName + "_courses.xml";
+
+	XmlFileSerializer<Course> *FCO = nullptr;
+	try
+	{
+		FCO = new XmlFileSerializer<Course>(NomConcat, XmlFileSerializer<Course>::READ);
+	}
+	catch (const XmlFileSerializerException &e)
+	{
+		cout << "Erreur : " << e.getMessage() << " (code = " << e.getCode() << ")" << endl;
+	}
+
+	if (FCO != nullptr)
+	{
+		bool end = false;
+		while (!end)
+		{
+			try
+			{
+				cout << "en dessus de la boucle bool" << endl;
+				Course val = FCO->read();
+				cout << "en dessuser de la boucle bool" << endl;
+				courses.push_back(val);
+			}
+			catch (const XmlFileSerializerException &e)
+			{
+				if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+					end = true;
+				else
+				{
+					cout  << e.getMessage() << endl;
+					break;
+				}
+			}
+		}
+		cout << endl << "au dessus yde la boucle bool";
+		delete FCO;
+	}
+
 
 	const char *NomFichier;
 	int fd;
@@ -642,6 +685,14 @@ int Timetable::load(const string &timetableName)
 		close(fd);
 		return -1;
 	}
+
+	if (read(fd, &Event::currentCode, sizeof(Event::currentCode)) < 1)
+	{
+		cerr << "Erreur: données lues incorrectes" << endl;
+		close(fd);
+		return -1;
+	}
+
 	close(fd);
 
 	return 1;
@@ -665,6 +716,11 @@ int Timetable::vider()
 	for (auto itp = professors.begin(); itp != professors.end();)
 	{
 		itp = professors.erase(itp); // Effacer l'élément et obtenir le nouvel itérateur
+	}
+
+	for (auto itco = courses.begin(); itco != courses.end();)
+	{
+		itco = courses.erase(itco); // Effacer l'élément et obtenir le nouvel itérateur
 	}
 
 	// Réinitialisation de currentId
@@ -774,4 +830,20 @@ int Timetable::deleteCourseByCode(int Code)
 		return 1;
 	}
 	return 0;
+}
+
+int Timetable::addClassroom(const Classroom& c)
+{
+	classrooms.insert(c);
+	return 1;
+}
+int Timetable::addProfessor(const Professor& c)
+{
+	professors.insert(c);
+	return 1;
+}
+int Timetable::addGroup(const Group& c)
+{
+	groups.insert(c);
+	return 1;
 }

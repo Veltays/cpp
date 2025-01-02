@@ -777,6 +777,7 @@ void ApplicHoraireWindow::on_actionOuvrir_triggered()
         MiseAJourTableClassroom(Timetable);
         MiseAJourTableGroup(Timetable);
         MiseAJourTableProfesseur(Timetable);
+        MiseAJourTableCourse(Timetable);
         return;
     }
     dialogError("L'ouverture n'a pas marche", "L'ouverture de votre fichier n'a malencontreusement pas fonctionné");
@@ -792,6 +793,7 @@ void ApplicHoraireWindow::on_actionNouveau_triggered()
     MiseAJourTableClassroom(Timetable);
     MiseAJourTableGroup(Timetable);
     MiseAJourTableProfesseur(Timetable);
+    MiseAJourTableCourse(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
