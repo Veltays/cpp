@@ -87,6 +87,7 @@ public:
 
 
     string tuple(const Course & c);
+    string getCourseTupleByIndex(int index);
 
     Course findCourseByIndex(int index);
 

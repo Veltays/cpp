@@ -58,13 +58,10 @@ namespace planning
 
   Timing Event::getTiming() const
   {
-    cout <<"cv jsquici";
     if (timing == nullptr)
     {
       throw TimingException(TimingException::NO_TIMING, "Pas de TIMING !");
     }
-    cout <<"cv jsquici";
-    cout << timing->getDay() << timing->getStart().toString() << timing->getDuration().toString() << "cc";
     return *timing;
   }
 

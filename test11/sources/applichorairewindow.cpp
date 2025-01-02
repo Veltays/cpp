@@ -725,19 +725,18 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
     Timetable.schedule(cls, t);
     string result = Timetable.tuple(cls);
 
-    ;
     //! PARTEZ
     //! ################################## 
     //! c ca faute SATAN ATTENTION RECULER
     MiseAJourTableCourse(Timetable);
-
+    cout << "Retour marche bien on sort de MAJCourse" << endl;
     // catch (TimingException &timing)
     // {
     //     cout << "cc catch";
     //     cout << timing.getMessage() << "\nCode: " << timing.getCode() << endl;
     //  }
 
-
+    cout << "Apres ca jsp ou on va " << endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -971,19 +970,22 @@ void ApplicHoraireWindow::MiseAJourTableClassroom(Timetable &x)
 
 void ApplicHoraireWindow::MiseAJourTableCourse(Timetable &t)
 {
-    cout << "salut" << endl;
     int i = 0;
-    Course cls;
+    Course cls();
     string tupleG;
 
     clearTableCourses();
 
-    //  do
-    // {
-     cls = t.findCourseByIndex(i); //! C LUI
-    //     tupleG = t.tuple(cls);        // ca bug a partir d'ici
-    //     addTupleTableCourses(tupleG);
-    //     i++;
+    do
+    {
+        tupleG = t.getCourseTupleByIndex(i);
+        i++;
+        if(tupleG.empty())
+            break;
+        cout << tupleG << endl;
+        addTupleTableCourses(tupleG);
 
-    // } while (cls.getProfessorId() != 0);
+    } while (true);
+    cout << "On arrive a la fin" << endl;
+    return;
 }

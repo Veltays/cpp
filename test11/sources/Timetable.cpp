@@ -674,7 +674,6 @@ string Timetable::tuple(const Course &c)
 	Professor professor = findProfessorById(c.getProfessorId());
 
 
-
 	string tupleG = to_string(Timetable::code) + ";" +
 					t.getDay() + ";" +
 					t.getStart().toString() + ";" +
@@ -682,14 +681,11 @@ string Timetable::tuple(const Course &c)
 					classroom.getName() + ";" +
 					c.getTitle() + ";" +
 					professor.getLastName() + " " + professor.getFirstName() + ";";
-		cout << "jusqu'ici tout va bien 5" <<endl;
-
 
 	// Concaténer les groupes avec des virgules
 	set<int> grp = c.getGroupsId();
 		
 	string groupsStr;
-cout << "jusqu'ici tout va bien 6" <<endl;
 	for (auto it = grp.cbegin(); it != grp.cend(); it++)
 	{
 		Group group = findGroupById(*it);
@@ -699,7 +695,6 @@ cout << "jusqu'ici tout va bien 6" <<endl;
 			groupsStr += ", ";
 		}
 	}
-	cout << "jusqu'ici tout va bien 7" <<endl;
 	// Ajouter les groupes à la chaîne finale
 	tupleG += groupsStr;
 
@@ -712,21 +707,38 @@ cout << "jusqu'ici tout va bien 6" <<endl;
 
 Course Timetable::findCourseByIndex(int index) {
 
-	cout << "salut";
-	auto it = courses.begin();
-	int i = 0;
 
+	auto it = courses.begin();
+
+	int i = 0;
 	while (it != courses.end() && i < index)
 	{
 		it++;
 		i++;
 	}
-
 	if (it != courses.end())
+	{
+		cout << "Retour de findCourse" << endl;
 		return *it;
+	}
 	else
 	{
 	cout << "Index hors limites AAHHAH" << endl;
 		return Course(); // Retourne un objet Classroom vide ou un autre objet par défaut
 	}
+}
+
+
+string Timetable::getCourseTupleByIndex(int index)
+{
+	Course classes = findCourseByIndex(index); //! C LUI
+	if(classes.getProfessorId() != 0)
+	{
+	cout << "On est bien entrer dans getCourseTuple by index et on a bien instancer notre classes" << endl;
+	string tupleC = tuple(classes);
+	cout << "voici son tuple" << tupleC << endl;
+	return tupleC;
+	}
+	return "";
+
 }
