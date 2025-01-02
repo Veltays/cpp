@@ -18,7 +18,6 @@ int Timetable::addClassroom(const string &name, int seatingCapacity)
 
 	if (result.second) // result.second est true si l'insertion a réussi
 	{
-		cout << "La classe a été ajouté avec succès." << endl;
 		Schedulable::currentId++;
 		return 1;
 	}
@@ -56,7 +55,6 @@ Classroom Timetable::findClassroomByIndex(int index) const
 		return *it;
 	else
 	{
-		cout << "Index hors limites" << endl;
 		return Classroom(); // Retourne un objet Classroom vide ou un autre objet par défaut
 	}
 }
@@ -113,7 +111,6 @@ int Timetable::addProfessor(const string &lastName, const string &firstName)
 	auto result = professors.insert(Professor(Schedulable::currentId, lastName, firstName));
 	if (result.second) // result.second est true si l'insertion a réussi
 	{
-		cout << "Le groupe a été ajouté avec succès." << endl;
 		Schedulable::currentId++;
 		return 1;
 	}
@@ -150,7 +147,6 @@ Professor Timetable::findProfessorByIndex(int index) const
 		return *it;
 	else
 	{
-		cout << "Index hors limites" << endl;
 		return Professor(); // Retourne un objet Professorr vide ou un autre objet par défaut
 	}
 }
@@ -206,7 +202,6 @@ int Timetable::addGroup(const string &name)
 
 	if (result.second) // result.second est true si l'insertion a réussi
 	{
-		cout << "Le groupe a été ajouté avec succès." << endl;
 		Schedulable::currentId++;
 		return 1;
 	}
@@ -243,7 +238,6 @@ Group Timetable::findGroupByIndex(int index) const
 		return *it;
 	else
 	{
-		cout << "Index hors limites" << endl;
 		return Group(); // Retourne un objet Group vide ou un autre objet par défaut
 	}
 }
@@ -352,19 +346,24 @@ void Timetable::schedule(Course &c, const Timing &t)
 	set<int> idGroup = c.getGroupsId();
 
 	for (auto it = idGroup.cbegin(); it != idGroup.cend(); it++)
+	{
 		if (!(isProfessorAvailable(idProf, t)) || !(isClassroomAvailable(idClass, t)) || !(isGroupAvailable((*it), t)))
 		{
-			cout << "pas dispo" << endl;
-			throw TimingException(TimingException::TIMING_NOT_AVAIBLE, "PAS DISPONIBLE CHERCHE TOI UNE VIE");
+			cout << "Professor : " << isProfessorAvailable(idProf, t) << endl;
+			cout << "Classroom : " << isClassroomAvailable(idClass, t) << endl;
+			cout << "Group     : " << isGroupAvailable((*it), t) << endl;
+			throw TimingException(TimingException::TIMING_NOT_AVAIBLE, "Le professeur n'est pas disponible");
 		}
+		cout << "Professor : " << isProfessorAvailable(idProf, t) << endl;
+		cout << "Classroom : " << isClassroomAvailable(idClass, t) << endl;
+		cout << "Group     : " << isGroupAvailable((*it), t) << endl;
+	}
 
-	c.setCode(Timetable::code);
+	c.setCode(code);
 	c.setTiming(t);
 	courses.push_back(c);
 
-
-
-	Timetable::code++;
+	code++;
 }
 
 Timetable &Timetable::getInstance()
@@ -495,11 +494,6 @@ int Timetable::load(const string &timetableName)
 	try
 	{
 		FC = new XmlFileSerializer<Classroom>(NomConcat, XmlFileSerializer<Classroom>::READ);
-		cout << "Filename = " << FC->getFilename() << endl;
-		cout << "Collection name = " << FC->getCollectionName() << endl;
-		cout << "Readable = " << FC->isReadable() << endl;
-		cout << "Writable = " << FC->isWritable() << endl
-			 << endl;
 	}
 	catch (const XmlFileSerializerException &e)
 	{
@@ -522,7 +516,7 @@ int Timetable::load(const string &timetableName)
 					end = true;
 				else
 				{
-					cout << "Erreur de lecture XML : " << e.getMessage() << endl;
+					cout  << e.getMessage() << endl;
 					break;
 				}
 			}
@@ -538,11 +532,6 @@ int Timetable::load(const string &timetableName)
 	try
 	{
 		FG = new XmlFileSerializer<Group>(NomConcat, XmlFileSerializer<Group>::READ);
-		cout << "Filename = " << FG->getFilename() << endl;
-		cout << "Collection name = " << FG->getCollectionName() << endl;
-		cout << "Readable = " << FG->isReadable() << endl;
-		cout << "Writable = " << FG->isWritable() << endl
-			 << endl;
 	}
 	catch (const XmlFileSerializerException &e)
 	{
@@ -565,7 +554,7 @@ int Timetable::load(const string &timetableName)
 					end = true;
 				else
 				{
-					cout << "Erreur de lecture XML : " << e.getMessage() << endl;
+					cout << e.getMessage() << endl;
 					break;
 				}
 			}
@@ -581,11 +570,6 @@ int Timetable::load(const string &timetableName)
 	try
 	{
 		FP = new XmlFileSerializer<Professor>(NomConcat, XmlFileSerializer<Professor>::READ);
-		cout << "Filename = " << FP->getFilename() << endl;
-		cout << "Collection name = " << FP->getCollectionName() << endl;
-		cout << "Readable = " << FP->isReadable() << endl;
-		cout << "Writable = " << FP->isWritable() << endl
-			 << endl;
 	}
 	catch (const XmlFileSerializerException &e)
 	{
@@ -608,7 +592,7 @@ int Timetable::load(const string &timetableName)
 					end = true;
 				else
 				{
-					cout << "Erreur de lecture XML : " << e.getMessage() << endl;
+					cout  << e.getMessage() << endl;
 					break;
 				}
 			}
@@ -634,7 +618,6 @@ int Timetable::load(const string &timetableName)
 		close(fd);
 		return -1;
 	}
-	cout << "L'entier lu du fichier est: " << Schedulable::currentId << endl;
 	close(fd);
 
 	return 1;
@@ -673,8 +656,7 @@ string Timetable::tuple(const Course &c)
 	Classroom classroom = findClassroomById(c.getClassroomId());
 	Professor professor = findProfessorById(c.getProfessorId());
 
-
-	string tupleG = to_string(Timetable::code) + ";" +
+	string tupleG = to_string(c.getCode()) + ";" +
 					t.getDay() + ";" +
 					t.getStart().toString() + ";" +
 					t.getDuration().toString() + ";" +
@@ -684,7 +666,7 @@ string Timetable::tuple(const Course &c)
 
 	// Concaténer les groupes avec des virgules
 	set<int> grp = c.getGroupsId();
-		
+
 	string groupsStr;
 	for (auto it = grp.cbegin(); it != grp.cend(); it++)
 	{
@@ -699,14 +681,11 @@ string Timetable::tuple(const Course &c)
 	tupleG += groupsStr;
 
 	// Affichage du résultat final
-	cout << tupleG << endl;
 	return tupleG;
 }
 
-
-
-Course Timetable::findCourseByIndex(int index) {
-
+Course Timetable::findCourseByIndex(int index)
+{
 
 	auto it = courses.begin();
 
@@ -718,27 +697,23 @@ Course Timetable::findCourseByIndex(int index) {
 	}
 	if (it != courses.end())
 	{
-		cout << "Retour de findCourse" << endl;
 		return *it;
 	}
 	else
 	{
-	cout << "Index hors limites AAHHAH" << endl;
 		return Course(); // Retourne un objet Classroom vide ou un autre objet par défaut
 	}
 }
 
-
 string Timetable::getCourseTupleByIndex(int index)
 {
 	Course classes = findCourseByIndex(index); //! C LUI
-	if(classes.getProfessorId() != 0)
+	if (classes.getProfessorId() != 0)
 	{
-	cout << "On est bien entrer dans getCourseTuple by index et on a bien instancer notre classes" << endl;
-	string tupleC = tuple(classes);
-	cout << "voici son tuple" << tupleC << endl;
-	return tupleC;
+		cout << "On est bien entrer dans getCourseTuple by index et on a bien instancer notre classes" << endl;
+		string tupleC = tuple(classes);
+		cout << "voici son tuple" << tupleC << endl;
+		return tupleC;
 	}
 	return "";
-
 }

@@ -717,24 +717,20 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
 
     const char *titles = title.c_str();
 
-    // try
-    // {
-    Timing t(day, Time(startH, startM), Time(dur));
-    Course cls(Timetable::code, titles, idp, idc, groupsSet); // Passer le set<int> de groupes
+    try
+    {
+        Timing t(day, Time(startH, startM), Time(dur));
+        Course cls(Timetable::code, titles, idp, idc, groupsSet); // Passer le set<int> de groupes
 
-    Timetable.schedule(cls, t);
-    string result = Timetable.tuple(cls);
+        Timetable.schedule(cls, t);
 
-    //! PARTEZ
-    //! ################################## 
-    //! c ca faute SATAN ATTENTION RECULER
-    MiseAJourTableCourse(Timetable);
-    cout << "Retour marche bien on sort de MAJCourse" << endl;
-    // catch (TimingException &timing)
-    // {
-    //     cout << "cc catch";
-    //     cout << timing.getMessage() << "\nCode: " << timing.getCode() << endl;
-    //  }
+        MiseAJourTableCourse(Timetable);
+        cout << "Retour marche bien on sort de MAJCourse" << endl;
+    }
+    catch (TimingException &timing)
+    {
+        cout << timing.getMessage() << "\nCode: " << timing.getCode() << endl;
+    }
 
     cout << "Apres ca jsp ou on va " << endl;
 }

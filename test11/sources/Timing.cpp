@@ -226,7 +226,7 @@ namespace planning
     {
 
         if(dayToInt((*this)) != dayToInt(t))
-            return false;
+            return true;
 
         Time start1 = this->getStart();
         Time start2 = t.getStart();
