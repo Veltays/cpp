@@ -798,7 +798,7 @@ string Timetable::getCourseTupleByIndex(int index)
 	return "";
 }
 
-
+//
 
 Course Timetable::findCourseByCode(int code) const
 {
