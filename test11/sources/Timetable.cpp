@@ -1,6 +1,7 @@
 #include "Timetable.h"
 using namespace planning;
 
+int Timetable::code = 1;
 Timetable Timetable::instance;
 
 Timetable::Timetable()
@@ -326,39 +327,44 @@ bool Timetable::isGroupAvailable(int id, const Timing &timing)
 		}
 	}
 	return true;
-	cout << "reflechis..";
 }
 
 bool Timetable::isClassroomAvailable(int id, const Timing &timing)
 {
 	bool resultat;
-	
+
 	for (auto it = courses.begin(); it != courses.end(); it++)
 	{
 		if (it->getClassroomId() == id)
 		{
-			if (!it->getTiming().intersect(timing));
-				return true;
+			resultat = it->getTiming().intersect(timing);
+			if (resultat == false)
+				return false;
 		}
 	}
-	return false;
+	return true;
 }
 void Timetable::schedule(Course &c, const Timing &t)
 {
 
-		int idProf = c.getProfessorId();
-		int idClass =c.getClassroomId();
-		set<int> idGroup =c.getGroupsId();
+	int idProf = c.getProfessorId();
+	int idClass = c.getClassroomId();
+	set<int> idGroup = c.getGroupsId();
 
-		for(auto it = idGroup.cbegin(); it != idGroup.cend(); it++)
-		if(!(isProfessorAvailable(idProf,t)) && !(isClassroomAvailable(idClass,t)) && !(isGroupAvailable((*it),t)))
+	for (auto it = idGroup.cbegin(); it != idGroup.cend(); it++)
+		if (!(isProfessorAvailable(idProf, t)) || !(isClassroomAvailable(idClass, t)) || !(isGroupAvailable((*it), t)))
 		{
 			cout << "pas dispo" << endl;
-			throw  TimingException(TimingException::TIMING_NOT_AVAIBLE , "PAS DISPONIBLE CHERCHE TOI UNE VIE");
+			throw TimingException(TimingException::TIMING_NOT_AVAIBLE, "PAS DISPONIBLE CHERCHE TOI UNE VIE");
 		}
 
-		c.setTiming(t);
-	
+	c.setCode(Timetable::code);
+	c.setTiming(t);
+	courses.push_back(c);
+
+
+
+	Timetable::code++;
 }
 
 Timetable &Timetable::getInstance()
@@ -658,4 +664,69 @@ int Timetable::vider()
 	Schedulable::currentId = 1;
 
 	return 1;
+}
+
+string Timetable::tuple(const Course &c)
+{
+	Timing t;
+	t = c.getTiming();
+	Classroom classroom = findClassroomById(c.getClassroomId());
+	Professor professor = findProfessorById(c.getProfessorId());
+
+
+
+	string tupleG = to_string(Timetable::code) + ";" +
+					t.getDay() + ";" +
+					t.getStart().toString() + ";" +
+					t.getDuration().toString() + ";" +
+					classroom.getName() + ";" +
+					c.getTitle() + ";" +
+					professor.getLastName() + " " + professor.getFirstName() + ";";
+		cout << "jusqu'ici tout va bien 5" <<endl;
+
+
+	// Concaténer les groupes avec des virgules
+	set<int> grp = c.getGroupsId();
+		
+	string groupsStr;
+cout << "jusqu'ici tout va bien 6" <<endl;
+	for (auto it = grp.cbegin(); it != grp.cend(); it++)
+	{
+		Group group = findGroupById(*it);
+		groupsStr += group.toString();
+		if (next(it) != grp.cend())
+		{ // Ajoute une virgule si ce n'est pas le dernier élément
+			groupsStr += ", ";
+		}
+	}
+	cout << "jusqu'ici tout va bien 7" <<endl;
+	// Ajouter les groupes à la chaîne finale
+	tupleG += groupsStr;
+
+	// Affichage du résultat final
+	cout << tupleG << endl;
+	return tupleG;
+}
+
+
+
+Course Timetable::findCourseByIndex(int index) {
+
+	cout << "salut";
+	auto it = courses.begin();
+	int i = 0;
+
+	while (it != courses.end() && i < index)
+	{
+		it++;
+		i++;
+	}
+
+	if (it != courses.end())
+		return *it;
+	else
+	{
+	cout << "Index hors limites AAHHAH" << endl;
+		return Course(); // Retourne un objet Classroom vide ou un autre objet par défaut
+	}
 }

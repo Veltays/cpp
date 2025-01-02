@@ -39,15 +39,15 @@ void Course::setGroupsId(const set<int> &groupsId)
     this->groupsIds = groupsId;
 }
 
-int Course::getProfessorId()
+int Course::getProfessorId() const
 {
     return professorId;
 }
-int Course::getClassroomId()
+int Course::getClassroomId() const
 {
     return classroomId;
 }
-set<int> Course::getGroupsId()
+set<int> Course::getGroupsId() const
 {
     return groupsIds;
 }

@@ -27,9 +27,9 @@ public:
     void setClassroomId(int);
     void setGroupsId(const set<int> &groupsId);
 
-    int getProfessorId();
-    int getClassroomId();
-    set<int> getGroupsId();
+    int getProfessorId() const;
+    int getClassroomId() const;
+    set<int> getGroupsId() const;
 
     bool operator<(const Course &) const;
 

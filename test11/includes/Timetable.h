@@ -34,6 +34,8 @@ private:
     static Timetable instance;
 
 public:
+    static int code;
+
     ~Timetable();
 
 
@@ -82,6 +84,13 @@ public:
 
     int save(const string& timetableName);
     int load(const string& timetableName);
+
+
+    string tuple(const Course & c);
+
+    Course findCourseByIndex(int index);
+
+
 };
 
 

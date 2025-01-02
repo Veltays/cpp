@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "Timetable.h"
+#include "Timing.h"
 #include <string>
 #include <list>
 using namespace std;
@@ -75,6 +76,7 @@ public:
     void MiseAJourTableClassroom(Timetable &x);
     void MiseAJourTableGroup(Timetable &x);
     void MiseAJourTableProfesseur(Timetable &x);
+    void MiseAJourTableCourse(Timetable &t);
 
 private slots:
     void on_pushButtonAjouterProfesseur_clicked();

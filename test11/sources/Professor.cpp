@@ -38,7 +38,7 @@ string Professor::getLastName() const
 
 string Professor::toString() const
 {
-    return lastName + " " + firstName;
+    return lastName +" "+ firstName;
 };
 
 string Professor::tuple() const
