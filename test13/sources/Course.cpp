@@ -113,13 +113,11 @@ ostream &operator<<(ostream &s, const Course &x)
     for (auto it = test.cbegin(); it != test.cend(); it++)
     {
         s << "<groupsIds>" << endl;
-        cout << "voici votre *it lire" << *it << endl;
         s << *it << endl;
         s << "</groupsIds>" << endl;
         if (next(it) == test.cend())
             break;
     }
-    cout << "on sort avant d'avoir fini" << endl;
     s << "</Course>";
     return s;
 }

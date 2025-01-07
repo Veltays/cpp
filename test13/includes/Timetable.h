@@ -85,17 +85,17 @@ public:
     string getProfessorTupleByIndex(int);
     string getGroupTupleByIndex(int);
     string getClassroomTupleByIndex(int);
+    string getCourseTupleByIndex(int index);
 
+
+    string tuple(const Course & c);
 
 
     int vider();
-
     int save(const string& timetableName);
     int load(const string& timetableName);
 
 
-    string tuple(const Course & c);
-    string getCourseTupleByIndex(int index);
 
     Course findCourseByIndex(int index);
     Course findCourseByCode(int code) const;
@@ -112,7 +112,7 @@ public:
     void exportGroupTimetable(int id);
     void exportClassroomTimetable(int id);
 
-    int selectionner(bool dayCheck,string daychecked, bool groupCheck,list<int> groupsChecked,bool profCheck,int profChecked, bool classCheck,int classChecked);
+    list<Course> selectionner(bool dayCheck,string daychecked, bool groupCheck,list<int> groupsChecked,bool profCheck,int profChecked, bool classCheck,int classChecked);
 
 
 };

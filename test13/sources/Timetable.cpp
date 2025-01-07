@@ -1024,7 +1024,7 @@ void Timetable::exportClassroomTimetable(int id)
 
 
 
-int Timetable::selectionner(bool dayCheck,string dayChecked, bool groupCheck,list<int> groupsChecked,bool profCheck,int profChecked, bool classCheck,int classChecked)
+list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool groupCheck,list<int> groupsChecked,bool profCheck,int profChecked, bool classCheck,int classChecked)
 {
 	
 	cout << "On rentre bien dans sélectionner, voici mes bool sélectionner" << endl
@@ -1040,5 +1040,71 @@ int Timetable::selectionner(bool dayCheck,string dayChecked, bool groupCheck,lis
 			for(int group : groupsChecked)
 				cout << "Group = : " << group  << " | bool  : " << groupCheck << endl;
 
-	return 1;
+	//Début du code réel
+
+	list<Course> CourseCpy = courses;
+
+	if (dayCheck) {
+		auto it = CourseCpy.begin();
+		while (it != CourseCpy.end()) {
+			if (dayChecked != it->getTiming().getDay()) {
+				it = CourseCpy.erase(it); 
+			} else {
+				++it; 
+			}
+		}
+	}
+
+
+	if(profCheck)
+	{
+		auto it = CourseCpy.begin();
+		Professor pf = findProfessorByIndex(profChecked);
+
+		while(it != CourseCpy.end())
+		{
+			Professor ptemp = findProfessorById(it->getProfessorId());
+			cout <<"Nom prof rechercher" << pf.getFirstName() << " " << pf.getLastName() << "idProfjuste : " << pf.getId() << " | " << "IdProftemp" << ptemp.getId() << endl;
+			if(pf.getId() != (ptemp.getId())) //! on doit faire -1 je sais pas pq
+			{
+				it = CourseCpy.erase(it); 
+				cout << "On ne prend pas le professeur a l'id" << ptemp.getId() << endl;
+			}
+			else
+			{
+				++it; 
+				cout << "On prend le professeur a l'id" << ptemp.getId() << endl;
+			}
+		}
+	}
+
+
+	if(classCheck)
+	{
+		auto it = CourseCpy.begin();
+		Classroom cf = findClassroomByIndex(classChecked);
+
+		while(it != CourseCpy.end())
+		{
+			Classroom ctemp = findClassroomById(it->getClassroomId());
+			cout <<"Nom classe rechercher" << cf.getName() << "idClassejuste : " << cf.getId() << " | " << "IdClasstemp : " << ctemp.getId() << endl;
+			if(cf.getId() != (ctemp.getId())) //! on doit faire -1 je sais pas pq
+			{
+				it = CourseCpy.erase(it); 
+				cout << "On ne prend pas le local a l'id : " << ctemp.getId() << endl;
+			}
+			else
+			{
+				++it; 
+				cout << "On prend le local a l'id : " << ctemp.getId() << endl;
+			}
+		}
+	}
+
+	
+
+
+
+
+	return CourseCpy;
 }

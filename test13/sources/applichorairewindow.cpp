@@ -1014,29 +1014,23 @@ void ApplicHoraireWindow::MiseAJourTableCourse(Timetable &t)
 void ApplicHoraireWindow::on_pushButtonSelectionner_clicked()
 {
     cout << "Clic sur bouton Selectionner" << endl;
+    string TupleG;
     auto &Timetable = Timetable::getInstance();
     string daySelect = getDaySelection();
     list<int> groupSelect = getIndexesGroupsSelection();
     int profSelect = getIndexProfessorSelection();
     int classSelect = getIndexClassroomSelection();
 
-    cout << "Different index selectionner ------" << endl;
-    cout << "Jour sélectionné : " << daySelect << endl
-         << "Professeur sélectionné : " << profSelect << endl
-         << "Classe sélectionnée : " << classSelect << endl
-         << "Groupes sélectionnés : " << endl ;
-    if (groupSelect.empty()) {
-        cout << "Aucun groupe sélectionné.";
-    } else {
-        for (int group : groupSelect) {
-            cout << "Index : " << group << " ";
+
+    list<Course> NvxCourse = Timetable.selectionner(isDayChecked(),daySelect,isGroupChecked(),groupSelect,isProfessorChecked(),profSelect,isClassroomChecked(),classSelect);
+
+    clearTableCourses();
+    for(auto it = NvxCourse.begin(); it != NvxCourse.end(); it++)
+        {
+            TupleG = Timetable.tuple(*it);
+            cout << TupleG << endl;
+            addTupleTableCourses(TupleG);
         }
-    }
-    cout << "---------" <<endl;
-
-
-    Timetable.selectionner(isDayChecked(),daySelect,isGroupChecked(),groupSelect,isProfessorChecked(),profSelect,isClassroomChecked(),classSelect);
-
     
 }
 
