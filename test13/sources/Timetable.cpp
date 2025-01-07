@@ -1024,21 +1024,15 @@ void Timetable::exportClassroomTimetable(int id)
 
 
 
-list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool groupCheck,list<int> groupsChecked,bool profCheck,int profChecked, bool classCheck,int classChecked)
+list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool groupCheck,int groupChecked,bool profCheck,int profChecked, bool classCheck,int classChecked)
 {
 	
 	cout << "On rentre bien dans sélectionner, voici mes bool sélectionner" << endl
 		<< "Day = : " << dayChecked << " | bool  : " << dayCheck << endl
 		<< "Professor = : " << profChecked  << " | bool  : "<< profCheck << endl
-		<< "Classroom = : " << classChecked << " | bool  : "<< classCheck << endl;
-		
-		if(groupsChecked.empty())
-		{
-			cout << "Group = : " << "--"  << " | bool  : " << groupCheck << endl;
-		}
-		else
-			for(int group : groupsChecked)
-				cout << "Group = : " << group  << " | bool  : " << groupCheck << endl;
+		<< "Classroom = : " << classChecked << " | bool  : "<< classCheck << endl
+		<< "Group = : " << groupChecked  << " | bool  : " << groupCheck << endl;
+
 
 	//Début du code réel
 
@@ -1065,7 +1059,7 @@ list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool group
 		{
 			Professor ptemp = findProfessorById(it->getProfessorId());
 			cout <<"Nom prof rechercher" << pf.getFirstName() << " " << pf.getLastName() << "idProfjuste : " << pf.getId() << " | " << "IdProftemp" << ptemp.getId() << endl;
-			if(pf.getId() != (ptemp.getId())) //! on doit faire -1 je sais pas pq
+			if(pf.getId() != ptemp.getId())
 			{
 				it = CourseCpy.erase(it); 
 				cout << "On ne prend pas le professeur a l'id" << ptemp.getId() << endl;
@@ -1088,7 +1082,7 @@ list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool group
 		{
 			Classroom ctemp = findClassroomById(it->getClassroomId());
 			cout <<"Nom classe rechercher" << cf.getName() << "idClassejuste : " << cf.getId() << " | " << "IdClasstemp : " << ctemp.getId() << endl;
-			if(cf.getId() != (ctemp.getId())) //! on doit faire -1 je sais pas pq
+			if(cf.getId() != ctemp.getId()) 
 			{
 				it = CourseCpy.erase(it); 
 				cout << "On ne prend pas le local a l'id : " << ctemp.getId() << endl;
@@ -1101,7 +1095,33 @@ list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool group
 		}
 	}
 
-	
+	if(groupCheck)
+	{
+		auto it = CourseCpy.begin();
+		Group gf = findGroupByIndex(groupChecked);
+
+		while(it != CourseCpy.end())
+		{	
+			set<int> setGtemp = it->getGroupsId();
+			for(auto itSetgT = setGtemp.begin(); itSetgT != setGtemp.end(); itSetgT++)
+			{
+				Group gtemp = findGroupById(*itSetgT);
+				cout <<"Nom du groupe rechercher" << gf.getName() << "Id groupe rechercher : " << gf.getId() << " | " << "Id group temporaire : " << gtemp.getId() << endl;
+				if(gf.getId() != gtemp.getId()) 
+				{
+					it = CourseCpy.erase(it); 
+					cout << "On ne prend pas le group a l'id : " << gtemp.getId() << endl;
+				}
+				else
+				{
+					++it; 
+					cout << "On prend le groupe a l'id : " << gtemp.getId() << endl;
+				}
+
+			}
+		}
+		
+	}
 
 
 

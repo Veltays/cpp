@@ -112,7 +112,7 @@ public:
     void exportGroupTimetable(int id);
     void exportClassroomTimetable(int id);
 
-    list<Course> selectionner(bool dayCheck,string daychecked, bool groupCheck,list<int> groupsChecked,bool profCheck,int profChecked, bool classCheck,int classChecked);
+    list<Course> selectionner(bool dayCheck,string daychecked, bool groupCheck,int groupChecked,bool profCheck,int profChecked, bool classCheck,int classChecked);
 
 
 };

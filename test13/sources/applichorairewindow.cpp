@@ -1021,8 +1021,12 @@ void ApplicHoraireWindow::on_pushButtonSelectionner_clicked()
     int profSelect = getIndexProfessorSelection();
     int classSelect = getIndexClassroomSelection();
 
+    auto it = groupSelect.begin();
+    int Group1 = *it;
 
-    list<Course> NvxCourse = Timetable.selectionner(isDayChecked(),daySelect,isGroupChecked(),groupSelect,isProfessorChecked(),profSelect,isClassroomChecked(),classSelect);
+    list<Course> NvxCourse = Timetable.selectionner(isDayChecked(),daySelect,isGroupChecked(),Group1,isProfessorChecked(),profSelect,isClassroomChecked(),classSelect);
+
+
 
     clearTableCourses();
     for(auto it = NvxCourse.begin(); it != NvxCourse.end(); it++)
