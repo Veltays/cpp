@@ -905,13 +905,13 @@ void Timetable::importClassroomsFromCsv(const string &filename)
 
 	while (getline(file, line))
 	{
-		cout << "la ligne lue" << line << endl;
+		//cout << "la ligne lue" << line << endl;
 		istringstream iss(line);
 
 		getline(iss, Name, ';');
 		getline(iss, SeatingCapacity, ';');
 
-		cout << "nom :  " << Name << "  | place :  " << stoi(SeatingCapacity) << endl;
+		//cout << "nom :  " << Name << "  | place :  " << stoi(SeatingCapacity) << endl;
 		addClassroom(Name, stoi(SeatingCapacity));
 	}
 }
@@ -1022,109 +1022,120 @@ void Timetable::exportClassroomTimetable(int id)
 	}
 }
 
-
-
-list<Course> Timetable::selectionner(bool dayCheck,string dayChecked, bool groupCheck,int groupChecked,bool profCheck,int profChecked, bool classCheck,int classChecked)
+list<Course> Timetable::selectionner(bool dayCheck, string dayChecked, bool groupCheck, int groupChecked, bool profCheck, int profChecked, bool classCheck, int classChecked)
 {
-	
-	cout << "On rentre bien dans sélectionner, voici mes bool sélectionner" << endl
-		<< "Day = : " << dayChecked << " | bool  : " << dayCheck << endl
-		<< "Professor = : " << profChecked  << " | bool  : "<< profCheck << endl
-		<< "Classroom = : " << classChecked << " | bool  : "<< classCheck << endl
-		<< "Group = : " << groupChecked  << " | bool  : " << groupCheck << endl;
 
+	cout << "On rentre bien dans sélectionner, voici mes bool sélectionner" << endl
+		 << "Day = : " << dayChecked << " | bool  : " << dayCheck << endl
+		 << "Professor = : " << profChecked << " | bool  : " << profCheck << endl
+		 << "Classroom = : " << classChecked << " | bool  : " << classCheck << endl
+		 << "Group = : " << groupChecked << " | bool  : " << groupCheck << endl;
 
 	//Début du code réel
 
 	list<Course> CourseCpy = courses;
 
-	if (dayCheck) {
+	if (dayCheck)
+	{
 		auto it = CourseCpy.begin();
-		while (it != CourseCpy.end()) {
-			if (dayChecked != it->getTiming().getDay()) {
-				it = CourseCpy.erase(it); 
-			} else {
-				++it; 
+		while (it != CourseCpy.end())
+		{
+			if (dayChecked != it->getTiming().getDay())
+			{
+				it = CourseCpy.erase(it);
+			}
+			else
+			{
+				++it;
 			}
 		}
 	}
 
-
-	if(profCheck)
+	if (profCheck)
 	{
 		auto it = CourseCpy.begin();
 		Professor pf = findProfessorByIndex(profChecked);
 
-		while(it != CourseCpy.end())
+		while (it != CourseCpy.end())
 		{
 			Professor ptemp = findProfessorById(it->getProfessorId());
-			cout <<"Nom prof rechercher" << pf.getFirstName() << " " << pf.getLastName() << "idProfjuste : " << pf.getId() << " | " << "IdProftemp" << ptemp.getId() << endl;
-			if(pf.getId() != ptemp.getId())
+			//cout <<"Nom prof rechercher" << pf.getFirstName() << " " << pf.getLastName() << "idProfjuste : " << pf.getId() << " | " << "IdProftemp" << ptemp.getId() << endl;
+			if (pf.getId() != ptemp.getId())
 			{
-				it = CourseCpy.erase(it); 
-				cout << "On ne prend pas le professeur a l'id" << ptemp.getId() << endl;
+				it = CourseCpy.erase(it);
+				//cout << "On ne prend pas le professeur a l'id" << ptemp.getId() << endl;
 			}
 			else
 			{
-				++it; 
-				cout << "On prend le professeur a l'id" << ptemp.getId() << endl;
+				++it;
+				//cout << "On prend le professeur a l'id" << ptemp.getId() << endl;
 			}
 		}
 	}
 
-
-	if(classCheck)
+	if (classCheck)
 	{
 		auto it = CourseCpy.begin();
 		Classroom cf = findClassroomByIndex(classChecked);
 
-		while(it != CourseCpy.end())
+		while (it != CourseCpy.end())
 		{
 			Classroom ctemp = findClassroomById(it->getClassroomId());
-			cout <<"Nom classe rechercher" << cf.getName() << "idClassejuste : " << cf.getId() << " | " << "IdClasstemp : " << ctemp.getId() << endl;
-			if(cf.getId() != ctemp.getId()) 
+			//cout <<"Nom classe rechercher" << cf.getName() << "idClassejuste : " << cf.getId() << " | " << "IdClasstemp : " << ctemp.getId() << endl;
+			if (cf.getId() != ctemp.getId())
 			{
-				it = CourseCpy.erase(it); 
-				cout << "On ne prend pas le local a l'id : " << ctemp.getId() << endl;
+				it = CourseCpy.erase(it);
+				//cout << "On ne prend pas le local a l'id : " << ctemp.getId() << endl;
 			}
 			else
 			{
-				++it; 
-				cout << "On prend le local a l'id : " << ctemp.getId() << endl;
+				++it;
+				//cout << "On prend le local a l'id : " << ctemp.getId() << endl;
 			}
 		}
 	}
 
-	if(groupCheck)
+	int compteurGrpTotal;
+	int compteurGrp;
+	int i = 0;
+	if (groupCheck && groupChecked != -1)
 	{
+
 		auto it = CourseCpy.begin();
 		Group gf = findGroupByIndex(groupChecked);
 
-		while(it != CourseCpy.end())
-		{	
+		while (it != CourseCpy.end())
+		{
+			compteurGrpTotal = 0;
+			compteurGrp = 0;
+
 			set<int> setGtemp = it->getGroupsId();
-			for(auto itSetgT = setGtemp.begin(); itSetgT != setGtemp.end(); itSetgT++)
+
+			for (auto itSetgT = setGtemp.begin(); itSetgT != setGtemp.end(); itSetgT++)
+			{
+				compteurGrpTotal++;
+			}
+
+			for (auto itSetgT = setGtemp.begin(); itSetgT != setGtemp.end(); itSetgT++)
 			{
 				Group gtemp = findGroupById(*itSetgT);
-				cout <<"Nom du groupe rechercher" << gf.getName() << "Id groupe rechercher : " << gf.getId() << " | " << "Id group temporaire : " << gtemp.getId() << endl;
-				if(gf.getId() != gtemp.getId()) 
-				{
-					it = CourseCpy.erase(it); 
-					cout << "On ne prend pas le group a l'id : " << gtemp.getId() << endl;
-				}
-				else
-				{
-					++it; 
-					cout << "On prend le groupe a l'id : " << gtemp.getId() << endl;
-				}
 
+				if (gf.getId() != gtemp.getId())
+				{
+					compteurGrp++;
+				}
 			}
+			cout << i << ":" << compteurGrp << endl;
+			cout << i << ":" << compteurGrpTotal << endl;
+			i++;
+			if (compteurGrp == compteurGrpTotal)
+			{
+				it = CourseCpy.erase(it);
+			}
+			else
+				++it;
 		}
-		
 	}
-
-
-
 
 	return CourseCpy;
 }
