@@ -1051,7 +1051,7 @@ list<Course> Timetable::selectionner(bool dayCheck, string dayChecked, bool grou
 		}
 	}
 
-	if (profCheck)
+	if (profCheck && profChecked != -1)
 	{
 		auto it = CourseCpy.begin();
 		Professor pf = findProfessorByIndex(profChecked);
@@ -1073,7 +1073,7 @@ list<Course> Timetable::selectionner(bool dayCheck, string dayChecked, bool grou
 		}
 	}
 
-	if (classCheck)
+	if (classCheck && classChecked != -1)
 	{
 		auto it = CourseCpy.begin();
 		Classroom cf = findClassroomByIndex(classChecked);
