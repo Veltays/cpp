@@ -1032,8 +1032,6 @@ void ApplicHoraireWindow::on_pushButtonSelectionner_clicked()
          Group1 = -1;
     }
 
-    s
-
 
 
     list<Course> NvxCourse = Timetable.selectionner(isDayChecked(),daySelect,isGroupChecked(),Group1,isProfessorChecked(),profSelect,isClassroomChecked(),classSelect);
