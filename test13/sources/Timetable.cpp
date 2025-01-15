@@ -433,7 +433,16 @@ int Timetable::save(const string &timetableName)
 	while (itc != classrooms.cend())
 	{
 		Classroom t = findClassroomByIndex(i);
-		FC->write(t);
+		try
+		{
+
+			FC->write(t);
+		}
+		catch(const XmlFileSerializerException &e)
+		{
+			cout <<" erreur " << e.getCode() << " : " << e.getMessage() << endl;
+		}
+
 		itc++;
 		i++;
 	}
@@ -449,7 +458,14 @@ int Timetable::save(const string &timetableName)
 	while (itg != groups.cend())
 	{
 		Group t = findGroupByIndex(i);
-		FG->write(t);
+		try{
+			FG->write(t);
+
+		}
+		catch(const XmlFileSerializerException &e)
+		{
+			cout <<" erreur " << e.getCode() << " : " << e.getMessage() << endl;
+		}
 		itg++;
 		i++;
 	}
@@ -465,7 +481,14 @@ int Timetable::save(const string &timetableName)
 	while (itp != professors.cend())
 	{
 		Professor t = findProfessorByIndex(i);
-		FP->write(t);
+		try
+		{
+			FP->write(t);
+		}
+		catch(const XmlFileSerializerException &e)
+		{
+			cout <<" erreur " << e.getCode() << " : " << e.getMessage() << endl;
+		}
 		itp++;
 		i++;
 	}
@@ -481,7 +504,13 @@ int Timetable::save(const string &timetableName)
 	while (itco != courses.end())
 	{
 		Course t = findCourseByIndex(i);
-		FCO->write(t);
+		try{
+			FCO->write(t);
+
+		}
+		catch(const XmlFileSerializerException &e){
+			cout <<" erreur " << e.getCode() << " : " << e.getMessage() << endl;
+		}
 		itco++;
 		i++;
 	}
@@ -497,12 +526,9 @@ int Timetable::save(const string &timetableName)
 		return -1;
 	}
 	write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
-	cout << "current code : " << Event::currentCode << endl
-		 << endl;
+
 	write(fd, &Event::currentCode, sizeof(Event::currentCode));
-	cout << "current code : " << Event::currentCode << endl
-		 << endl;
-	;
+
 	close(fd);
 	return 1;
 }
@@ -925,7 +951,7 @@ void Timetable::exportProfessorTimetable(int id)
 	fstream file;
 
 	file.open(NomFichier, ios::out);
-	file << "Horaire de " + t.getLastName() + t.getFirstName() + " :";
+	file << "Horaire de " + t.getLastName() + " " + t.getFirstName() + " :";
 	file << endl
 		 << endl;
 
@@ -1004,7 +1030,7 @@ void Timetable::exportClassroomTimetable(int id)
 		{
 
 			Professor prof = findProfessorById(it->getProfessorId());
-			ligne = it->getTiming().getDay() + "     " + it->getTiming().getStart().toString() + "  " + it->getTiming().getDuration().toString() + "  " + cls.getName() + "   " + it->getTitle() + "  " + prof.getLastName() + prof.getFirstName() + "  ";
+			ligne = it->getTiming().getDay() + "     " + it->getTiming().getStart().toString() + "  " + it->getTiming().getDuration().toString() + "  " + cls.getName() + "   " + it->getTitle() + "  " + prof.getLastName() +" " + prof.getFirstName() + "  ";
 
 			set<int> tmp = it->getGroupsId();
 			for (auto itg = tmp.cbegin(); itg != tmp.cend(); itg++)

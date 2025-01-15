@@ -622,7 +622,7 @@ void ApplicHoraireWindow::on_pushButtonSupprimerProfesseur_clicked()
         dialogError("Suppression impossible", "Aucun professeur n'est sélectionné, la suppression est impossible");
         return;
     }
-    cout << "Index cliquer : " << index;
+    cout << "Index cliquer : " << index << endl;
 
     auto &Timetable = Timetable::getInstance();
 
@@ -683,13 +683,32 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
 
     auto &Timetable = Timetable::getInstance();
 
-    Professor p = Timetable.findProfessorByIndex(getIndexProfessorSelection());
-    Classroom c = Timetable.findClassroomByIndex(getIndexClassroomSelection());
+    int IndexSelectProf, IndexSelectClass;
+    if((IndexSelectProf = getIndexProfessorSelection()) == -1)
+    {
+        dialogError("Professeur pas sélectionné", "Aucun professeur n'a été sélectionné et donner un cours sans prof bah c'est pas logique nullos");
+        return;
+    }
+      
+    if((IndexSelectClass = getIndexClassroomSelection()) == -1)
+        {
+            dialogError("Classroom pas sélectionné", "Aucune classe n'a été sélectionné et donner un cours quand ya pas de local bah c'est pas logique nullos");
+            return;
+        }
+
+    Professor p = Timetable.findProfessorByIndex(IndexSelectProf);
+    Classroom c = Timetable.findClassroomByIndex(IndexSelectClass);
 
     int idp = p.getId();
     int idc = c.getId();
 
     list<int> indexG = getIndexesGroupsSelection();
+    if(indexG.empty())
+    {
+        dialogError("Groupe pas sélectionné", "Aucune Groupe n'a été sélectionné et donner un cours sans éléve bah c'est pas logique nullos");
+        return;
+    }
+      
     set<int> groupsSet;
 
     // Conversion de list<int> en set<int> et récupération des groupes par leur index
@@ -702,16 +721,19 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
         }
     }
 
-    // Vérification de la validité des sélections
-    if ((idp == -1) || (idc == -1) || groupsSet.empty())
-    {
-        dialogError("Il vous manque des éléments à sélectionner", "Sélectionnez bien un professeur, un groupe ou des groupes, et une classe");
-        return;
-    }
-
     string day = getDaySelection();
     int startH = getHourStart();
+
+    if(startH == -1)
+    {
+        dialogError("Vous n'avez pas entrez d'heure", "Veuillez entrez une heure pour participer au cours");
+        return;
+    }
+   
     int startM = getMinuteStart();
+
+    if(startM == -1)
+        startM = 0;
     int dur = getDuration();
     string title = getTitle();
 
@@ -796,6 +818,12 @@ void ApplicHoraireWindow::on_actionEnregistrer_triggered()
     cout << "Clic sur Menu Fichier --> Item Enregistrer" << endl;
     auto &Timetable = Timetable::getInstance();
     string NomFichier = dialogInputFileForSave("Entrez le nom du fichier que vous souhaitez sauvegarder");
+    // if(NomFichier.empty())
+    // {
+    //     dialogError("L'enregistrement n'a pas fonctionnée", "Le nom de fichier est vide");
+    //     return;
+
+    // }
     if (Timetable.save(NomFichier))
     {
         dialogMessage("Sauvegarde réussie", "Votre fichier a bien été sauvegardé");
@@ -891,7 +919,7 @@ void ApplicHoraireWindow::on_actionImporterProfesseurs_triggered()
     cout << "Clic sur Menu Importer --> Item Professeurs" << endl;
     auto &Timetable = Timetable::getInstance();
 
-    Timetable.importProfessorsFromCsv("../professors.csv");
+    Timetable.importProfessorsFromCsv("./professors.csv");
     MiseAJourTableProfesseur(Timetable);
 }
 
@@ -901,7 +929,7 @@ void ApplicHoraireWindow::on_actionImporterGroupes_triggered()
     cout << "Clic sur Menu Importer --> Item Groupes" << endl;
     auto &Timetable = Timetable::getInstance();
 
-    Timetable.importGroupsFromCsv("../groups.csv");
+    Timetable.importGroupsFromCsv("./groups.csv");
     MiseAJourTableGroup(Timetable);
 }
 
@@ -911,7 +939,7 @@ void ApplicHoraireWindow::on_actionImporterLocaux_triggered()
     cout << "Clic sur Menu Importer --> Item Locaux" << endl;
     auto &Timetable = Timetable::getInstance();
 
-    Timetable.importClassroomsFromCsv("../classrooms.csv");
+    Timetable.importClassroomsFromCsv("./classrooms.csv");
     MiseAJourTableClassroom(Timetable);
 }
 
@@ -1015,8 +1043,11 @@ void ApplicHoraireWindow::on_pushButtonSelectionner_clicked()
 {
     cout << "Clic sur bouton Selectionner" << endl;
     string TupleG;
-     int Group1;
+    int Group1;
+
     auto &Timetable = Timetable::getInstance();
+
+
     string daySelect = getDaySelection();
     list<int> groupSelect = getIndexesGroupsSelection();
     int profSelect = getIndexProfessorSelection();
